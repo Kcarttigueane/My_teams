@@ -1,0 +1,17 @@
+/*
+** EPITECH PROJECT, 2022
+** MyTeams
+** File description:
+** main.c
+*/
+
+#include "server.h"
+
+int main(int argc, char const* argv[])
+{
+    if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1])) {
+        printf(SERVER_USAGE);
+        return ERROR;
+    }
+    return 0;
+}

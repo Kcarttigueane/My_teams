@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "color.h": "c",
+        "server.h": "c",
+        "lib.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "client.h": "c"
+    },
+    "cSpell.words": [
+        "myteams"
+    ]
+}
