@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "server.h"
+#include "include/server.h"
 
 int main(int argc, char const* argv[])
 {
@@ -13,5 +13,14 @@ int main(int argc, char const* argv[])
         printf(SERVER_USAGE);
         return ERROR;
     }
+
+    uuid_t uuid;
+    uuid_generate_random(uuid);
+
+    char uuid_str[MAX_UUID_STR_LEN];
+    uuid_unparse(uuid, uuid_str);
+
+    printf("Generated UUID: %s\n", uuid_str);
+
     return 0;
 }

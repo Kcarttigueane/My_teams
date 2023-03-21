@@ -6,7 +6,6 @@
 */
 
 #include <unistd.h>
-#include "../include/server.h"
 #include "../include/color.h"
 
 // void debug_command(char* buffer)

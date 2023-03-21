@@ -8,62 +8,60 @@
 CC ?=gcc
 RM = rm -f
 
-NAME = ../../myteams_server
+NAME = ../myteams_cli
 
 SRCS = $(wildcard *.c) \
-       $(wildcard ../../lib/**/*.c) \
+       $(wildcard ../lib/**/*.c) \
        $(wildcard src/*.c) \
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
-CFLAGS += -Wall -Wextra -I ../../include -g3
+CFLAGS += -Wall -Wextra -I ../include -g3 -luuid
 
-# Add color to output
 COLOR_RESET   = \033[0m
 COLOR_PENDING = \033[01;33m
 COLOR_SUCCESS = \033[01;32m
 COLOR_DEFAULT = \033[01;36m
 GREEN	=	\033[0;32m
 
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@printf "\033[0;36mserver \033[0;33m▷  $(COLOR_PENDING)Linking...\
+	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Linking...\
 	$(COLOR_RESET)\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-	@printf "\033[0;36mserver \033[0;34m▷  $(COLOR_SUCCESS)Done.\
+	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 -include $(DEPS)
 
 %.o: %.c
-	@printf "\033[0;36mserver \033[0;34m▷  $(GREEN)「✔」	$(COLOR_DEFAULT)\
+	@printf "\033[00;36mclient \033[0;34m▷  $(GREEN)「✔」	$(COLOR_DEFAULT)\
 	Compiling $<...$(COLOR_RESET)\n"
 	@$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 clean:
-	@printf "\033[0;36mserver \033[0;33m▷  $(COLOR_PENDING)Cleaning...\
+	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Cleaning...\
 	$(COLOR_RESET)\n"
 	@$(RM) $(OBJS)
 	@$(RM) $(DEPS)
-	@make -C ../../tests fclean
-	@printf "\033[0;36mserver \033[0;32m▷  $(COLOR_SUCCESS)Done.\
+	@make -C ../tests fclean
+	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 fclean: clean
-	@printf "\033[0;36mserver \033[0;33m▷  $(COLOR_PENDING)\
-	Full cleaning...$(COLOR_RESET)\n"
+	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Full cleaning...\
+	$(COLOR_RESET)\n"
 	@$(RM) $(NAME)
 	@$(RM) $(wildcard vgcore*)
-	@printf "\033[0;36mserver \033[0;32m▷  $(COLOR_SUCCESS)Done.\
+	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 re: fclean all
 
 tests_run:
-	make -C ../../tests all
+	make -C ../tests all
 
 
 .PHONY: all clean fclean re tests_run

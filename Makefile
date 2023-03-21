@@ -5,8 +5,8 @@
 ## Makefile
 ##
 
-SERVER	=	src/server/
-CLIENT	=	src/client/
+SERVER	=	server/
+CLIENT	=	client/
 
 COLOR_RESET   = \033[0m
 COLOR_TITLE   = \033[01;31m

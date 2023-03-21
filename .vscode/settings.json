@@ -5,7 +5,15 @@
         "lib.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
-        "client.h": "c"
+        "client.h": "c",
+        "my_teams.h": "c",
+        "channel.h": "c",
+        "comment.h": "c",
+        "team.h": "c",
+        "message.h": "c",
+        "user.h": "c",
+        "uuid.h": "c",
+        "types.h": "c"
     },
     "cSpell.words": [
         "myteams"
