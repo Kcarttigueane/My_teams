@@ -1,0 +1,107 @@
+Epitech 2023                                                         K.CARTTIGUEANE
+Category: Communication protocol                                       J.DUTEL
+                                                                        D.WINTER
+
+                                My_teams Protocol
+
+// -------------------------------------------------------------------------//
+
+
+1. Introduction
+
+    The MyTeams protocol is a communication protocol that enables a
+    client-server model for collaborative communication application
+    like Microsoft Teams. This protocol is designed to facilitate the
+    communication between the server and the client through a set of commands
+    that allow users to create, join, and leave teams, create channels, threads,
+    comments, and personal discussions.
+
+
+// -------------------------------------------------------------------------//
+
+
+2. Protocol Overview
+
+    The MyTeams protocol is based on TCP sockets and follows a simple
+    request-response model. The client sends a command to the server,
+    which processes it and responds with the result. The commands are
+    sent as text strings, and the responses also as string.
+
+
+// -------------------------------------------------------------------------//
+
+
+3. Protocol Specification
+
+    3.1. Commands =>
+
+
+    The MyTeams protocol supports the following commands:
+
+    -  HELP ?[command_name] : List all available command or specific command details if command_name is provided
+    -  LOGIN ["user_name"] : Set the user_name used by the client
+    -  LOGOUT : Disconnect the client from the server
+    -  USERS : Get the list of all users that exist on the domain
+    -  USER ["user_uuid"] : Get details about the requested user
+    -  SEND ["user_uuid"] ["message_body"] : Send a message to a specific user
+    -  MSGS ["user_uuid"] : List all messages exchanged with the specified user
+    -  SUBSCRIBE ["team_uuid"] : Subscribe to the events of a team and its sub directories
+    -  SUBSCRIBED ?["team_uuid"] : List all subscribed teams or list all users subscribed to a team
+    -  UNSUBSCRIBE ["team_uuid"] : Unsubscribe from a team
+    -  USE ?["team_uuid"] ?["channel_uuid"] ?["thread_uuid"] : Sets the command context to a team/channel/thread
+
+
+    The following commands are only available in a context: (team, channel, thread) or (team, channel) or (team) or (user) or (none) :
+
+        -----> Should be used after the command /use
+
+    -  CREATE : Based on the context, create the sub resource
+    -  LIST : Based on the context, list all the sub resources
+    -  INFO : Based on the context, display details of the current resource
+
+
+
+    3.2. Responses =>
+
+
+    The MyTeams protocol responses are in string format and have the following structure:
+
+    [STATUS] [MESSAGE_DATA]
+
+
+
+    3.3. Error handling =>
+
+
+        In case of an error, the response data will contain the error message, like:
+
+        [STATUS] [MESSAGE_DATA]
+
+
+    STATUS: indicates if the command was successful or not.
+    MESSAGE_DATA: contains the response data.
+
+
+
+// -------------------------------------------------------------------------//
+
+
+4. Security
+
+    The MyTeams protocol doesn't have any password authentication,
+    but it implements some basic security measures to prevent unauthorized
+    access to data. For example, a user who is not logged in cannot see the
+    connected users, and someone who is not subscribed to a team
+    cannot create a thread.
+
+
+// -------------------------------------------------------------------------//
+
+
+5. Conclusion
+
+    The MyTeams protocol is a simple and efficient communication protocol
+    that allows users to collaborate in teams, channels, threads, and
+    personal discussions. By following the guidelines outlined in this
+    document, developers can create client and server applications that
+    are compatible with this protocol.

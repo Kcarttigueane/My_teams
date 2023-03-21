@@ -54,3 +54,4 @@ dkms.conf
 
 # Binary files
 myteams_server
+myteams_cli
