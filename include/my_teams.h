@@ -47,9 +47,8 @@
     #define MAX_BODY_LENGTH 512
     #define MAX_UUID_STR_LEN 37
 
-
-    #define handle_error(msg) \
+    #define exit_with_error(msg) \
         do {                  \
-            perror(msg);      \
+            fprintf(stdout, msg); \
             exit(ERROR);      \
-        } while (0)
+        } while (0);

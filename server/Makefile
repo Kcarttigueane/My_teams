@@ -10,7 +10,7 @@ RM = rm -f
 
 NAME = ../myteams_server
 
-SRCS = $(wildcard ../lib/**/*.c) \
+SRCS = $(shell find ../lib -type f -name "*.c") \
        $(shell find . -type f -name "*.c") \
 
 OBJS = $(SRCS:.c=.o)

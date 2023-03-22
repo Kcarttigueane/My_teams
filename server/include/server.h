@@ -14,6 +14,8 @@
         "USAGE: ./myteams_server port\n\n\
         \tport is the port number on which the server socket listens.\n"
 
+    #define MAX_CLIENTS 10
+    #define BUFFER_SIZE 1024
 
     // ! My includes:
 
@@ -34,12 +36,25 @@
 
     typedef struct server_data {
         int PORT;
-        int server_socket_fd;
-        int fd_max, fd_num, read_input_len;
-        struct sockaddr_in server_address, data_address;
-        struct timeval timeout;
-        fd_set fds, copy_fds;
-        size_t nb_clients;
+        int socket_fd;
+        fd_set readfds;
     } server_data_t;
+
+    typedef struct clients {
+        int client_socket_fd;
+        char *username;
+        bool is_logged;
+    } clients_t;
+
+    // ! PROTOTYPES:
+
+int bind_and_listen_socket(server_data_t* s);
+int initialize_server(server_data_t* s);
+void server_loop(server_data_t *s);
+
+void accept_new_connection(int server_socket, clients_t clients[MAX_CLIENTS]);
+int get_max_socket_descriptor(clients_t clients[MAX_CLIENTS],
+int server_socket);
+void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s);
 
 #endif  // SERVER_H
