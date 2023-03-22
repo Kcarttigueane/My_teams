@@ -10,9 +10,8 @@ RM = rm -f
 
 NAME = ../myteams_server
 
-SRCS = $(wildcard *.c) \
-       $(wildcard ../lib/**/*.c) \
-       $(wildcard src/*.c) \
+SRCS = $(wildcard ../lib/**/*.c) \
+       $(shell find . -type f -name "*.c") \
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
@@ -44,7 +43,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 clean:
-	@printf "\033[0;36mserver \033[0;33m▷  $(COLOR_PENDING)Cleaning...\
+	@printf "\033[0;36mserve	r \033[0;33m▷  $(COLOR_PENDING)Cleaning...\
 	$(COLOR_RESET)\n"
 	@$(RM) $(OBJS)
 	@$(RM) $(DEPS)

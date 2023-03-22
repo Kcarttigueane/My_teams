@@ -13,7 +13,18 @@
         "message.h": "c",
         "user.h": "c",
         "uuid.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "signals.h": "c",
+        "command.h": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "limits": "c",
+        "type_traits": "c",
+        "*.tcc": "c",
+        "string_view": "c",
+        "functional": "c",
+        "utils.h": "c",
+        "discussion.h": "c"
     },
     "cSpell.words": [
         "myteams"

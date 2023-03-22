@@ -35,6 +35,7 @@
     #include <limits.h>
 
     #include <uuid/uuid.h>
+    #include <signal.h>
 
 
     #define ERROR 84
