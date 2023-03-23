@@ -7,6 +7,19 @@
 
 #include "../include/server.h"
 
+bool check_doubled_quoted_args(char** split_command)
+{
+    for (int i = 1; split_command[i] != NULL; i++) {
+        int len = strlen(split_command[i]);
+        if (split_command[i][0] != '"' || split_command[i][len - 1] != '"') {
+            printf("Missing quotes around argument %d: %s\n", i,
+            split_command[i]);
+            return false;
+        }
+    }
+    return true;
+}
+
 void check_function_command_args(clients_t clients, server_data_t* s, size_t i,
 char** split_command)
 {
@@ -29,18 +42,22 @@ char** split_command)
 
 void parse_client_input(clients_t clients, server_data_t* s, char* input_buffer)
 {
-    printf("input_buffer: %s\n", input_buffer);
     char** split_command = split_str(input_buffer, " ");
-
     if (!split_command) {
         printf("split_command is NULL\n");
         return;
     }
     debug_word_array(split_command);
-
+    if (!check_doubled_quoted_args(split_command)) {
+        printf(
+            "Invalid arguments => args should be quoted with doubled quotes\n");
+        free_word_array(split_command);
+        return;
+    }
     for (size_t i = 0; i < COMMANDS_DATA_SIZE; i++) {
         if (!strcasecmp(split_command[0], COMMANDS_DATA[i].name)) {
             check_function_command_args(clients, s, i, split_command);
+            free_word_array(split_command);
             return;
         }
     }
