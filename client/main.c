@@ -7,12 +7,33 @@
 
 #include "include/client.h"
 
-int main(int argc, char const* argv[])
+char *command_list[] = {
+    "/help",
+    "/login",
+    "/logout",
+    "/users",
+    "/user",
+    "/send",
+    "/messages",
+    "/subscribe",
+    "/subscribed",
+    "/unsubscribe",
+    "/use",
+    "/create",
+    "/list",
+    "/info",
+    NULL
+};
+
+int main(int argc, char* argv[])
 {
-    if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1])) {
-        printf(CLIENT_USAGE);
-        return ERROR;
-    }
-    printf("Hello, World!\n");
+    client_t client;
+
+    // if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1])) {
+    //     printf(CLIENT_USAGE);
+    //     return ERROR;
+    // }
+
+    client_engine(&client, argv[1], atoi(argv[2]));
     return 0;
 }
