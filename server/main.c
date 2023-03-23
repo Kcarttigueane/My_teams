@@ -20,6 +20,7 @@ int main(int argc, char const* argv[])
         .socket_fd = 0,
         .readfds = {{0}},
     };
+    database_t = init_database();
 
     if (initialize_server(&server_data) == ERROR)
         return handle_error("Server initialization failed");

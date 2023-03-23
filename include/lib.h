@@ -25,11 +25,12 @@ void free_word_array(char** map);
 
 void debug_word_array(char** word_array);
 
-// void debug_command(char* input_command);
-
-
 int handle_error(const char* msg);
 
 // ! Regex functions:
 
 bool regex_match(const char* pattern, const char* string);
+
+// ! UUID functions:
+
+char* generate_uuid();

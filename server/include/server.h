@@ -30,6 +30,7 @@
     #include "thread.h"
     #include "discussion.h"
     #include "signals.h"
+    #include "db.h"
 
     // ! STRUCTURES:
 
@@ -41,7 +42,7 @@
 
     typedef struct clients {
         int client_socket_fd;
-        char *username;
+        char uuid_user[MAX_UUID_STR_LEN];  // Channel unique identifier
         bool is_logged;
     } clients_t;
 

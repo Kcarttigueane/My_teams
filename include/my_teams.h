@@ -36,6 +36,7 @@
 
     #include <uuid/uuid.h>
     #include <signal.h>
+    #include <sys/queue.h>
 
 
     #define ERROR 84

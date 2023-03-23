@@ -63,7 +63,10 @@
         "utility": "c",
         "vector": "c",
         "new": "c",
-        "thread.h": "c"
+        "thread.h": "c",
+        "inet.h": "c",
+        "un.h": "c",
+        "in.h": "c"
     },
     "cSpell.words": [
         "myteams"
