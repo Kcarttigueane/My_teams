@@ -23,7 +23,7 @@ void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s)
             } else {
                 buffer[bytes_read] = '\0';
                 printf("Received data from client: %s", buffer);
-                write(sd, buffer, strlen(buffer));
+                parse_client_input(clients[i], s, buffer);
             }
         }
     }

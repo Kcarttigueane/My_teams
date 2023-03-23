@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void subscribed(void)
+void subscribed(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("SUBSCRIBED\n");
 }

@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void user(void)
+void user(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("USER\r\n");
 }

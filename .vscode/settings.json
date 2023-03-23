@@ -62,7 +62,8 @@
         "unordered_map": "c",
         "utility": "c",
         "vector": "c",
-        "new": "c"
+        "new": "c",
+        "thread.h": "c"
     },
     "cSpell.words": [
         "myteams"

@@ -18,7 +18,7 @@ void accept_new_connection(int server_socket, clients_t clients[MAX_CLIENTS])
         handle_error("Accept failed");
     }
 
-    for (int i = 0; i < MAX_CLIENTS; i++) {
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
         if (clients[i].client_socket_fd == 0) {
             clients[i].client_socket_fd = new_socket;
             printf("New connection, socket fd is %d, ip is : %s, port : %d\n",
