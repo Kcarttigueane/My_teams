@@ -20,6 +20,15 @@ bool check_doubled_quoted_args(char** split_command)
     return true;
 }
 
+bool check_is_login_necessary(clients_t clients, size_t i)
+{
+    if (COMMANDS_DATA[i].need_login && !clients.is_logged) {
+        printf("You need to be logged in to use this command\n");
+        return false;
+    }
+    return true;
+}
+
 void check_function_command_args(clients_t clients, server_data_t* s, size_t i,
 char** split_command)
 {
@@ -27,6 +36,8 @@ char** split_command)
 
     for (size_t j = 0; COMMANDS_DATA[i].nb_args[j] < -1; i++) {
         if (COMMANDS_DATA[i].nb_args[j] == nb_args) {
+            if (!check_is_login_necessary(clients, i))
+                return;
             list_args_t args = {
                 .client = &clients,
                 .server_data = s,
