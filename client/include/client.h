@@ -8,33 +8,39 @@
 #ifndef CLIENT_H
     #define CLIENT_H
 
-    // ! My includes:
-
-    #include "../../include/my_teams.h"
-    #include "../../include/lib.h"
+    // ! Macros:
 
     #define CLIENT_USAGE                 \
         "USAGE: ./myteams_cli ip port\n\
             \tip is the server ip address on which the server socket listens\n\
             \tport is the port number on which the server socket listens\n"
 
-#define BUFFER_SIZE 4096
+    #define BUFFER_SIZE 1024
 
-extern char *command_list[];
+    // ! My includes:
 
-typedef struct client {
-    int socket;
-    struct sockaddr_in serv_addr;
-} client_t;
+    #include "../../include/my_teams.h"
+    #include "../../include/lib.h"
 
-//  init client
+    // ! STRUCTURES:
 
-int init_socket(client_t* client);
-int init_addresses(client_t* client, char* ip, int port);
-int connection(client_t* client);
+    extern char *command_list[];
 
-//  client
+    typedef struct client_data {
+        char *ip;
+        int port;
+        int socket_fd;
+        int activity;
+        fd_set read_fds;
+        struct sockaddr_in serv_addr;
+    } client_data_t;
 
-int client_engine(client_t* client, char* ip, int port);
+    // ! PROTOTYPES:
+
+int init_socket(client_data_t* client);
+int init_addresses(client_data_t* client);
+int connection(client_data_t* client);
+
+int client_loop(client_data_t* client);
 
 #endif  // CLIENT_H

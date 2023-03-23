@@ -27,13 +27,18 @@ char *command_list[] = {
 
 int main(int argc, char* argv[])
 {
-    client_t client;
+    client_data_t client_data = {
+        .ip = argv[1],
+        .port = atoi(argv[2]),
+        .socket_fd = 0,
+        .read_fds = {{0}},
+    };
 
-    // if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1])) {
-    //     printf(CLIENT_USAGE);
-    //     return ERROR;
-    // }
+    init_socket(&client_data);
+    init_addresses(&client_data);
+    connection(&client_data);
 
-    client_engine(&client, argv[1], atoi(argv[2]));
+    client_loop(&client_data);
+
     return 0;
 }

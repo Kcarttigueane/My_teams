@@ -7,16 +7,25 @@
 
 #include "../include/client.h"
 
-int client_engine(client_t* client, char* ip, int port)
+void select_socket(client_data_t* client)
 {
-    init_socket(client);
-    init_addresses(client, ip, port);
-    connection(client);
+    client->activity =
+        select(client->socket_fd + 1, &client->read_fds, NULL, NULL, NULL);
 
+    if ((client->activity < 0) && (errno != EINTR)) {
+        handle_error("error: select failed");
+    }
+}
+
+int client_loop(client_data_t* client)
+{
     while (true) {
-        // manage_command(client);
+        FD_ZERO(&client->read_fds);
+        FD_SET(client->socket_fd, &client->read_fds);
+        select_socket(client);
+        // TO DO : read 
     }
 
-    close(client->socket);
+    close(client->socket_fd);
     return 0;
 }
