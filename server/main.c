@@ -7,16 +7,6 @@
 
 #include "include/server.h"
 
-bool are_arguments_valid(int argc, char const* argv[])
-{
-    if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1]) ||
-        !regex_match("^[0-9]+$", argv[1])) {
-        fprintf(stdout, SERVER_USAGE);
-        return false;
-    }
-    return true;
-}
-
 int main(int argc, char const* argv[])
 {
     if (!are_arguments_valid(argc, argv))

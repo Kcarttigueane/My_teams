@@ -43,6 +43,8 @@
         "?[\"team_uuid\"] ?[\"channel_uuid\"] ?[\"thread_uuid\"] : Display \
     details of the current resource\r\n"
 
+    #define MAX_ARGS 4
+
     typedef void (*command_func_t)(void);
 
     typedef struct command_s {
@@ -50,7 +52,10 @@
         command_func_t func;
         char* description;
         bool need_login;
+        int nb_args[MAX_ARGS];
     } command_t;
+
+    // ! PROTOTYPES:
 
 void help(void);
 void login(void);

@@ -48,6 +48,8 @@
 
     // ! PROTOTYPES:
 
+bool are_arguments_valid(int argc, char const* argv[]);
+
 int bind_and_listen_socket(server_data_t* s);
 int initialize_server(server_data_t* s);
 void server_loop(server_data_t *s);
