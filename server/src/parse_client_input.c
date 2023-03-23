@@ -8,7 +8,7 @@
 #include "../include/server.h"
 
 void check_function_command_args(clients_t clients, server_data_t* s, size_t i,
-                                 char** split_command)
+char** split_command)
 {
     int nb_args = get_size_word_array(split_command);
 
@@ -24,7 +24,7 @@ void check_function_command_args(clients_t clients, server_data_t* s, size_t i,
         }
     }
     printf("Invalid number of arguments for command %s\n",
-           COMMANDS_DATA[i].name);
+    COMMANDS_DATA[i].name);
 }
 
 void parse_client_input(clients_t clients, server_data_t* s, char* input_buffer)
