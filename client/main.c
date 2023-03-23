@@ -7,7 +7,7 @@
 
 #include "include/client.h"
 
-char *command_list[] = {
+const char *command_list[] = {
     "/help",
     "/login",
     "/logout",
@@ -25,8 +25,11 @@ char *command_list[] = {
     NULL
 };
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
+    if (argc != 2)
+        return ERROR;
+
     client_data_t client_data = {
         .ip = argv[1],
         .port = atoi(argv[2]),

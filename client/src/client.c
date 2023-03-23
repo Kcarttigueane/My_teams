@@ -7,7 +7,7 @@
 
 #include "../include/client.h"
 
-void select_socket(client_data_t* client)
+void select_socket(client_data_t *client)
 {
     client->activity =
         select(client->socket_fd + 1, &client->read_fds, NULL, NULL, NULL);
@@ -17,13 +17,13 @@ void select_socket(client_data_t* client)
     }
 }
 
-int client_loop(client_data_t* client)
+int client_loop(client_data_t *client)
 {
     while (true) {
         FD_ZERO(&client->read_fds);
         FD_SET(client->socket_fd, &client->read_fds);
         select_socket(client);
-        // TO DO : read 
+        // TO DO : read
     }
 
     close(client->socket_fd);

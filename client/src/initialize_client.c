@@ -7,16 +7,16 @@
 
 #include "../include/client.h"
 
-int init_socket(client_data_t* client)
+int init_socket(client_data_t *client)
 {
     if ((client->socket_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         handle_error("error: socket can't be created");
-        return -1;
+        return FAILURE;
     }
     return 0;
 }
 
-int init_addresses(client_data_t* client)
+int init_addresses(client_data_t *client)
 {
     int status = 0;
 
@@ -25,19 +25,20 @@ int init_addresses(client_data_t* client)
 
     if (inet_pton(AF_INET, client->ip, &client->serv_addr.sin_addr) <= 0) {
         handle_error("error: invalid address / not supported");
-        return -1;
+        return FAILURE;
     }
     return 0;
 }
 
-int connection(client_data_t* client)
+int connection(client_data_t *client)
 {
     int status = 0;
 
-    if ((status = connect(client->socket_fd, (struct sockaddr*)&client->serv_addr,
-                          sizeof(client->serv_addr))) < 0) {
+    if ((status = connect(client->socket_fd,
+    (struct sockaddr *)&client->serv_addr,
+    sizeof(client->serv_addr))) < 0) {
         handle_error("error: connection failed");
-        return -1;
+        return FAILURE;
     }
     return 0;
 }

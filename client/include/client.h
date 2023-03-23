@@ -24,7 +24,7 @@
 
     // ! STRUCTURES:
 
-    extern char *command_list[];
+    extern const char *command_list[];
 
     typedef struct client_data {
         char *ip;
