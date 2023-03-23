@@ -14,13 +14,6 @@ void sigint_handler(int sig)
     exit(SUCCESS);
 }
 
-// void sigpipe_handler(int sig)
-// {
-//     (void)sig;
-//     printf("SIGPIPE received, exiting server gracefully ... \n");
-//     exit(SUCCESS);
-// }
-
 void sigterm_handler(int sig)
 {
     (void)sig;

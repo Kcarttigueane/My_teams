@@ -43,27 +43,31 @@
         "?[\"team_uuid\"] ?[\"channel_uuid\"] ?[\"thread_uuid\"] : Display \
     details of the current resource\r\n"
 
-    typedef void (*command_func_t)(void);
+    #define MAX_ARGS 4
+
+    typedef void (*command_func_t)(list_args_t* args);
 
     typedef struct command_s {
         char* name;
-        command_func_t func;
+        command_func_t function;
         char* description;
         bool need_login;
+        int nb_args[MAX_ARGS];
     } command_t;
 
-void help(void);
-void login(void);
-void logout(void);
-void msgs(void);
-void send_msg(void);
-void subscribe(void);
-void subscribed(void);
-void unsubscribe(void);
-void use(void);
-void create(void);
-void list(void);
-void info(void);
-void user(void);
-void users(void);
+    // ! PROTOTYPES:
 
+void help(list_args_t* args);
+void login(list_args_t* args);
+void logout(list_args_t* args);
+void msgs(list_args_t* args);
+void send_msg(list_args_t* args);
+void subscribe(list_args_t* args);
+void subscribed(list_args_t* args);
+void unsubscribe(list_args_t* args);
+void use(list_args_t* args);
+void create(list_args_t* args);
+void list(list_args_t* args);
+void info(list_args_t* args);
+void user(list_args_t* args);
+void users(list_args_t* args);

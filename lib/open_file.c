@@ -5,7 +5,7 @@
 ** open_file.c
 */
 
-#include "../include/server.h"
+#include "../include/lib.h"
 
 FILE* open_file(char* file_name, int control_socket, char* message)
 {

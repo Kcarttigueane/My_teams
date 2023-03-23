@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void unsubscribe(void)
+void unsubscribe(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("UNSUBSCRIBE\r\n");
 }

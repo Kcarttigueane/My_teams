@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void logout(void)
+void logout(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("LOGOUT\n");
 }

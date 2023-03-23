@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void msgs(void)
+void msgs(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("SEND\r\n");
 }
