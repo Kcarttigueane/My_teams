@@ -21,7 +21,7 @@ int main(int argc, char const* argv[])
         .readfds = {{0}},
     };
 
-    // database_t db = init_database();
+    database_t db = init_database();
 
     // create_user(&db, "1234", "kevin");
     // create_user(&db, "5678", "tom");
@@ -38,14 +38,13 @@ int main(int argc, char const* argv[])
 
     // print_discussion_details(&db, dis->uuid);
 
-
     // if (initialize_server(&server_data) == ERROR)
     //     return handle_error("Server initialization failed");
 
     // server_loop(&server_data, &db);
 
-    // free_users(&db);
-    // free_discussions(&db);
+    free_users(&db);
+    free_discussions(&db);
 
     return SUCCESS;
 };
