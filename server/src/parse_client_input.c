@@ -30,7 +30,7 @@ bool check_is_login_necessary(clients_t clients, size_t i)
 }
 
 void check_function_command_args(clients_t clients, server_data_t* s, size_t i,
-char** split_command)
+char** split_command, database_t* db)
 {
     int nb_args = get_size_word_array(split_command);
 
@@ -42,6 +42,7 @@ char** split_command)
                 .client = &clients,
                 .server_data = s,
                 .split_command = split_command,
+                .db = db
             };
             COMMANDS_DATA[i].function(&args);
             free_word_array(split_command);
@@ -51,7 +52,7 @@ char** split_command)
     COMMANDS_DATA[i].name);
 }
 
-void parse_client_input(clients_t clients, server_data_t* s, char* input_buffer)
+void parse_client_input(clients_t clients, server_data_t* s, char* input_buffer, database_t* db)
 {
     char** split_command = split_str(input_buffer, " ");
     if (!split_command) {
@@ -67,7 +68,7 @@ void parse_client_input(clients_t clients, server_data_t* s, char* input_buffer)
     }
     for (size_t i = 0; i < COMMANDS_DATA_SIZE; i++) {
         if (!strcasecmp(split_command[0], COMMANDS_DATA[i].name)) {
-            check_function_command_args(clients, s, i, split_command);
+            check_function_command_args(clients, s, i, split_command, db);
             free_word_array(split_command);
             return;
         }

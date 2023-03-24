@@ -5,11 +5,14 @@
 ** generate_uuid.c
 */
 
-#include "../include/lib.h"
+#include <uuid/uuid.h>
+#include <stdlib.h>
+
+#define MAX_UUID_STR_LEN 37
 
 char* generate_uuid()
 {
-    char* uuid_str = malloc(MAX_UUID_STR_LEN * sizeof(char));
+    char* uuid_str = (char *)malloc(MAX_UUID_STR_LEN * sizeof(char));
 
     uuid_t uuid;
     uuid_generate(uuid);

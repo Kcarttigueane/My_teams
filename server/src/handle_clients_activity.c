@@ -7,7 +7,8 @@
 
 #include "../include/server.h"
 
-void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s)
+void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s,
+database_t* db)
 {
     char buffer[BUFFER_SIZE] = {0};
 
@@ -23,7 +24,7 @@ void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s)
             } else {
                 buffer[bytes_read] = '\0';
                 printf("Received data from client: %s", buffer);
-                parse_client_input(clients[i], s, buffer);
+                parse_client_input(clients[i], s, buffer, db);
             }
         }
     }

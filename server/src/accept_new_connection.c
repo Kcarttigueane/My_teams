@@ -13,6 +13,7 @@ void accept_new_connection(int server_socket, clients_t clients[MAX_CLIENTS])
     int addrlen = sizeof(address);
 
     int new_socket = 0;
+
     if ((new_socket = accept(server_socket, (struct sockaddr*)&address,
         (socklen_t*)&addrlen)) < 0) {
         handle_error("Accept failed");

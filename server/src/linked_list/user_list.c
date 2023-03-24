@@ -7,89 +7,63 @@
 
 #include "../../include/server.h"
 
-LIST_HEAD(user_list, user_s) users_head;
-
-bool add_user(struct user_list* users, char* uuid, char* username)
+bool create_user(database_t* database, char* uuid, char* username)
 {
-    // Check if the username already exists in the list
     user_t* user;
-    LIST_FOREACH(user, users, entries)
-    {
+
+    LIST_FOREACH(user, &database->users, entries) {
         if (strcmp(user->username, username) == 0) {
             printf("Error: Username already exists\n");
             return false;
         }
     }
-
-    // Create a new user node
     user_t* new_user = malloc(sizeof(user_t));
-
     if (new_user == NULL) {
         printf("Error: Failed to allocate memory for new user\n");
         return false;
     }
     strncpy(new_user->uuid, uuid, MAX_UUID_STR_LEN);
     strncpy(new_user->username, username, MAX_NAME_LENGTH);
-
-    // Add the new user node to the linked list
-    LIST_INSERT_HEAD(users, new_user, entries);
+    LIST_INSERT_HEAD(&database->users, new_user, entries);
+    printf("User created with UUID %s and username %s\n", uuid, username);
 
     return true;
 }
 
-void print_users()
+void print_users(database_t* db)
 {
-    if (LIST_EMPTY(&users_head)) {
-        printf("No users in list\n");
+    user_t* user;
+
+    if (LIST_EMPTY(&db->users)) {
+        printf("User list is empty.\n");
         return;
     }
 
-    user_t* user_ptr;
-    printf("Users in list:\n");
+    printf("User list:\n");
 
-    LIST_FOREACH(user_ptr, &users_head, entries)
-    {
-        printf("%s %s\n", user_ptr->uuid, user_ptr->username);
+    LIST_FOREACH(user, &db->users, entries) {
+        printf("UUID: %s, username: %s\n", user->uuid, user->username);
     }
 }
 
-void delete_user(char* uuid)
+void free_users(database_t* db)
 {
-    user_t* user_ptr;
+    user_t* user;
 
-    LIST_FOREACH(user_ptr, &users_head, entries)
-    {
-        if (strcmp(user_ptr->uuid, uuid) == 0) {
-            LIST_REMOVE(user_ptr, entries);
-            free(user_ptr);
-            printf("User with UUID %s deleted\n", uuid);
-            return;
-        }
+    while (!LIST_EMPTY(&db->users)) {
+        user = LIST_FIRST(&db->users);
+        LIST_REMOVE(user, entries);
+        free(user);
     }
-    printf("User with UUID %s not found\n", uuid);
 }
 
-bool check_user_already_exist(char* username)
+user_t* find_user_by_uuid(database_t* db, char* uuid)
 {
-    user_t* user_ptr;
+    user_t* user;
 
-    LIST_FOREACH(user_ptr, &users_head, entries)
-    {
-        if (strcmp(user_ptr->username, username) == 0)
-            return true;
+    LIST_FOREACH(user, &db->users, entries) {
+        if (!strcmp(user->uuid, uuid))
+            return user;
     }
-    return false;
-}
-
-user_t* get_user_by_uuid(char* uuid)
-{
-    user_t* user_ptr;
-
-    LIST_FOREACH(user_ptr, &users_head, entries)
-    {
-        if (strcmp(user_ptr->uuid, uuid) == 0)
-            return user_ptr;
-    }
-    printf("User with UUID %s not found\n", uuid);
     return NULL;
 }

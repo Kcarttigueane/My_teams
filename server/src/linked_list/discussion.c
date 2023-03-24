@@ -7,33 +7,51 @@
 
 #include "../../include/server.h"
 
-// Initialize the discussions list
-LIST_HEAD(discussion_list, discussion_s) discussions_head = LIST_HEAD_INITIALIZER(discussions_head);
-
-// Create a new discussion
-discussion_t* create_discussion(char* sender_uuid, char* receiver_uuid)
+discussion_t* find_discussion_by_users(database_t* database, char* sender_uuid,
+char* receiver_uuid)
 {
-    // Check if the discussion already exists
     discussion_t* discussion;
-    LIST_FOREACH(discussion, &discussions_head, entries)
+
+    LIST_FOREACH(discussion, &(database->discussions), entries)
     {
-        if (strcmp(discussion->sender->uuid, sender_uuid) == 0 &&
-            strcmp(discussion->receiver->uuid, receiver_uuid) == 0) {
-            printf("Error: Discussion already exists\n");
-            return NULL;
+        printf("Discussion: %s, %s, %s\n", discussion->uuid, discussion->sender_uuid, discussion->receiver_uuid);
+        if ((!strcmp(discussion->sender_uuid, sender_uuid) &&
+             !strcmp(discussion->receiver_uuid, receiver_uuid)) ||
+            (!strcmp(discussion->sender_uuid, sender_uuid) &&
+             !strcmp(discussion->receiver_uuid, receiver_uuid))) {
+            return discussion;
         }
     }
+    return NULL;
+}
 
-    // Create new sender and receiver user nodes
-    user_t* sender = get_user_by_uuid(sender_uuid);
-    if (sender == NULL) {
-        printf("Error: Sender with UUID %s not found\n", sender_uuid);
-        return NULL;
+discussion_t* find_discussion_by_uuid(database_t* database, char* uuid)
+{
+    discussion_t* discussion;
+
+    LIST_FOREACH(discussion, &(database->discussions), entries)
+    {
+        if (!strcmp(discussion->uuid, uuid))
+            return discussion;
+    }
+    return NULL;
+}
+
+discussion_t* create_discussion(database_t* db, char* sender_uuid,
+char* receiver_uuid)
+{
+    discussion_t* discussion =
+        find_discussion_by_users(db, sender_uuid, receiver_uuid);
+
+    if (discussion != NULL) {
+        printf("Error: Discussion already exists\n");
+        return discussion;
     }
 
-    user_t* receiver = get_user_by_uuid(receiver_uuid);
+    // Check if the receiver UUID exists in the database
+    user_t* receiver = find_user_by_uuid(db, receiver_uuid);
     if (receiver == NULL) {
-        printf("Error: Receiver with UUID %s not found\n", receiver_uuid);
+        printf("Error: Receiver UUID does not exist in the database\n");
         return NULL;
     }
 
@@ -44,73 +62,29 @@ discussion_t* create_discussion(char* sender_uuid, char* receiver_uuid)
         return NULL;
     }
 
+    // Initialize the discussion node
     strncpy(new_discussion->uuid, generate_uuid(), MAX_UUID_STR_LEN);
-    new_discussion->sender = sender;
-    new_discussion->receiver = receiver;
-    new_discussion->messages = NULL;
+    strncpy(new_discussion->sender_uuid, sender_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_discussion->receiver_uuid, receiver_uuid, MAX_UUID_STR_LEN);
+
+    // Initialize the message list
+    LIST_INIT(&(new_discussion->messages));
 
     // Add the new discussion node to the linked list
-    LIST_INSERT_HEAD(&discussions_head, new_discussion, entries);
-
+    LIST_INSERT_HEAD(&(db->discussions), new_discussion, entries);
+    printf("New discussion created with UUID: %s\n", new_discussion->uuid);
     return new_discussion;
 }
 
-// Delete a discussion by sender and receiver UUIDs
-void delete_discussion(char* sender_uuid, char* receiver_uuid)
+bool add_message_to_discussion(database_t* db, char* sender_uuid,
+char* receiver_uuid, char* message_body)
 {
-    discussion_t* discussion;
-    LIST_FOREACH(discussion, &discussions_head, entries)
-    {
-        if (strcmp(discussion->sender->uuid, sender_uuid) == 0 &&
-            strcmp(discussion->receiver->uuid, receiver_uuid) == 0) {
-            // Remove the discussion node from the linked list
-            LIST_REMOVE(discussion, entries);
-
-            // Free the discussion node and its messages
-            message_t* message;
-            while ((message = LIST_FIRST(&discussion->messages)) != NULL) {
-                LIST_REMOVE(message, entries);
-                free(message);
-            }
-            free(discussion);
-
-            printf("Discussion deleted between %s and %s\n", sender_uuid,
-                   receiver_uuid);
-            return;
-        }
-    }
-    printf("Discussion not found between %s and %s\n", sender_uuid,
-           receiver_uuid);
-}
-
-// Find a discussion by sender and receiver UUIDs
-discussion_t* find_discussion(char* sender_uuid, char* receiver_uuid)
-{
-    discussion_t* discussion;
-    LIST_FOREACH(discussion, &discussions_head, entries)
-    {
-        if (strcmp(discussion->sender->uuid, sender_uuid) == 0 &&
-            strcmp(discussion->receiver->uuid, receiver_uuid) == 0) {
-            return discussion;
-        }
-    }
-    return NULL;
-}
-
-// Add a message to a discussion
-bool add_message_to_discussion(char* sender_uuid, char* receiver_uuid,
-                               char* message_body)
-{
-    // Find the discussion
-    discussion_t* discussion_ptr = find_discussion(sender_uuid, receiver_uuid);
-
-    // If the discussion doesn't exist, create a new one
-    if (discussion_ptr == NULL) {
-        if (!add_discussion(sender_uuid, receiver_uuid)) {
-            printf("Error: Failed to add new discussion\n");
-            return false;
-        }
-        discussion_ptr = find_discussion(sender_uuid, receiver_uuid);
+    // Find the discussion by UUID
+    discussion_t* discussion =
+        find_discussion_by_users(db, sender_uuid, receiver_uuid);
+    if (discussion == NULL) {
+        printf("Error: Discussion not found\n");
+        return false;
     }
 
     // Create a new message node
@@ -120,11 +94,79 @@ bool add_message_to_discussion(char* sender_uuid, char* receiver_uuid,
         printf("Error: Failed to allocate memory for new message\n");
         return false;
     }
-    generate_uuid(new_message->uuid, MAX_UUID_STR_LEN);
+    strncpy(new_message->uuid, generate_uuid(), MAX_UUID_STR_LEN);
     strncpy(new_message->body, message_body, MAX_BODY_LENGTH);
 
-    // Add the new message node to the linked list of messages in the discussion
-    LIST_INSERT_HEAD(&discussion_ptr->messages, new_message, entries);
+    // Add the new message node to the linked list
+    LIST_INSERT_HEAD(&(discussion->messages), new_message, entries);
 
     return true;
+}
+
+void free_discussions(database_t* db)
+{
+    discussion_t* discussion;
+
+    LIST_FOREACH(discussion, &(db->discussions), entries)
+    {
+        message_t* message;
+        while ((message = LIST_FIRST(&(discussion->messages))) != NULL) {
+            LIST_REMOVE(message, entries);
+            free(message);
+        }
+        LIST_REMOVE(discussion, entries);
+        free(discussion);
+    }
+}
+
+void free_discussion(discussion_t* discussion)
+{
+    // Remove the discussion from the linked list
+    LIST_REMOVE(discussion, entries);
+
+    // Free each message in the discussion
+    message_t* message;
+
+    while (!LIST_EMPTY(&(discussion->messages))) {
+        message = LIST_FIRST(&(discussion->messages));
+        LIST_REMOVE(message, entries);
+        free(message);
+    }
+    free(discussion);
+}
+
+void print_discussion_details(database_t* db, char* discussion_uuid)
+{
+    discussion_t* discussion = find_discussion_by_uuid(db, discussion_uuid);
+
+    if (discussion == NULL) {
+        printf("Error: Discussion not found\n");
+        return;
+    }
+
+    printf("Discussion UUID: %s\n", discussion->uuid);
+    printf("Sender UUID: %s\n", discussion->sender_uuid);
+    printf("Receiver UUID: %s\n", discussion->receiver_uuid);
+    printf("Messages:\n");
+
+    message_t* message;
+    LIST_FOREACH(message, &(discussion->messages), entries) {
+        printf(" - %s\n", message->body);
+    }
+}
+
+void print_all_messages_in_discussion(database_t* db, char* discussion_uuid)
+{
+    discussion_t* discussion = find_discussion_by_uuid(db, discussion_uuid);
+    if (discussion == NULL) {
+        printf("Error: Discussion not found\n");
+        return;
+    }
+
+    printf("Messages in discussion with UUID %s:\n", discussion->uuid);
+
+    message_t* message;
+    LIST_FOREACH(message, &(discussion->messages), entries) {
+        printf(" - %s\n", message->body);
+    }
 }

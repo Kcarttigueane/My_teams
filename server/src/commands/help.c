@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void help(__attribute_maybe_unused__ list_args_t* args)
+void help(list_args_t* args)
 {
     const char* COMMAND_NAMES =
         "/help\n/login\n/logout\n/users\n/user\n/send\n/messages\n/subscribe\n/"

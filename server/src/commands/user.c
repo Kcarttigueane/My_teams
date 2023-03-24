@@ -7,11 +7,11 @@
 
 #include "../../include/server.h"
 
-void user(__attribute_maybe_unused__ list_args_t* args)
+void user(list_args_t* args)
 {
     printf("USER\r\n");
 
-    user_t* user = get_user_by_uuid(args->db->clients, args->split_command[1]);
+    user_t* user = find_user_by_uuid(args->db, args->split_command[1]);
 
     if (user == NULL) {
         dprintf(args->client->client_socket_fd, "530 User not found");
