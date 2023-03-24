@@ -7,27 +7,9 @@
 
 #include "include/client.h"
 
-const char *command_list[] = {
-    "/help",
-    "/login",
-    "/logout",
-    "/users",
-    "/user",
-    "/send",
-    "/messages",
-    "/subscribe",
-    "/subscribed",
-    "/unsubscribe",
-    "/use",
-    "/create",
-    "/list",
-    "/info",
-    NULL
-};
-
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    if (argc != 2)
+    if (!are_arguments_valid(argc, argv))
         return ERROR;
 
     client_data_t client_data = {
@@ -37,11 +19,11 @@ int main(int argc, char *argv[])
         .read_fds = {{0}},
     };
 
-    init_socket(&client_data);
-    init_addresses(&client_data);
-    connection(&client_data);
+    if (init_client(&client_data) == ERROR)
+        return ERROR;
 
-    client_loop(&client_data);
+    if (client_loop(&client_data) == ERROR)
+        return ERROR;
 
     return 0;
 }

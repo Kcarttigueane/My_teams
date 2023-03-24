@@ -37,9 +37,9 @@
 
     // ! PROTOTYPES:
 
-int init_socket(client_data_t* client);
-int init_addresses(client_data_t* client);
-int connection(client_data_t* client);
+bool are_arguments_valid(int argc, char* argv[]);
+
+int init_client(client_data_t *client);
 
 int client_loop(client_data_t* client);
 
