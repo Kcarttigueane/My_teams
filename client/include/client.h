@@ -17,6 +17,8 @@
 
     #define BUFFER_SIZE 1024
 
+    #define DEFAULT_TIMEOUT 5
+
     // ! My includes:
 
     #include "../../include/my_teams.h"
@@ -24,23 +26,30 @@
 
     // ! STRUCTURES:
 
-    extern const char *command_list[];
+    extern const char *ENDPOINTS_LIST[];
+    extern const size_t ENDPOINTS_LIST_SIZE;
 
     typedef struct client_data {
-        char *ip;
-        int port;
         int socket_fd;
-        int activity;
         fd_set read_fds;
-        struct sockaddr_in serv_addr;
     } client_data_t;
 
     // ! PROTOTYPES:
 
 bool are_arguments_valid(int argc, char* argv[]);
 
-int init_client(client_data_t *client);
-
+int connect_to_server(const char* server_address, int port);
 int client_loop(client_data_t* client);
+
+// ! SIGNALS:
+
+void sigint_handler(int sig);
+void sigterm_handler(int sig);
+
+// ! CLIENT LOOP FUNCTIONS:
+
+int handle_server_input(client_data_t* client, char* buffer);
+int handle_user_input(client_data_t* client);
+
 
 #endif  // CLIENT_H

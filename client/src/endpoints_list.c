@@ -6,8 +6,9 @@
 */
 
 #include "../include/client.h"
+#include "../../include/utils.h"
 
-const char *command_list[] = {
+const char *ENDPOINTS_LIST[] = {
     "/help",
     "/login",
     "/logout",
@@ -22,5 +23,6 @@ const char *command_list[] = {
     "/create",
     "/list",
     "/info",
-    NULL
 };
+
+const size_t ENDPOINTS_LIST_SIZE = ARRAY_SIZE(ENDPOINTS_LIST);

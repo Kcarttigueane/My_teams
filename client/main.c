@@ -12,18 +12,16 @@ int main(int argc, char* argv[])
     if (!are_arguments_valid(argc, argv))
         return ERROR;
 
+    signal(SIGINT, sigint_handler);
+    signal(SIGTERM, sigterm_handler);
+
     client_data_t client_data = {
-        .ip = argv[1],
-        .port = atoi(argv[2]),
-        .socket_fd = 0,
+        .socket_fd = connect_to_server(argv[1], atoi(argv[2])),
         .read_fds = {{0}},
     };
 
-    if (init_client(&client_data) == ERROR)
+    if (client_data.socket_fd == ERROR)
         return ERROR;
 
-    if (client_loop(&client_data) == ERROR)
-        return ERROR;
-
-    return 0;
+    return client_loop(&client_data);
 }

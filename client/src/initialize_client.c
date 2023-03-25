@@ -7,42 +7,23 @@
 
 #include "../include/client.h"
 
-static int init_socket(client_data_t *client)
+int connect_to_server(const char* server_address, int port)
 {
-    if ((client->socket_fd = socket(AF_INET, SOCK_STREAM, 0)) == FAILURE)
-        return handle_error("error: socket can't be created");
-    return 0;
-}
+    int socket_fd;
+    struct sockaddr_in server_addr;
 
-static int init_addresses(client_data_t *client)
-{
-    memset(&client->serv_addr, 0, sizeof(client->serv_addr));
+    if ((socket_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+        return handle_error("Socket creation failed");
 
-    client->serv_addr.sin_family = AF_INET;
-    client->serv_addr.sin_port = htons(client->port);
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
 
-    if (inet_pton(AF_INET, client->ip, &client->serv_addr.sin_addr) <= 0)
-        return handle_error("error: invalid address / not supported");
-    return 0;
-}
+    if (inet_pton(AF_INET, server_address, &server_addr.sin_addr) <= 0)
+        return handle_error("Invalid address or unsupported address family");
 
-static int connect_to_server(client_data_t *client)
-{
-    int status = 0;
+    if (connect(socket_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0)
+        return handle_error("Connection failed");
 
-    if ((status = connect(client->socket_fd, (struct sockaddr *)&client->serv_addr,
-            sizeof(client->serv_addr))) < 0)
-        return handle_error("error: connection failed");
-    return 0;
-}
-
-int init_client(client_data_t *client)
-{
-    if (init_socket(client) == ERROR)
-        return ERROR;
-    if (init_addresses(client) == ERROR)
-        return ERROR;
-    if (connect_to_server(client) == ERROR)
-        return ERROR;
-    return 0;
+    return socket_fd;
 }

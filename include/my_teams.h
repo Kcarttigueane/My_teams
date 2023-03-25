@@ -37,10 +37,11 @@
     #include <uuid/uuid.h>
     #include <signal.h>
 
-
-    #define ERROR 84
-    #define SUCCESS 0
-    #define FAILURE -1
+    enum ErrorCodes {
+        SUCCESS = 0,
+        FAILURE = -1,
+        ERROR = 84
+    };
 
     #define MAX_NAME_LENGTH 32
     #define MAX_DESCRIPTION_LENGTH 255
