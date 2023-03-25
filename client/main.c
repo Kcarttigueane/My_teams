@@ -7,12 +7,21 @@
 
 #include "include/client.h"
 
-int main(int argc, char const* argv[])
+int main(int argc, char* argv[])
 {
-    if (argc != 2 || regex_match("[-]{1,2}h(elp)?", argv[1])) {
-        printf(CLIENT_USAGE);
+    if (!are_arguments_valid(argc, argv))
         return ERROR;
-    }
-    printf("Hello, World!\n");
-    return 0;
+
+    signal(SIGINT, sigint_handler);
+    signal(SIGTERM, sigterm_handler);
+
+    client_data_t client_data = {
+        .socket_fd = connect_to_server(argv[1], atoi(argv[2])),
+        .read_fds = {{0}},
+    };
+
+    if (client_data.socket_fd == ERROR)
+        return ERROR;
+
+    return client_loop(&client_data);
 }

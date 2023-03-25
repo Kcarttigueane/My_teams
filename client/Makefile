@@ -10,14 +10,14 @@ RM = rm -f
 
 NAME = ../myteams_cli
 
-SRCS = $(wildcard *.c) \
-       $(wildcard ../lib/**/*.c) \
-       $(wildcard src/*.c) \
+SRCS = $(shell find ../lib -type f -name "*.c") \
+       $(shell find . -type f -name "*.c") \
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
-CFLAGS += -Wall -Wextra -I ../include -g3 -luuid
+CFLAGS += -Wall -Wextra -I ../include -g3	\
+-L/opt/homebrew/Cellar/ossp-uuid/1.6.2_2/lib/ -luuid
 
 COLOR_RESET   = \033[0m
 COLOR_PENDING = \033[01;33m
