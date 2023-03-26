@@ -16,10 +16,12 @@ team_t* create_team(database_t* db, char* name, char* description)
         return NULL;
     }
 
-    strncpy(new_team->uuid, generate_uuid(), MAX_UUID_STR_LEN);
+    char *team_uuid = generate_uuid();
+    strncpy(new_team->uuid, team_uuid, MAX_UUID_STR_LEN);
     strncpy(new_team->name, name, MAX_NAME_LENGTH);
     strncpy(new_team->description, description, MAX_DESCRIPTION_LENGTH);
     new_team->users_count = 0;
+    free(team_uuid);
 
     LIST_INSERT_HEAD(&(db->teams), new_team, entries);
 
@@ -32,11 +34,11 @@ void list_teams(database_t* db)
 
     printf("Teams in the database:\n");
 
-    LIST_FOREACH(team, &(db->teams), entries)
-    {
+    LIST_FOREACH(team, &(db->teams), entries) {
         printf("- Name: %s\n", team->name);
         printf("  Description: %s\n", team->description);
         printf("  Users:\n");
+
         for (int i = 0; i < team->users_count; i++) {
             printf("    - %s\n", team->users[i]);
         }
@@ -46,10 +48,10 @@ void list_teams(database_t* db)
 void free_teams(database_t* db)
 {
     team_t* team;
+    team_t *tmp;
 
-    while ((team = LIST_FIRST(&(db->teams))) != NULL) {
+    LIST_FOREACH_SAFE(team, &(db->teams), entries, tmp) {
         LIST_REMOVE(team, entries);
-        team->users_count--;
         free(team);
     }
 }
@@ -58,11 +60,9 @@ bool is_team_exists(database_t* db, char* team_uuid)
 {
     team_t* team;
 
-    LIST_FOREACH(team, &(db->teams), entries)
-    {
-        if (strcmp(team->uuid, team_uuid) == 0) {
+    LIST_FOREACH(team, &(db->teams), entries) {
+        if (!strcmp(team->uuid, team_uuid))
             return true;
-        }
     }
 
     return false;
