@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include "server.h"
 #include <sys/queue.h>
+#include "server.h"
+
 typedef struct database {
     LIST_HEAD(teams_head, team_s) teams;
     LIST_HEAD(channels_head, channel_s) channels;
@@ -34,3 +35,13 @@ void load_discussions_from_file(database_t* db);
 
 void save_teams_to_file(database_t* db);
 void load_teams_from_file(database_t* db);
+
+// ! SAVE AND LOAD [CHANNELS]
+
+void save_channels_to_file(database_t* db);
+void load_channels_from_file(database_t* db);
+
+// ! SAVE AND LOAD [THREADS]
+
+void save_threads_to_file(database_t* db);
+void load_threads_from_file(database_t* db);
