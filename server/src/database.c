@@ -5,8 +5,8 @@
 ** database.c
 */
 
-#include "../include/server.h"
 #include <sys/queue.h>
+#include "../include/server.h"
 
 database_t init_database(void)
 {
@@ -24,6 +24,7 @@ void free_database(database_t* database)
 {
     free_teams(database);
     free_channels(database);
+    free_all_threads(database);
     free_discussions(database);
     free_users(database);
 }

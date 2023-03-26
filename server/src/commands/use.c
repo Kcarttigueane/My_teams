@@ -53,11 +53,11 @@ void use(list_args_t* args)
             return;
         }
 
-        if (!is_thread_exist(args->db, args->split_command[3])) {
-            printf("Thread %s does not exist\n", args->split_command[3]);
-            args->client->use_args_count = FAILURE;
-            return;
-        }
+        // if (!is_thread_exist(args->db, args->split_command[3])) {
+        //     printf("Thread %s does not exist\n", args->split_command[3]);
+        //     args->client->use_args_count = FAILURE;
+        //     return;
+        // }
 
         args->client->use_args_count = 2;
     }
