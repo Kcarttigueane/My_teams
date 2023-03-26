@@ -15,17 +15,22 @@ typedef struct thread_s {
     char uuid[MAX_UUID_STR_LEN];
     char title[MAX_NAME_LENGTH];
     char message[MAX_BODY_LENGTH];
-    channel_t* channel;
-    user_t* creator;
+    char related_channel_uuid[MAX_UUID_STR_LEN];
+    char creator_uuid[MAX_UUID_STR_LEN];
     LIST_HEAD(replies_head, reply_s) replies;
     LIST_ENTRY(thread_s) entries;
 } thread_t;
 
-thread_t* create_thread(database_t* db, char* title, char* message,
-channel_t* channel, user_t* creator);
-thread_t* find_thread_by_uuid(database_t* database, char* uuid);
+typedef struct create_thread_params_s {
+    char title[MAX_NAME_LENGTH];
+    char message[MAX_BODY_LENGTH];
+    char related_channel_uuid[MAX_UUID_STR_LEN];
+    char creator_uuid[MAX_UUID_STR_LEN];
+} create_thread_params_t;
+
+thread_t* create_thread(database_t* db, create_thread_params_t* params);
 bool add_reply_to_thread(database_t* db, char* thread_uuid, char* reply_body,
-user_t* user);
-bool is_thread_exist(database_t* db, char* thread_uuid);
-void list_replies_for_thread(database_t* db, char* thread_uuid);
+char* user_uuid);
 void list_threads(database_t* db);
+void free_all_threads(database_t* db);
+void list_replies_for_thread(database_t* db, char* thread_uuid);

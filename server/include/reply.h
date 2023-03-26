@@ -13,7 +13,6 @@ typedef struct reply_s {
     char uuid[MAX_UUID_STR_LEN];
     char body[MAX_BODY_LENGTH];
     char related_thread_uuid[MAX_UUID_STR_LEN];
-    user_t* user;
     LIST_ENTRY(reply_s) entries;
 } reply_t;
 
