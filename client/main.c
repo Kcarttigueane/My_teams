@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
         .read_fds = {{0}},
     };
 
-    if (client_data.socket_fd == ERROR)
+    if (client_data.socket_fd == FAILURE)
         return ERROR;
 
     return client_loop(&client_data);

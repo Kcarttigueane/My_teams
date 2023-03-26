@@ -27,7 +27,8 @@ void debug_word_array(char** word_array);
 
 
 int handle_error(const char* msg);
+int handle_failure(const char* msg);
 
-// ! Regex functions:
+    // ! Regex functions:
 
 bool regex_match(const char* pattern, const char* string);
