@@ -70,7 +70,8 @@
     "db.h": "c",
     "locale_t.h": "c",
     "reply.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "typeinfo": "c"
   },
   "cSpell.words": ["myteams"]
 }

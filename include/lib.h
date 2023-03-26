@@ -35,4 +35,4 @@ bool regex_match(const char* pattern, const char* string);
 
 // ! UUID functions:
 
-char* generate_uuid();
+char* generate_uuid(void);

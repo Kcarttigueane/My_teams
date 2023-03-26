@@ -10,13 +10,12 @@
 
 #define MAX_UUID_STR_LEN 37
 
-char* generate_uuid()
+char* generate_uuid(void)
 {
     char* uuid_str = (char *)malloc(MAX_UUID_STR_LEN * sizeof(char));
 
     uuid_t uuid;
     uuid_generate(uuid);
-    // Convert UUID to string
     uuid_unparse(uuid, uuid_str);
     return uuid_str;
 }
