@@ -35,3 +35,7 @@ void free_channels(database_t* db);
 
 bool is_channel_exist(database_t* db, char* team_uuid);
 void display_channel_info(database_t* db, char* channel_uuid);
+
+bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid);
+bool remove_user_from_channel(database_t* db, char* channel_uuid,
+char* user_uuid);
