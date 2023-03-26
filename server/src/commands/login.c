@@ -34,20 +34,18 @@ void login(list_args_t* args)
     //     args->client->is_logged = false;
     //     return;
     // }
+    //  ! SHOULD CHECK IF THE USERNAME HAS THE LENGTH OF 32 BEFORE
 
-    char uuid_str[MAX_UUID_STR_LEN];
-    uuid_t uuid;
-    uuid_generate(uuid);
-    uuid_unparse(uuid, uuid_str);
+    user_t *user = create_user(args->db, generate_uuid(), username);
 
-    if (!create_user(args->db, uuid_str, username)) {
+    if (user == NULL) {
         dprintf(args->client->client_socket_fd, "530 Failed to create user");
         args->client->is_logged = false;
         return;
     }
 
     args->client->is_logged = true;
-    strncpy(args->client->current_user_uuid, uuid_str, MAX_UUID_STR_LEN);
-    dprintf(args->client->client_socket_fd, "200 %s", uuid_str);
-    printf("User %s logged in with uuid %s\n", username, uuid_str);
+    strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+    dprintf(args->client->client_socket_fd, "200 %s", user->uuid);
+    printf("User %s logged in with uuid %s\n", username, user->uuid);
 }
