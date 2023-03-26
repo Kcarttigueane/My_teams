@@ -15,7 +15,8 @@ typedef struct database {
     LIST_HEAD(threads_head, thread_s) threads;
     LIST_HEAD(discussions_head, discussion_s) discussions;
     LIST_HEAD(users_head, user_s) users;
-    LIST_HEAD(messages_head, message_s) messages;
 } database_t;
 
 database_t init_database(void);
+
+    // LIST_HEAD(messages_head, message_s) messages;

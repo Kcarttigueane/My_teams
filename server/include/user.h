@@ -15,7 +15,7 @@ typedef struct user_s {
     LIST_ENTRY(user_s) entries;
 } user_t;
 
-user_t* create_user(database_t* database, char* uuid, char* username);\
+user_t *create_user(database_t* database, char* username);
 
 void print_users(database_t* db);
 

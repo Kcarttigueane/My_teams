@@ -23,11 +23,11 @@ int main(int argc, char const* argv[])
 
     database_t db = init_database();
 
-    // create_user(&db, "1234", "kevin");
-    // create_user(&db, "5678", "tom");
-    // create_user(&db, "9012", "amine");
+    create_user(&db, "kevin");
+    create_user(&db, "tom");
+    create_user(&db, "amine");
 
-    // print_users(&db);
+    print_users(&db);
 
     // discussion_t *dis =  create_discussion(&db, "1234", "5678");
 
@@ -44,7 +44,7 @@ int main(int argc, char const* argv[])
     // server_loop(&server_data, &db);
 
     free_users(&db);
-    free_discussions(&db);
+    // free_discussions(&db);
 
     return SUCCESS;
 };

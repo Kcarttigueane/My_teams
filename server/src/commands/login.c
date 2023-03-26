@@ -36,7 +36,7 @@ void login(list_args_t* args)
     // }
     //  ! SHOULD CHECK IF THE USERNAME HAS THE LENGTH OF 32 BEFORE
 
-    user_t *user = create_user(args->db, generate_uuid(), username);
+    user_t *user = create_user(args->db, username);
 
     if (user == NULL) {
         dprintf(args->client->client_socket_fd, "530 Failed to create user");
