@@ -44,13 +44,15 @@
         ERROR = 84
     };
 
-    #define MAX_NAME_LENGTH 32
-    #define MAX_DESCRIPTION_LENGTH 255
-    #define MAX_BODY_LENGTH 512
-    #define MAX_UUID_STR_LEN 37
+    enum {
+        MAX_NAME_LENGTH = 32,
+        MAX_DESCRIPTION_LENGTH = 255,
+        MAX_BODY_LENGTH = 512,
+        MAX_UUID_STR_LEN = 37
+    };
 
-    #define exit_with_error(msg) \
-        do {                  \
+    #define exit_with_error(msg)  \
+        do {                      \
             fprintf(stdout, msg); \
-            exit(ERROR);      \
+            exit(ERROR);          \
         } while (0);

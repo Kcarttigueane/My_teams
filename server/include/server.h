@@ -33,7 +33,7 @@
 
     typedef struct clients {
         int client_socket_fd;
-        char current_user_uuid[MAX_UUID_STR_LEN];  // Channel unique identifier
+        char current_user_uuid[MAX_UUID_STR_LEN];
         char current_team_uuid[MAX_UUID_STR_LEN];
         char current_channel_uuid[MAX_UUID_STR_LEN];
         char cur_thread_uui[MAX_UUID_STR_LEN];

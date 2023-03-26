@@ -29,8 +29,7 @@ discussion_t* find_discussion_by_uuid(database_t* database, char* uuid)
 {
     discussion_t* discussion;
 
-    LIST_FOREACH(discussion, &(database->discussions), entries)
-    {
+    LIST_FOREACH(discussion, &(database->discussions), entries) {
         if (!strcmp(discussion->uuid, uuid))
             return discussion;
     }
