@@ -18,6 +18,7 @@ typedef struct database {
 } database_t;
 
 database_t init_database(void);
+void free_database(database_t* database);
 
 // ! SAVE AND LOAD [USERS]
 
@@ -28,3 +29,8 @@ void load_users_from_file(database_t* db);
 
 void save_discussions_to_file(database_t* db);
 void load_discussions_from_file(database_t* db);
+
+// ! SAVE AND LOAD [TEAMS]
+
+void save_teams_to_file(database_t* db);
+void load_teams_from_file(database_t* db);
