@@ -21,6 +21,8 @@ char* my_strcat(char* s1, char* s2);
 
 void free_word_array(char** map);
 
+FILE* open_file(const char* filename, const char* mode);
+
 // ! DEBUG functions:
 
 void debug_word_array(char** word_array);

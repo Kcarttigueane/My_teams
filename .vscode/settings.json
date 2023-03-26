@@ -69,7 +69,8 @@
     "queue.h": "c",
     "db.h": "c",
     "locale_t.h": "c",
-    "reply.h": "c"
+    "reply.h": "c",
+    "string.h": "c"
   },
   "cSpell.words": ["myteams"]
 }

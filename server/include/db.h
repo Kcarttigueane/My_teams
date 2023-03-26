@@ -19,4 +19,7 @@ typedef struct database {
 
 database_t init_database(void);
 
-    // LIST_HEAD(messages_head, message_s) messages;
+// ! SAVE AND LOAD [USERS]
+
+void save_users_to_file(database_t* db);
+void load_users_from_file(database_t* db);
