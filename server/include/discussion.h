@@ -19,14 +19,25 @@ typedef struct discussion_s {
     LIST_ENTRY(discussion_s) entries;
 } discussion_t;
 
+// ! FIND DISCUSSIONS :
+
 discussion_t* find_discussion_by_users(database_t* database, char* sender_uuid,
 char* receiver_uuid);
 discussion_t* find_discussion_by_uuid(database_t* database, char* uuid);
+
+// ! CREATE DISCUSSIONS :
+
 discussion_t* create_discussion(database_t* db, char* sender_uuid,
 char* receiver_uuid);
 bool add_message_to_discussion(database_t* db, char* sender_uuid,
 char* receiver_uuid, char* message_body);
+
+// ! FREE DISCUSSIONS :
+
 void free_discussions(database_t* db);
 void free_discussion(discussion_t* discussion);
+
+// ! PRINT DISCUSSIONS :
+
 void print_discussion_details(database_t* db, char* discussion_uuid);
 void print_all_messages_in_discussion(database_t* db, char* discussion_uuid);

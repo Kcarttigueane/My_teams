@@ -43,7 +43,8 @@ user_t *create_user(database_t* database, char* username)
 
     LIST_INSERT_HEAD(&database->users, new_user, entries);
 
-    printf("User created with UUID %s and username %s\n", new_user->uuid, username);
+    printf("User created with UUID %s and username %s\n", new_user->uuid,
+    username);
     return new_user;
 }
 

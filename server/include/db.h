@@ -23,3 +23,8 @@ database_t init_database(void);
 
 void save_users_to_file(database_t* db);
 void load_users_from_file(database_t* db);
+
+// ! SAVE AND LOAD [DISCUSSIONS]
+
+void save_discussions_to_file(database_t* db);
+void load_discussions_from_file(database_t* db);

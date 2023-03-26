@@ -51,6 +51,12 @@
         MAX_UUID_STR_LEN = 37
     };
 
+    #ifndef LIST_FOREACH_SAFE
+        #define LIST_FOREACH_SAFE(var, head, field, tvar) \
+            for ((var) = LIST_FIRST((head));              \
+                (var) && ((tvar) = LIST_NEXT((var), field), 1); (var) = (tvar))
+    #endif
+
     #define exit_with_error(msg)  \
         do {                      \
             fprintf(stdout, msg); \
