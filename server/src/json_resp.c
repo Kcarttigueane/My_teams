@@ -50,3 +50,11 @@ const char* USER_DETAILS =
     "  \"username\": \"%s\"\n"
     "  \"user_uuid\": \"%s\"\n"
     "}\n";
+
+const char* SEND_MSG_JSON_REP =
+    "{\n"
+    "  \"status\": 220,\n"
+    "  \"message\": \"Message sent successfully\",\n"
+    "  \"recipient_uuid\": \"%s\",\n"
+    "  \"message_body\": \"%s\"\n"
+    "}\n";

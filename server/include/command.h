@@ -76,3 +76,4 @@ extern const char* HELP_JSON_REP;
 extern const char* LOGIN_JSON_REP;
 extern const char* LOGOUT_JSON_REP;
 extern const char* USER_DETAILS;
+extern const char* SEND_MSG_JSON_REP;
