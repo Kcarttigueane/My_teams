@@ -14,7 +14,7 @@ const command_t COMMANDS_DATA[] = {
     {"/logout", logout, LOGOUT_DESCRIPTION, true, {0, -1}},
     {"/users", users, USERS_DESCRIPTION, true, {0, -1}},
     {"/user", user, USER_DESCRIPTION, true, {1, -1}},
-    {"/send", send_msg, SEND_DESCRIPTION, true, {1, -1}},
+    {"/send", send_msg, SEND_DESCRIPTION, true, {2, -1}},
     {"/messages", msgs, MSGS_DESCRIPTION, true, {1, -1}},
     {"/subscribe", subscribe, SUBSCRIBE_DESCRIPTION, true, {1, -1}},
     {"/subscribed", subscribed, SUBSCRIBED_DESCRIPTION, true, {0, 1, -1}},

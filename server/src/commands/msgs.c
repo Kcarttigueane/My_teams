@@ -7,33 +7,59 @@
 
 #include "../../include/server.h"
 
+static void append_messages(discussion_t* discussion, char* json)
+{
+    message_t* message;
+    LIST_FOREACH(message, &(discussion->messages), entries)
+    {
+        char message_json[1024];
+        snprintf(message_json, 1024,
+                 "\t{\n\t  \"message_body\": \"%s\",\n\t  \"timestamp\": "
+                 "\"%ld\"\n\t},\n",
+                 message->body, (long)message->created_at);
+        strncat(json, message_json, 1024 - strlen(json) - 1);
+    }
+    // Remove the trailing comma
+    if (json[strlen(json) - 2] == ',') {
+        json[strlen(json) - 2] = '\n';
+        json[strlen(json) - 1] = '\0';
+    }
+}
+
+static void append_messages_json(discussion_t* discussion, char* json)
+{
+    strncat(json,
+            "  \"status\": 221,\n"
+            "  \"message\": \"Message list\",\n"
+            "  \"messages\": [\n",
+            1024 - strlen(json) - 1);
+    append_messages(discussion, json);
+    strncat(json, "  \n]\n", 1024 - strlen(json) - 1);
+}
+
 void msgs(list_args_t* args)
 {
     printf("SEND\r\n");
 
+    remove_quotes(args->split_command[1]);
     discussion_t* discussion = find_discussion_by_users(
         args->db, args->client->current_user_uuid, args->split_command[1]);
 
     if (discussion == NULL) {
-        dprintf(args->client->client_socket_fd, "530 Discussion not found");
+        send_json_error_response(args->client->client_socket_fd, 530,
+                                 "Discussion not found");
         return;
     }
 
-    // maximum 100 messages, each with a body of length MAX_BODY_LENGTH
-    char message_list[MAX_BODY_LENGTH * 100];
-
-    // initialize the message list to empty
-    memset(message_list, 0, sizeof(message_list));
-
-    // Concatenate all messages in the discussion into a single string
-    message_t* message;
-    LIST_FOREACH(message, &(discussion->messages), entries)
-    {
-        char formatted_message[MAX_BODY_LENGTH + MAX_UUID_STR_LEN];
-        sprintf(formatted_message, "%s: %s", message->uuid, message->body);
-        strcat(message_list, formatted_message);
+    char* json = malloc(1024 * sizeof(char));
+    if (json == NULL) {
+        printf("Error: Failed to allocate memory for JSON string\n");
+        return;
     }
+    snprintf(json, 1024, "{\n");
+    append_messages_json(discussion, json);
+    strncat(json, "}", 1024 - strlen(json) - 1);
 
-    send(args->client->client_socket_fd, message_list, strlen(message_list), 0);
+    send(args->client->client_socket_fd, json, strlen(json), 0);
+    free(json);
 }
-

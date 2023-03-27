@@ -206,3 +206,4 @@ void print_all_messages_in_discussion(database_t* db, char* discussion_uuid)
         printf("   Created at: %s", ctime(&(message->created_at)));
     }
 }
+
