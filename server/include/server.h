@@ -83,13 +83,11 @@ int bind_and_listen_socket(server_data_t* s);
 int initialize_server(server_data_t* s);
 void server_loop(server_data_t* s, database_t* db);
 
-void accept_new_connection(int server_socket, clients_t clients[MAX_CLIENTS]);
-int get_max_socket_descriptor(clients_t clients[MAX_CLIENTS],
-int server_socket);
-void handle_client_activity(clients_t clients[MAX_CLIENTS], server_data_t* s,
+void accept_new_connection(int server_socket, clients_t *clients);
+void handle_client_activity(clients_t *clients, server_data_t* s,
 database_t* db);
-void parse_client_input(clients_t clients, server_data_t* s,
-char* buffer, database_t* db);
+void parse_client_input(clients_t* clients, server_data_t* s,
+char* input_buffer, database_t* db);
 
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;

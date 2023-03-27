@@ -7,7 +7,7 @@
 
 #include "../include/server.h"
 
-void accept_new_connection(int server_socket, clients_t clients[MAX_CLIENTS])
+void accept_new_connection(int server_socket, clients_t *clients)
 {
     struct sockaddr_in address;
     int addrlen = sizeof(address);
