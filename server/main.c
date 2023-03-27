@@ -29,28 +29,28 @@ int main(int argc, char const* argv[])
 
     // print_users(&db);
 
-    // save_users_to_file(&db);
+    save_users_to_file(&db);
 
     // load_users_from_file(&db);
 
     // print_users(&db);
 
-    // discussion_t* dis =
-    //     create_discussion(&db, user_kevin->uuid, user_amine->uuid);
+    discussion_t* dis =
+        create_discussion(&db, user_kevin->uuid, user_amine->uuid);
 
     // load_discussions_from_file(&db);
 
     // print_discussion_details(&db, "8581640b-8a1f-40d2-9521-21b22a70ea10");
 
-    // add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "Hello");
-    // add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "How are you?");
-    // add_message_to_discussion(&db, user_amine->uuid, user_kevin->uuid, "I'm fine, thanks");
-    // add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "And you?");
+    add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "Hello");
+    add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "How are you?");
+    add_message_to_discussion(&db, user_amine->uuid, user_kevin->uuid, "I'm fine, thanks");
+    add_message_to_discussion(&db, user_kevin->uuid, user_amine->uuid, "And you?");
 
     // printf("dis uuid: %s\n", dis->uuid);
-    // print_discussion_details(&db, dis->uuid);
+    print_discussion_details(&db, dis->uuid);
 
-    // save_discussions_to_file(&db);
+    save_discussions_to_file(&db);
 
     // if (initialize_server(&server_data) == ERROR)
     //     return handle_error("Server initialization failed");
@@ -93,7 +93,7 @@ int main(int argc, char const* argv[])
 
 
 
-    // save_teams_to_file(&db);
+    save_teams_to_file(&db);
 
     printf("\nDISPLAY TEAM INFOR\n\n");
     display_team_info(&db, team->uuid);
@@ -108,6 +108,8 @@ int main(int argc, char const* argv[])
     add_reply_to_thread(&db, thread->uuid, "And you?", user_kevin->uuid);
 
     list_threads(&db);
+
+    save_threads_to_file(&db);
 
     free_database(&db);
     return SUCCESS;

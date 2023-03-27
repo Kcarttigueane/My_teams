@@ -9,7 +9,7 @@
 
 void load_discussions_from_file(database_t *db)
 {
-    FILE *file = open_file("discussions.json", "r");
+    FILE* file = open_file("libs/database/discussions.json", "r");
     if (!file) return;
 
     char line[256];

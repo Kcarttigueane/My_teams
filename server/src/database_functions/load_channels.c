@@ -9,7 +9,7 @@
 
 void load_channels_from_file(database_t* db)
 {
-    FILE* file = fopen("channels.json", "r");
+    FILE* file = fopen("libs/database/channels.json", "r");
     if (!file)
         return;
 

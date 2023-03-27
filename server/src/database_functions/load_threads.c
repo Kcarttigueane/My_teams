@@ -9,7 +9,7 @@
 
 void load_threads_from_file(database_t* db)
 {
-    FILE* file = open_file("threads.json", "r");
+    FILE* file = open_file("libs/database/threads.json", "r");
     if (!file)
         return;
 

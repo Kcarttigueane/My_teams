@@ -9,7 +9,7 @@
 
 void save_threads_to_file(database_t* db)
 {
-    FILE* file = open_file("threads.json", "w");
+    FILE* file = open_file("libs/database/threads.json", "w");
     if (!file)
         return;
 

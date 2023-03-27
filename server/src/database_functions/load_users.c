@@ -38,7 +38,7 @@ static void set_user_field(user_t* user, char* line)
 
 void load_users_from_file(database_t* db)
 {
-    FILE* file = open_file("users.json", "r");
+    FILE* file = open_file("libs/database/users.json", "r");
 
     if (!file)
         return;

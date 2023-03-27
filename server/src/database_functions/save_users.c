@@ -9,7 +9,7 @@
 
 void save_users_to_file(database_t* db)
 {
-    FILE* file = open_file("users.json", "w");
+    FILE* file = open_file("libs/database/users.json", "w");
     if (!file) return;
 
     fprintf(file, "[\n");

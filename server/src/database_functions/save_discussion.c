@@ -42,7 +42,7 @@ void save_discussion(FILE* file, discussion_t* discussion)
 
 void save_discussions_to_file(database_t* db)
 {
-    FILE* file = open_file("discussions.json", "w");
+    FILE* file = open_file("libs/database/discussions.json", "w");
     if (!file) return;
 
     fprintf(file, "[\n");

@@ -9,7 +9,7 @@
 
 void save_channels_to_file(database_t* db)
 {
-    FILE* file = fopen("channels.json", "w");
+    FILE* file = fopen("libs/database/channels.json", "w");
     if (!file)
         return;
 

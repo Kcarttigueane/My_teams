@@ -9,7 +9,7 @@
 
 void load_teams_from_file(database_t* db)
 {
-    FILE* file = fopen("teams.json", "r");
+    FILE* file = fopen("libs/database/teams.json", "r");
     if (!file)
         return;
 

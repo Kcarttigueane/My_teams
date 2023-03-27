@@ -9,7 +9,7 @@
 
 void save_teams_to_file(database_t* db)
 {
-    FILE* file = fopen("teams.json", "w");
+    FILE* file = fopen("libs/database/teams.json", "w");
     if (!file)
         return;
 
