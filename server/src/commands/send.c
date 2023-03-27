@@ -10,8 +10,8 @@
 void send_msg(list_args_t* args)
 {
     printf("SEND\r\n");
-
     remove_quotes(args->split_command[1]);
+
     if (find_user_by_uuid(args->db, args->split_command[1]) == NULL) {
         send_json_error_response(args->client->client_socket_fd, 530, "User not found");
         return;
