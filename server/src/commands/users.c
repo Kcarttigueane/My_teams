@@ -9,7 +9,8 @@
 
 void users(list_args_t* args)
 {
-    printf("USERS\r\n");
-    dprintf(args->client->client_socket_fd, "200");
-    print_users(args->db);
+    char* json_users_response = print_users(args->db);
+
+    send(args->client->client_socket_fd, json_users_response,
+    strlen(json_users_response), 0);
 }

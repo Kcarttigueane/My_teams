@@ -23,7 +23,7 @@ database_t* db)
                 printf("Client disconnected, socket fd is %d\n", sd);
             } else {
                 buffer[bytes_read] = '\0';
-                printf("Received data from client: %s", buffer);
+                printf("Received data from client: %s\n", buffer);
                 parse_client_input(&clients[i], s, buffer, db);
             }
         }

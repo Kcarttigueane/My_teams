@@ -23,9 +23,9 @@ int main(int argc, char const* argv[])
 
     database_t db = init_database();
 
-    // user_t* user_kevin = create_user(&db, "kevin");
-    // user_t* user_tom = create_user(&db, "tom");
-    // user_t* user_amine = create_user(&db, "amine");
+    user_t* user_kevin = create_user(&db, "kevin");
+    user_t* user_tom = create_user(&db, "tom");
+    user_t* user_amine = create_user(&db, "amine");
 
     // // print_users(&db);
 

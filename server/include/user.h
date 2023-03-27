@@ -17,7 +17,7 @@ typedef struct user_s {
 
 user_t *create_user(database_t* database, char* username);
 
-void print_users(database_t* db);
+char *print_users(database_t* db);
 
 void free_users(database_t* db);
 
