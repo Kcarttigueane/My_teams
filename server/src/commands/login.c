@@ -37,7 +37,16 @@ void login(list_args_t* args)
 
     if (!error_handling_login(args, username)) return;
 
-    user_t* user = create_user(args->db, username);
+    user_t* user = NULL;
+
+    if ((user = find_user_by_username(args->db, username)) != NULL) {
+        args->client->is_logged = true;
+        strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+        // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING LIB
+        return;
+    }
+
+    user = create_user(args->db, username);
 
     if (user == NULL) {
         send_json_error_response(args->client->client_socket_fd,
@@ -48,6 +57,8 @@ void login(list_args_t* args)
 
     args->client->is_logged = true;
     strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+
+    // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING LIB
 
     dprintf(args->client->client_socket_fd, LOGIN_JSON_REP, user->username,
     user->uuid);

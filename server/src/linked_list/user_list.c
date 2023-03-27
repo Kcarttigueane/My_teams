@@ -44,6 +44,8 @@ user_t *create_user(database_t* database, char* username)
 
     LIST_INSERT_HEAD(&database->users, new_user, entries);
 
+    // ** server_event_user_created(user->uuid, user->username); // ! LOGGING LIB
+
     printf("User created with UUID %s and username %s\n", new_user->uuid,
     username);
     return new_user;
@@ -82,6 +84,18 @@ user_t* find_user_by_uuid(database_t* db, char* uuid)
 
     LIST_FOREACH(user, &db->users, entries) {
         if (!strcmp(user->uuid, uuid))
+            return user;
+    }
+
+    return NULL;
+}
+
+user_t* find_user_by_username(database_t* db, char* username)
+{
+    user_t* user;
+
+    LIST_FOREACH(user, &db->users, entries) {
+        if (!strcmp(user->username, username))
             return user;
     }
 
