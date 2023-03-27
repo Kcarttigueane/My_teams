@@ -11,13 +11,15 @@ void user(list_args_t* args)
 {
     printf("USER\r\n");
 
+    remove_quotes(args->split_command[1]);
+
     user_t* user = find_user_by_uuid(args->db, args->split_command[1]);
 
     if (user == NULL) {
-        dprintf(args->client->client_socket_fd, "530 User not found");
+        send_json_error_response(args->client->client_socket_fd, 530, "User not found");
         return;
     }
 
-    dprintf(args->client->client_socket_fd, "200 %s %s", user->uuid,
-    user->username);
+    dprintf(args->client->client_socket_fd, USER_DETAILS, user->username,
+    user->uuid);
 }

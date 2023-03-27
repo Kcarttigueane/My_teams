@@ -43,12 +43,10 @@ const char* LOGOUT_JSON_REP =
     "  \"message\": \"Logout successful\"\n"
     "}\n";
 
-// const char* USERS_JSON_REP =
-//     "{\n"
-//     "  \"status\": 218,\n"
-//     "  \"message\": \"Users list\",\n"
-//     "  \"users\": [\n"
-//     "       {\"username\": \"user1\", \"user_uuid\": \"user1_uuid\"},\n"
-//     "       {\"username\": \"user2\", \"user_uuid\": \"user2_uuid\"}\n"
-//     "   ]\n"
-//     "}\n";
+const char* USER_DETAILS =
+    "{\n"
+    "  \"status\": 204,\n"
+    "  \"message\": \"User information\"\n"
+    "  \"username\": \"%s\"\n"
+    "  \"user_uuid\": \"%s\"\n"
+    "}\n";

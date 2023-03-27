@@ -75,4 +75,4 @@ void users(list_args_t* args);
 extern const char* HELP_JSON_REP;
 extern const char* LOGIN_JSON_REP;
 extern const char* LOGOUT_JSON_REP;
-// extern const char* USERS_JSON_REP;
+extern const char* USER_DETAILS;
