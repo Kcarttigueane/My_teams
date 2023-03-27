@@ -50,6 +50,21 @@
         database_t* db;
     } list_args_t;
 
+    enum status_codes {
+        CONNECTION_SUCCESSFUL = 200,
+        DISCONNECTED_SUCCESSFUL = 201,
+        HELP_LISTED = 202,
+        USERS_LISTED = 203,
+        USER_INFORMATION = 204,
+        MESSAGE_SENT = 205,
+        MESSAGE_LISTED = 206,
+        SUBSCRIBED = 207,
+        UNSUBSCRIBED = 208,
+        CONTEXT_SPECIFIED = 209,
+        RESOURCE_CREATED = 210,
+        CONNECTION_DENIED = 400,
+    };
+
     #include "user.h"
     #include "team.h"
     #include "channel.h"

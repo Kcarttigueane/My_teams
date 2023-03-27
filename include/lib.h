@@ -23,6 +23,9 @@ void free_word_array(char** map);
 
 FILE* open_file(const char* filename, const char* mode);
 
+void send_json_error_response(int client_socket_fd, int status_code,
+const char* error_message);
+
 // ! DEBUG functions:
 
 void debug_word_array(char** word_array);

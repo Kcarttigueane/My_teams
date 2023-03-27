@@ -16,6 +16,10 @@ int handle_server_input(client_data_t* client, char* buffer)
         return FAILURE;
     }
 
-    printf("Received from server: %s", buffer);
+    printf("Received from server:\n");
+    printf("\033[0;33m");
+    printf("%s", buffer);
+    printf("\033[0m");
+
     return SUCCESS;
 }

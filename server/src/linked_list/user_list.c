@@ -34,6 +34,7 @@ user_t *create_user(database_t* database, char* username)
             return NULL;
         }
     }
+
     user_t* new_user = create_user_object(username);
 
     if (new_user == NULL) {

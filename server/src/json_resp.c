@@ -33,22 +33,22 @@ const char* LOGIN_JSON_REP =
     "{\n"
     "  \"status\": 200,\n"
     "  \"message\": \"Connection successful\",\n"
-    "  \"username\": \"user_name\",\n"
-    "  \"user_uuid\": \"user_uuid\"\n"
+    "  \"username\": \"%s\",\n"
+    "  \"user_uuid\": \"%s\"\n"
     "}\n";
 
 const char* LOGOUT_JSON_REP =
     "{\n"
-    "  \"status\": 200,\n"
+    "  \"status\": 201,\n"
     "  \"message\": \"Logout successful\"\n"
     "}\n";
 
-const char* USERS_JSON_REP =
-    "{\n"
-    "  \"status\": 218,\n"
-    "  \"message\": \"Users list\",\n"
-    "  \"users\": [\n"
-    "       {\"username\": \"user1\", \"user_uuid\": \"user1_uuid\"},\n"
-    "       {\"username\": \"user2\", \"user_uuid\": \"user2_uuid\"}\n"
-    "   ]\n"
-    "}\n";
+// const char* USERS_JSON_REP =
+//     "{\n"
+//     "  \"status\": 218,\n"
+//     "  \"message\": \"Users list\",\n"
+//     "  \"users\": [\n"
+//     "       {\"username\": \"user1\", \"user_uuid\": \"user1_uuid\"},\n"
+//     "       {\"username\": \"user2\", \"user_uuid\": \"user2_uuid\"}\n"
+//     "   ]\n"
+//     "}\n";
