@@ -38,6 +38,8 @@
     #include <signal.h>
     #include <sys/queue.h>
 
+    #include <time.h>
+
     enum ErrorCodes {
         SUCCESS = 0,
         FAILURE = -1,

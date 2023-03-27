@@ -33,8 +33,9 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params)
     strncpy(new_thread->title, params->title, MAX_NAME_LENGTH);
     strncpy(new_thread->message, params->message, MAX_BODY_LENGTH);
     strncpy(new_thread->related_channel_uuid, params->related_channel_uuid,
-            MAX_UUID_STR_LEN);
+    MAX_UUID_STR_LEN);
     strncpy(new_thread->creator_uuid, params->creator_uuid, MAX_UUID_STR_LEN);
+    new_thread->created_at = time(NULL);
     free(thread_uuid);
 
     LIST_INIT(&(new_thread->replies));
@@ -65,6 +66,7 @@ char* user_uuid)
     strncpy(new_reply->uuid, reply_uuid, MAX_UUID_STR_LEN);
     strncpy(new_reply->body, reply_body, MAX_BODY_LENGTH);
     strncpy(new_reply->related_thread_uuid, thread_uuid, MAX_UUID_STR_LEN);
+    new_reply->created_at = time(NULL);
     free(reply_uuid);
 
     LIST_INSERT_HEAD(&(thread->replies), new_reply, entries);
@@ -84,12 +86,14 @@ void list_threads(database_t* db)
         printf("Thread Related Channel UUID: %s\n",
                thread->related_channel_uuid);
         printf("Thread Creator UUID: %s\n", thread->creator_uuid);
+        printf("Thread Created At: %s", ctime(&(thread->created_at)));
         printf("Thread Replies:\n");
 
         reply_t* reply;
         LIST_FOREACH(reply, &(thread->replies), entries) {
             printf("    Reply UUID: %s\n", reply->uuid);
             printf("    Reply Body: %s\n", reply->body);
+            printf("    Reply Created At: %s", ctime(&(reply->created_at)));
             printf("    Reply Related Thread UUID: %s\n",
                    reply->related_thread_uuid);
         }
@@ -130,6 +134,6 @@ void list_replies_for_thread(database_t* db, char* thread_uuid)
 
     reply_t* reply;
     LIST_FOREACH(reply, &(thread->replies), entries) {
-        printf("- %s: %s\n", reply->uuid, reply->body);
+        printf("- %s: %s %s\n", reply->uuid, reply->body, ctime(&(reply->created_at)));
     }
 }

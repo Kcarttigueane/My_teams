@@ -25,6 +25,7 @@ channel_t* create_channel(database_t* db, create_channel_params_t* param)
     strncpy(new_channel->team_uuid, param->team_uuid, MAX_UUID_STR_LEN);
     new_channel->nb_users = 0;
     new_channel->users_count = 0;
+    new_channel->created_at = time(NULL);
     free(channel_uuid);
 
     LIST_INSERT_HEAD(&(db->channels), new_channel, entries);
@@ -43,6 +44,7 @@ void list_channels(database_t* db)
         printf("Channel description: %s\n", channel->description);
         printf("Channel creator UUID: %s\n", channel->creator_uuid);
         printf("Channel team UUID: %s\n", channel->team_uuid);
+        printf("Current Unix timestamp: %ld\n", (long)channel->created_at);
         printf("Channel users: ");
 
         for (size_t i = 0; i < channel->nb_users; i++)
@@ -105,6 +107,7 @@ void display_channel_info(database_t* db, char* channel_uuid)
     printf("Channel description: %s\n", channel->description);
     printf("Channel creator UUID: %s\n", channel->creator_uuid);
     printf("Channel team UUID: %s\n", channel->team_uuid);
+    printf("Current Unix timestamp: %ld\n", (long)channel->created_at);
     printf("Channel users: \n");
 
     for (size_t i = 0; i < channel->nb_users; i++)

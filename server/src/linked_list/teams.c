@@ -21,6 +21,7 @@ team_t* create_team(database_t* db, char* name, char* description)
     strncpy(new_team->name, name, MAX_NAME_LENGTH);
     strncpy(new_team->description, description, MAX_DESCRIPTION_LENGTH);
     new_team->users_count = 0;
+    new_team->created_at = time(NULL);
     free(team_uuid);
 
     LIST_INSERT_HEAD(&(db->teams), new_team, entries);
@@ -38,6 +39,7 @@ void list_teams(database_t* db)
         printf("- Name: %s\n", team->name);
         printf("  Description: %s\n", team->description);
         printf("  Users:\n");
+        printf("  Current Unix timestamp: %ld\n", (long)team->created_at);
 
         for (int i = 0; i < team->users_count; i++) {
             printf("    - %s\n", team->users[i]);
@@ -85,6 +87,7 @@ void display_team_info(database_t* db, char* team_uuid)
     printf("Team UUID: %s\n", team->uuid);
     printf("Team name: %s\n", team->name);
     printf("Team description: %s\n", team->description);
+    printf("Team created at: %ld\n", (long)team->created_at);
     printf("Team users:\n");
 
     for (int i = 0; i < team->users_count; i++)
