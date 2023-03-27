@@ -102,6 +102,7 @@ message_t *create_message_obj(char *message_body, char *sender_uuid)
     strncpy(new_message->uuid, message_uuid, MAX_UUID_STR_LEN);
     strncpy(new_message->body, message_body, MAX_BODY_LENGTH);
     strncpy(new_message->sender_uuid, sender_uuid, MAX_UUID_STR_LEN);
+    new_message->created_at = time(NULL);
 
     free(message_uuid);
 
@@ -182,6 +183,8 @@ void print_discussion_details(database_t* db, char* discussion_uuid)
     message_t* message;
     LIST_FOREACH(message, &(discussion->messages), entries) {
         printf(" - %s\n", message->body);
+        printf("   Sender UUID: %s\n", message->sender_uuid);
+        printf("   Created at: %s", ctime(&(message->created_at)));
     }
 }
 
@@ -199,5 +202,7 @@ void print_all_messages_in_discussion(database_t* db, char* discussion_uuid)
     message_t* message;
     LIST_FOREACH(message, &(discussion->messages), entries) {
         printf(" - %s\n", message->body);
+        printf("   Sender UUID: %s\n", message->sender_uuid);
+        printf("   Created at: %s", ctime(&(message->created_at)));
     }
 }

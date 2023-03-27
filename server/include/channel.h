@@ -18,6 +18,7 @@ typedef struct channel_s {
     char users[10][MAX_UUID_STR_LEN];
     size_t nb_users;
     int users_count;
+    time_t created_at;
     LIST_ENTRY(channel_s) entries;
 } channel_t;
 

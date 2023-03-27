@@ -17,6 +17,7 @@ typedef struct thread_s {
     char message[MAX_BODY_LENGTH];
     char related_channel_uuid[MAX_UUID_STR_LEN];
     char creator_uuid[MAX_UUID_STR_LEN];
+    time_t created_at;
     LIST_HEAD(replies_head, reply_s) replies;
     LIST_ENTRY(thread_s) entries;
 } thread_t;

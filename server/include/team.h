@@ -15,6 +15,7 @@ typedef struct team_s {
     char description[MAX_DESCRIPTION_LENGTH];
     char users[10][MAX_UUID_STR_LEN];
     int users_count;
+    time_t created_at;
     LIST_ENTRY(team_s) entries;
 } team_t;
 
