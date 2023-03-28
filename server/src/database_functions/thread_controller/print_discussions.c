@@ -15,7 +15,7 @@ void list_threads(database_t* db)
         printf("Thread Title: %s\n", thread->title);
         printf("Thread Message: %s\n", thread->message);
         printf("Thread Related Channel UUID: %s\n",
-               thread->related_channel_uuid);
+        thread->related_channel_uuid);
         printf("Thread Creator UUID: %s\n", thread->creator_uuid);
         printf("Thread Created At: %s", ctime(&(thread->created_at)));
         printf("Thread Replies:\n");
