@@ -7,9 +7,9 @@
 
 #include "../../../include/server.h"
 
-discussion_t* create_discussion_obj(char* sender_uuid, char* receiver_uuid)
+static discussion_t* create_disc_obj(char* sender_uuid, char* receiver_uuid)
 {
-    discussion_t* new_discussion = malloc(sizeof(discussion_t));
+    discussion_t* new_discussion = (discussion_t*)malloc(sizeof(discussion_t));
 
     if (new_discussion == NULL) {
         printf("Error: Failed to allocate memory for new discussion\n");
@@ -42,13 +42,10 @@ char* receiver_uuid)
         return discussion;
     }
 
-    discussion_t* new_discussion =
-        create_discussion_obj(sender_uuid, receiver_uuid);
+    discussion_t* new_discussion = create_disc_obj(sender_uuid, receiver_uuid);
 
-    if (new_discussion == NULL) {
-        printf("Error: Failed to create discussion\n");
+    if (!new_discussion)
         return NULL;
-    }
 
     LIST_INSERT_HEAD(&(db->discussions), new_discussion, entries);
     printf("New discussion created with UUID: %s\n", new_discussion->uuid);
@@ -88,6 +85,7 @@ char* receiver_uuid, char* message_body)
     }
 
     message_t* new_message = create_message_obj(message_body, sender_uuid);
+
     if (new_message == NULL)
         return false;
 
