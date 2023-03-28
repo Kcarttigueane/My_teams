@@ -55,3 +55,13 @@ dkms.conf
 # Binary files
 myteams_server
 myteams_cli
+
+# Valgrind
+vgcore.*
+
+# Database
+
+users.json
+teams.json
+channels.json
+threads.json

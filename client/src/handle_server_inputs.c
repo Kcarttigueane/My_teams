@@ -8,8 +8,6 @@
 #include "../include/client.h"
 #include "../include/color.h"
 
-#define CLIENT_PROMPT "➜ "
-
 int handle_server_input(client_data_t* client, char* buffer)
 {
     ssize_t bytes_received = recv(client->socket_fd, buffer, BUFFER_SIZE, 0);

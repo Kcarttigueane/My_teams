@@ -6,6 +6,7 @@
 */
 
 #include "../../../include/server.h"
+#include "../../../../include/color.h"
 
 static user_t* create_user_object(char* username)
 {
@@ -38,13 +39,12 @@ user_t* create_user(database_t* database, char* username)
     }
     user_t* new_user = create_user_object(username);
 
-    if (new_user == NULL) {
-        printf("Error: Failed to create user object\n");
+    if (!new_user)
         return NULL;
-    }
+
     LIST_INSERT_HEAD(&database->users, new_user, entries);
 
     // ** server_event_user_created(user->uuid, user->username); ! LOGGING LIB
-    printf("User created -UUID %s -Username %s\n", new_user->uuid, username);
+    debug_user(new_user);
     return new_user;
 }

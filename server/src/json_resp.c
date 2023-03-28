@@ -95,3 +95,12 @@ const char* CREATE_REPLY =
     "  \"reply_body\": \"%s\",\n"
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
+
+const char* LIST_TEAM =
+    "{\n"
+    "  \"status\": 211,\n"
+    "  \"message\": \"Team listed\",\n"
+    "  \"team_uuid\": \"%s\",\n"
+    "  \"team_name\": \"%s\",\n"
+    "  \"team_description\": \"%s\"\n"
+    "}\n";

@@ -64,3 +64,5 @@
             fprintf(stdout, msg); \
             exit(ERROR);          \
         } while (0);
+
+    #define CLIENT_PROMPT "➜ "
