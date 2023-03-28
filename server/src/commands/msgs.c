@@ -11,12 +11,12 @@ static void append_messages(discussion_t* discussion, char* json)
 {
     message_t* message;
     LIST_FOREACH(message, &(discussion->messages), entries) {
-        char message_json[1024];
-        snprintf(message_json, 1024,
-                 "\t{\n\t  \"message_body\": \"%s\",\n\t  \"timestamp\": "
-                 "\"%ld\"\n\t},\n",
-                 message->body, (long)message->created_at);
-        strncat(json, message_json, 1024 - strlen(json) - 1);
+        char message_json[BUFFER_SIZE];
+        snprintf(message_json, BUFFER_SIZE,
+        "\t{\n\t  \"message_body\": \"%s\",\n\t  \"timestamp\": "
+        "\"%ld\"\n\t},\n",
+        message->body, (long)message->created_at);
+        strncat(json, message_json, BUFFER_SIZE - strlen(json) - 1);
     }
     if (json[strlen(json) - 2] == ',') {
         json[strlen(json) - 2] = '\n';
@@ -30,9 +30,9 @@ static void append_messages_json(discussion_t* discussion, char* json)
             "  \"status\": 221,\n"
             "  \"message\": \"Message list\",\n"
             "  \"messages\": [\n",
-            1024 - strlen(json) - 1);
+            BUFFER_SIZE - strlen(json) - 1);
     append_messages(discussion, json);
-    strncat(json, "  \n]\n", 1024 - strlen(json) - 1);
+    strncat(json, "  \n]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 void msgs(list_args_t* args)
@@ -46,15 +46,14 @@ void msgs(list_args_t* args)
         "Discussion not found");
         return;
     }
-
-    char* json = malloc(1024 * sizeof(char));
+    char* json = malloc(BUFFER_SIZE * sizeof(char));
     if (json == NULL) {
         printf("Error: Failed to allocate memory for JSON string\n");
         return;
     }
-    snprintf(json, 1024, "{\n");
+    snprintf(json, BUFFER_SIZE, "{\n");
     append_messages_json(discussion, json);
-    strncat(json, "}", 1024 - strlen(json) - 1);
+    strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     send(args->client->socket_fd, json, strlen(json), 0);
     free(json);

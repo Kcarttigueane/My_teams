@@ -9,5 +9,5 @@
 
 void help(list_args_t* args)
 {
-        dprintf(args->client->socket_fd, "%s", HELP_JSON_REP);
+    dprintf(args->client->socket_fd, "%s", HELP_JSON_REP);
 }
