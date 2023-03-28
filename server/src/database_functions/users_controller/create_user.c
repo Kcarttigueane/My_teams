@@ -30,8 +30,7 @@ user_t* create_user(database_t* database, char* username)
 {
     user_t* user;
 
-    LIST_FOREACH(user, &database->users, entries)
-    {
+    LIST_FOREACH(user, &database->users, entries) {
         if (!strcmp(user->username, username)) {
             printf("Error: Username already exists\n");
             return NULL;
@@ -43,11 +42,9 @@ user_t* create_user(database_t* database, char* username)
         printf("Error: Failed to create user object\n");
         return NULL;
     }
-
     LIST_INSERT_HEAD(&database->users, new_user, entries);
 
-    // ** server_event_user_created(user->uuid, user->username); // ! LOGGING LIB
-
+    // ** server_event_user_created(user->uuid, user->username); ! LOGGING LIB
     printf("User created -UUID %s -Username %s\n", new_user->uuid, username);
     return new_user;
 }

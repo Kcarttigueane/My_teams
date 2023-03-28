@@ -33,3 +33,4 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params);
 void list_threads(database_t* db);
 void free_all_threads(database_t* db);
 void list_replies_for_thread(database_t* db, char* thread_uuid);
+thread_t* find_thread_by_uuid(database_t* database, char* uuid);

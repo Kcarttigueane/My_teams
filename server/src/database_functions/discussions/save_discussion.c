@@ -5,7 +5,7 @@
 ** save_discussion.c
 */
 
-#include "../../include/server.h"
+#include "../../../include/server.h"
 
 void save_message(FILE* file, message_t* message)
 {

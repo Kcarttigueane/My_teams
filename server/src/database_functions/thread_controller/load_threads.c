@@ -5,7 +5,7 @@
 ** load_threads.c
 */
 
-#include "../../include/server.h"
+#include "../../../include/server.h"
 
 void load_threads_from_file(database_t* db)
 {

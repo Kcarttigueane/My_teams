@@ -5,17 +5,7 @@
 ** save_load_users.c
 */
 
-#include "../../include/server.h"
-
-static bool is_start_of_user(char* line)
-{
-    return strstr(line, "{") != NULL;
-}
-
-static bool is_end_of_user(char* line)
-{
-    return strstr(line, "}") != NULL;
-}
+#include "../../../include/server.h"
 
 static user_t* create_new_user(database_t* db)
 {
@@ -40,8 +30,7 @@ void load_users_from_file(database_t* db)
 {
     FILE* file = open_file("libs/database/users.json", "r");
 
-    if (!file)
-        return;
+    if (!file) return;
 
     LIST_INIT(&db->users);
 
@@ -49,8 +38,8 @@ void load_users_from_file(database_t* db)
     user_t* current_user = NULL;
 
     while (fgets(line, sizeof(line), file)) {
-        is_start_of_user(line) ? current_user = create_new_user(db)
-        : is_end_of_user(line) ? current_user = NULL
+        is_start_json(line) ? current_user = create_new_user(db)
+        : is_end_json(line) ? current_user = NULL
         : current_user ? set_user_field(current_user, line)
         : (void)0;
     }

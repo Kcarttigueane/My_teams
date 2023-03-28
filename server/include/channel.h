@@ -40,3 +40,4 @@ void display_channel_info(database_t* db, char* channel_uuid);
 bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid);
 bool remove_user_from_channel(database_t* db, char* channel_uuid,
 char* user_uuid);
+channel_t* find_channel_by_uuid(database_t* db, char* channel_uuid);

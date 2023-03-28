@@ -5,7 +5,7 @@
 ** load_discussions.c
 */
 
-#include "../../include/server.h"
+#include "../../../include/server.h"
 
 void load_discussions_from_file(database_t *db)
 {
@@ -23,7 +23,7 @@ void load_discussions_from_file(database_t *db)
             if (current_discussion) {
                 current_message = malloc(sizeof(message_t));
                 LIST_INSERT_HEAD(&current_discussion->messages,
-                                 current_message, entries);
+                current_message, entries);
             } else {
                 current_discussion = malloc(sizeof(discussion_t));
                 LIST_INSERT_HEAD(&db->discussions, current_discussion, entries);
