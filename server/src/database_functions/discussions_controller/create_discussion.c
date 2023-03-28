@@ -32,7 +32,7 @@ discussion_t* create_discussion_obj(char* sender_uuid, char* receiver_uuid)
 }
 
 discussion_t* create_discussion(database_t* db, char* sender_uuid,
-                                char* receiver_uuid)
+char* receiver_uuid)
 {
     discussion_t* discussion =
         find_discussion_by_users(db, sender_uuid, receiver_uuid);
@@ -41,13 +41,6 @@ discussion_t* create_discussion(database_t* db, char* sender_uuid,
         printf("Error: Discussion already exists\n");
         return discussion;
     }
-
-    // ! Check if the receiver UUID exists in the database =>  Dont think we need it here
-    // user_t* receiver = find_user_by_uuid(db, receiver_uuid);
-    // if (receiver == NULL) {
-    //     printf("Error: Receiver UUID does not exist in the database\n");
-    //     return NULL;
-    // }
 
     discussion_t* new_discussion =
         create_discussion_obj(sender_uuid, receiver_uuid);
