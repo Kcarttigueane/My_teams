@@ -31,21 +31,9 @@ bool error_handling_login(list_args_t* args, char* username)
     return true;
 }
 
-void login(list_args_t* args)
+void create_and_log_user(list_args_t* args, char* username)
 {
-    char* username = args->split_command[1];
-    if (!error_handling_login(args, username)) return;
-
-    user_t* user = NULL;
-
-    if ((user = find_user_by_username(args->db, username)) != NULL) {
-        args->client->is_logged = true;
-        strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
-        // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING LIB
-        return;
-    }
-
-    user = create_user(args->db, username);
+    user_t* user = create_user(args->db, username);
 
     if (user == NULL) {
         send_json_error_response(args->client->socket_fd,
@@ -62,4 +50,22 @@ void login(list_args_t* args)
     dprintf(args->client->socket_fd, LOGIN_JSON_REP, user->username,
     user->uuid);
     printf("User %s logged in with uuid %s\n", username, user->uuid);
+}
+
+void login(list_args_t* args)
+{
+    char* username = args->split_command[1];
+    if (!error_handling_login(args, username))
+        return;
+
+    user_t* user = NULL;
+
+    if ((user = find_user_by_username(args->db, username)) != NULL) {
+        args->client->is_logged = true;
+        strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+        // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING
+        return;
+    }
+
+    create_and_log_user(args, username);
 }
