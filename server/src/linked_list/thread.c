@@ -45,21 +45,21 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params)
     return new_thread;
 }
 
-bool add_reply_to_thread(database_t* db, char* thread_uuid, char* reply_body,
+reply_t *add_reply_to_thread(database_t* db, char* thread_uuid, char* reply_body,
 char* user_uuid)
 {
     thread_t* thread = find_thread_by_uuid(db, thread_uuid);
 
     if (thread == NULL) {
         printf("Error: Thread not found\n");
-        return false;
+        return NULL;
     }
 
     reply_t* new_reply = malloc(sizeof(reply_t));
 
     if (new_reply == NULL) {
         printf("Error: Failed to allocate memory for new reply\n");
-        return false;
+        return NULL;
     }
 
     char *reply_uuid = generate_uuid();
@@ -71,7 +71,7 @@ char* user_uuid)
 
     LIST_INSERT_HEAD(&(thread->replies), new_reply, entries);
 
-    return true;
+    return new_reply;
 }
 
 void list_threads(database_t* db)

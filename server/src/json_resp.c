@@ -53,8 +53,45 @@ const char* USER_DETAILS =
 
 const char* SEND_MSG_JSON_REP =
     "{\n"
-    "  \"status\": 220,\n"
+    "  \"status\": 205,\n"
     "  \"message\": \"Message sent successfully\",\n"
     "  \"recipient_uuid\": \"%s\",\n"
     "  \"message_body\": \"%s\"\n"
+    "}\n";
+
+const char* CREATE_TEAM =
+    "{\n"
+    "  \"status\": 210,\n"
+    "  \"message\": \"Team created\",\n"
+    "  \"team_uuid\": \"%s\",\n"
+    "  \"team_name\": \"%s\",\n"
+    "  \"team_description\": \"%s\"\n"
+    "}\n";
+
+const char* CREATE_CHANNEL =
+    "{\n"
+    "  \"status\": 210,\n"
+    "  \"message\": \"Channel created\",\n"
+    "  \"channel_uuid\": \"%s\",\n"
+    "  \"channel_name\": \"%s\",\n"
+    "  \"channel_description\": \"%s\"\n"
+    "}\n";
+
+const char* CREATE_THREAD =
+    "{\n"
+    "  \"status\": 210,\n"
+    "  \"message\": \"Thread created\",\n"
+    "  \"thread_uuid\": \"%s\",\n"
+    "  \"thread_title\": \"%s\",\n"
+    "  \"thread_body\": \"%s\"\n"
+    "  \"timestamp\": \"%ld\"\n"
+    "}\n";
+
+const char* CREATE_REPLY =
+    "{\n"
+    "  \"status\": 210,\n"
+    "  \"message\": \"Reply created\",\n"
+    "  \"reply_uuid\": \"%s\",\n"
+    "  \"reply_body\": \"%s\",\n"
+    "  \"timestamp\": \"%ld\"\n"
     "}\n";

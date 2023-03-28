@@ -46,7 +46,7 @@ void msgs(list_args_t* args)
         args->db, args->client->current_user_uuid, args->split_command[1]);
 
     if (discussion == NULL) {
-        send_json_error_response(args->client->client_socket_fd, 530,
+        send_json_error_response(args->client->socket_fd, 530,
                                  "Discussion not found");
         return;
     }
@@ -60,6 +60,6 @@ void msgs(list_args_t* args)
     append_messages_json(discussion, json);
     strncat(json, "}", 1024 - strlen(json) - 1);
 
-    send(args->client->client_socket_fd, json, strlen(json), 0);
+    send(args->client->socket_fd, json, strlen(json), 0);
     free(json);
 }

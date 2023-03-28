@@ -12,7 +12,7 @@ void info(__attribute_maybe_unused__ list_args_t* args)
     printf("INFO\n");
 
     if (args->client->use_args_count == FAILURE) {
-        dprintf(args->client->client_socket_fd, "530 User the endpoint /use first\n");
+        dprintf(args->client->socket_fd, "530 User the endpoint /use first\n");
         return;
     }
 
@@ -21,7 +21,7 @@ void info(__attribute_maybe_unused__ list_args_t* args)
             find_user_by_uuid(args->db, args->client->current_user_uuid);
 
         if (user == NULL) {
-            dprintf(args->client->client_socket_fd, "530 User not found");
+            dprintf(args->client->socket_fd, "530 User not found");
             return;
         }
     }

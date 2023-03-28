@@ -7,7 +7,7 @@
 
 #include "../include/lib.h"
 
-void send_json_error_response(int client_socket_fd, int status_code,
+void send_json_error_response(int socket_fd, int status_code,
 const char* error_message)
 {
     char* json_error_resp =
@@ -16,5 +16,5 @@ const char* error_message)
         "  \"error\": \"%s\"\n"
         "}\n";
 
-    dprintf(client_socket_fd, json_error_resp, status_code, error_message);
+    dprintf(socket_fd, json_error_resp, status_code, error_message);
 }

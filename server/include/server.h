@@ -32,11 +32,11 @@
     } server_data_t;
 
     typedef struct clients {
-        int client_socket_fd;
+        int socket_fd;
         char current_user_uuid[MAX_UUID_STR_LEN];
         char current_team_uuid[MAX_UUID_STR_LEN];
         char current_channel_uuid[MAX_UUID_STR_LEN];
-        char cur_thread_uui[MAX_UUID_STR_LEN];
+        char current_thread_uuid[MAX_UUID_STR_LEN];
         bool is_logged;
         int use_args_count;
     } clients_t;
@@ -88,6 +88,11 @@ void handle_client_activity(clients_t *clients, server_data_t* s,
 database_t* db);
 void parse_client_input(clients_t* clients, server_data_t* s,
 char* input_buffer, database_t* db);
+
+bool is_quoted_arg(const char* arg);
+bool check_quoted_args(char** args);
+bool is_login_required(const clients_t* client, size_t cmd_index);
+bool handle_input_error(char** split_command);
 
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;

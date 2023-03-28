@@ -7,51 +7,26 @@
 
 #include "../include/server.h"
 
-bool check_doubled_quoted_args(char** split_command)
+void check_command_args(list_args_t* args, size_t cmd_index)
 {
-    for (int i = 1; split_command[i] != NULL; i++) {
-        int len = strlen(split_command[i]);
-        if (split_command[i][0] != '"' || split_command[i][len - 1] != '"') {
-            printf("Missing quotes around argument %d: %s\n", i,
-            split_command[i]);
-            return false;
-        }
-    }
-    return true;
-}
+    int nb_args = get_size_word_array(args->split_command) - 1;
 
-bool check_is_login_necessary(clients_t* clients, size_t i)
-{
-    if (COMMANDS_DATA[i].need_login == true && clients->is_logged == false) {
+    bool login_required = is_login_required(args->client, cmd_index);
+
+    if (login_required) {
         printf("You need to be logged in to use this command\n");
-        return false;
+        return;
     }
-    return true;
-}
 
-void check_function_command_args(clients_t* clients, server_data_t* s, size_t i,
-char** split_command, database_t* db)
-{
-    int nb_args = get_size_word_array(split_command) - 1;
-
-    printf("client logged: %d\n", clients->is_logged);
-
-    for (size_t j = 0; COMMANDS_DATA[i].nb_args[j] != -1; j++) {
-        if (COMMANDS_DATA[i].nb_args[j] == nb_args) {
-            if (!check_is_login_necessary(clients, i))
-                return;
-            list_args_t args = {
-                .client = clients,
-                .server_data = s,
-                .split_command = split_command,
-                .db = db,
-            };
-            COMMANDS_DATA[i].function(&args);
+    for (size_t j = 0; COMMANDS_DATA[cmd_index].nb_args[j] != -1; j++) {
+        if (COMMANDS_DATA[cmd_index].nb_args[j] == nb_args) {
+            COMMANDS_DATA[cmd_index].function(args);
             return;
         }
     }
+
     printf("Invalid number of arguments for command %s\n",
-    COMMANDS_DATA[i].name);
+    COMMANDS_DATA[cmd_index].name);
 }
 
 void parse_client_input(clients_t* clients, server_data_t* s,
@@ -59,20 +34,18 @@ char* input_buffer, database_t* db)
 {
     char** split_command = split_str(input_buffer, " ");
 
-    if (!split_command) {
-        printf("split_command is NULL\n");
+    if (!handle_input_error(split_command))
         return;
-    }
-    debug_word_array(split_command);
-    if (!check_doubled_quoted_args(split_command)) {
-        printf(
-            "Invalid arguments => args should be quoted with doubled quotes\n");
-        free_word_array(split_command);
-        return;
-    }
+
     for (size_t i = 0; i < COMMANDS_DATA_SIZE; i++) {
         if (!strcasecmp(split_command[0], COMMANDS_DATA[i].name)) {
-            check_function_command_args(clients, s, i, split_command, db);
+            list_args_t args = {
+                .client = clients,
+                .server_data = s,
+                .split_command = split_command,
+                .db = db,
+            };
+            check_command_args(&args, i);
             free_word_array(split_command);
             return;
         }

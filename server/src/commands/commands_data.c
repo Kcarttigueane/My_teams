@@ -20,7 +20,7 @@ const command_t COMMANDS_DATA[] = {
     {"/subscribed", subscribed, SUBSCRIBED_DESCRIPTION, true, {0, 1, -1}},
     {"/unsubscribe", unsubscribe, UNSUBSCRIBE_DESCRIPTION, true, {1, -1}},
     {"/use", use, USE_DESCRIPTION, true, {0, 1, 2, -1}},
-    {"/create", create, CREATE_DESCRIPTION, true, {0, 1, -1}},
+    {"/create", create, CREATE_DESCRIPTION, true, {1, 2, -1}},
     {"/list", list, LIST_DESCRIPTION, true, {0, -1}},
     {"/info", info, INFO_DESCRIPTION, true, {0, -1}},
 };

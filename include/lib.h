@@ -25,7 +25,7 @@ void remove_quotes(char* str);
 
 FILE* open_file(const char* filename, const char* mode);
 
-void send_json_error_response(int client_socket_fd, int status_code,
+void send_json_error_response(int socket_fd, int status_code,
 const char* error_message);
 
 // ! DEBUG functions:

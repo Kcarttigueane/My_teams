@@ -11,7 +11,7 @@ static void add_client_socket_to_set(clients_t* clients,
 server_data_t* s)
 {
     for (size_t i = 0; i < MAX_CLIENTS; i++) {
-        int sd = clients[i].client_socket_fd;
+        int sd = clients[i].socket_fd;
         if (sd > 0)
             FD_SET(sd, &s->readfds);
     }
@@ -22,7 +22,7 @@ static int get_max_socket_descriptor(clients_t* clients, int server_socket)
     int max_socket_descriptor = server_socket;
 
     for (size_t i = 0; i < MAX_CLIENTS; i++) {
-        int sd = clients[i].client_socket_fd;
+        int sd = clients[i].socket_fd;
 
         if (sd > 0 && sd > max_socket_descriptor)
             max_socket_descriptor = sd;
