@@ -7,7 +7,7 @@
 
 #include "../../../include/server.h"
 
-void create(__attribute_maybe_unused__  list_args_t* args)
+void create(__attribute_maybe_unused__ list_args_t* args)
 {
     printf("CREATE\n");
 }

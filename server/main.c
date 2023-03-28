@@ -9,8 +9,7 @@
 
 int main(int argc, char const* argv[])
 {
-    if (!are_arguments_valid(argc, argv))
-        return ERROR;
+    if (!are_arguments_valid(argc, argv)) return ERROR;
 
     signal(SIGINT, sigint_handler);
     signal(SIGTERM, sigterm_handler);
@@ -21,10 +20,13 @@ int main(int argc, char const* argv[])
         .readfds = {{0}},
     };
 
+    database_t db = init_database();
+
     if (initialize_server(&server_data) == ERROR)
         return handle_error("Server initialization failed");
 
-    server_loop(&server_data);
+    server_loop(&server_data, &db);
 
+    free_database(&db);
     return SUCCESS;
 };

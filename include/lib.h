@@ -21,10 +21,19 @@ char* my_strcat(char* s1, char* s2);
 
 void free_word_array(char** map);
 
+void remove_quotes(char* str);
+
+FILE* open_file(const char* filename, const char* mode);
+
+void send_json_error_response(int socket_fd, int status_code,
+const char* error_message);
+
+bool is_start_json(char* line);
+bool is_end_json(char* line);
+
 // ! DEBUG functions:
 
 void debug_word_array(char** word_array);
-
 
 int handle_error(const char* msg);
 int handle_failure(const char* msg);
@@ -32,3 +41,7 @@ int handle_failure(const char* msg);
     // ! Regex functions:
 
 bool regex_match(const char* pattern, const char* string);
+
+// ! UUID functions:
+
+char* generate_uuid(void);

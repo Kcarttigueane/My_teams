@@ -5,7 +5,7 @@
 ** are_program_args_valid.c
 */
 
-#include "include/server.h"
+#include "../include/server.h"
 
 bool are_arguments_valid(int argc, char const* argv[])
 {

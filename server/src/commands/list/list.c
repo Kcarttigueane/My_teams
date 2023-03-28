@@ -7,7 +7,7 @@
 
 #include "../../../include/server.h"
 
-void list(__attribute_maybe_unused__  list_args_t* args)
+void list(list_args_t* args)
 {
     printf("LIST\n");
 }

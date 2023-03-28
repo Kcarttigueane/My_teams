@@ -28,8 +28,6 @@ static int select_socket(client_data_t* client)
 
 static int handle_inputs(client_data_t* client)
 {
-    printf("> ");
-
     if (FD_ISSET(STDIN_FILENO, &client->read_fds)) {
         if (handle_user_input(client) == ERROR) {
             return handle_error("Failed to handle user input.");

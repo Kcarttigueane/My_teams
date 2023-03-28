@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** MyTeams
 ** File description:
-** unsubsribe.c
+** unsubscribe.c
 */
 
 #include "../../include/server.h"
