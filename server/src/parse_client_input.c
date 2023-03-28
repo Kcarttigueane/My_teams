@@ -51,5 +51,5 @@ char* input_buffer, database_t* db)
         }
     }
     free_word_array(split_command);
-    printf("Command not found\n");
+    send_json_error_response(clients->socket_fd, 500, "Invalid command");
 }
