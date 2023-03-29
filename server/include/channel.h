@@ -41,11 +41,16 @@ bool is_channel_exist(database_t* db, char* team_uuid);
 
 bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid);
 bool remove_user_from_channel(database_t* db, char* channel_uuid,
+    char* user_uuid);
+
+bool remove_user_from_team_channels(database_t* db, char* team_uuid,
+char* user_uuid);
+bool add_user_to_team_channels(database_t* db, char* team_uuid,
 char* user_uuid);
 
 // ! LIST
 
-char* list_channels(database_t* db, char *team_uuid);
+char* list_channels(database_t* db, char* team_uuid);
 
 // ! FREE
 

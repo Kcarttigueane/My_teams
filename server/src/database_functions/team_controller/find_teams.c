@@ -13,8 +13,8 @@ team_t* find_team_by_uuid(database_t* db, char* team_uuid)
 
     LIST_FOREACH(team, &(db->teams), entries) {
         if (!strcmp(team->uuid, team_uuid))
-            break;
+            return team;
     }
-
-    return team;
+    printf("Error: Team not found\n");
+    return NULL;
 }

@@ -85,3 +85,5 @@ extern const char* INFO_TEAM;
 extern const char* INFO_CHANNEL;
 extern const char* INFO_THREAD;
 extern const char* INFO_USER;
+extern const char* SUBSCRIBE_TO_TEAM;
+extern const char* UNSUBSCRIBE_TO_TEAM;

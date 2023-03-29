@@ -20,7 +20,7 @@ void msgs(list_args_t* args)
         return;
     }
 
-    char* json_resp = list_discussion_messages(args->db, discussion);
+    char* json_resp = list_discussion_messages(discussion);
     send(args->client->socket_fd, json_resp, strlen(json_resp), 0);
     free(json_resp);
 }

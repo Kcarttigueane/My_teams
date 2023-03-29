@@ -7,7 +7,26 @@
 
 #include "../../include/server.h"
 
-void subscribe(__attribute_maybe_unused__ list_args_t* args)
+void subscribe(list_args_t* args)
 {
-    printf("SUBSCRIBE\r\n");
+    remove_quotes(args->split_command[1]);
+    team_t* team = find_team_by_uuid(args->db, args->split_command[1]);
+    if (team == NULL) {
+        send_error(args->client->socket_fd, 404, "Team not found");
+        return;
+    }
+    if (add_user_to_team(args->db, args->split_command[1],
+        args->client->current_user_uuid) == false) {
+        send_error(args->client->socket_fd, 400,
+        "Already subscribed or max nb of users in the team has been reached");
+        return;
+    }
+    if (add_user_to_team_channels(args->db, args->split_command[1],
+        args->client->current_user_uuid) == false) {
+        send_error(args->client->socket_fd, 400,
+        "Already subscribed or maximum number of users in the team "
+        "has been reached");
+        return;
+    }
+    dprintf(args->client->socket_fd, SUBSCRIBE_TO_TEAM, args->split_command[1]);
 }

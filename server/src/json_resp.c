@@ -138,3 +138,17 @@ const char* INFO_USER =
     "  \"username\": \"%s\",\n"
     "  \"user_uuid\": \"%s\"\n"
     "}\n";
+
+const char* SUBSCRIBE_TO_TEAM =
+    "{\n"
+    "  \"status\": 214,\n"
+    "  \"message\": \"Subscribed to team and channels\",\n"
+    "  \"team_uuid\": \"%s\"\n"
+    "}\n";
+
+const char *UNSUBSCRIBE_TO_TEAM =
+    "{\n"
+    "  \"status\": 215,\n"
+    "  \"message\": \"Unsubscribed to team and channels\",\n"
+    "  \"team_uuid\": \"%s\"\n"
+    "}\n";

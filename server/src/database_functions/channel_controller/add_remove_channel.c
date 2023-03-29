@@ -59,3 +59,36 @@ char* user_uuid)
 
     return true;
 }
+
+bool add_user_to_team_channels(database_t* db, char* team_uuid, char* user_uuid)
+{
+    channel_t* channel;
+
+    bool success = true;
+
+    LIST_FOREACH(channel, &(db->channels), entries) {
+        if (!strcmp(channel->team_uuid, team_uuid)) {
+            success =
+                success && add_user_to_channel(db, channel->uuid, user_uuid);
+        }
+    }
+
+    return success;
+}
+
+bool remove_user_from_team_channels(database_t* db, char* team_uuid,
+char* user_uuid)
+{
+    channel_t* channel;
+
+    bool success = true;
+
+    LIST_FOREACH(channel, &(db->channels), entries) {
+        if (!strcmp(channel->team_uuid, team_uuid)) {
+            success = success &&
+            remove_user_from_channel(db, channel->uuid, user_uuid);
+        }
+    }
+
+    return success;
+}

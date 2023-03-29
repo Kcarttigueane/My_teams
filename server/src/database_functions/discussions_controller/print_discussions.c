@@ -7,8 +7,7 @@
 
 #include "../../../include/server.h"
 
-static void append_messages(database_t* db, discussion_t* discussion,
-char* json)
+static void append_messages(discussion_t* discussion, char* json)
 {
     message_t* message;
 
@@ -27,8 +26,7 @@ char* json)
     }
 }
 
-static void append_messages_json(database_t* db, discussion_t* discussion,
-char* json)
+static void append_messages_json(discussion_t* discussion, char* json)
 {
     strncat(json,
     "  \"status\": 212,\n"
@@ -36,11 +34,11 @@ char* json)
     "  \"recipient_uuid\": \"user_uuid\",\n"
     "  \"messages\": [\n",
     BUFFER_SIZE - strlen(json) - 1);
-    append_messages(db, discussion, json);
+    append_messages(discussion, json);
     strncat(json, "  \n]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
-char* list_discussion_messages(database_t* db, discussion_t *discussion)
+char* list_discussion_messages(discussion_t *discussion)
 {
     char* json = (char *)malloc(BUFFER_SIZE * sizeof(char));
 
@@ -52,7 +50,7 @@ char* list_discussion_messages(database_t* db, discussion_t *discussion)
     debug_discussion(discussion);
 
     snprintf(json, BUFFER_SIZE, "{\n");
-    append_messages_json(db, discussion, json);
+    append_messages_json(discussion, json);
     strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     return json;

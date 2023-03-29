@@ -39,7 +39,7 @@ void free_discussion(discussion_t* discussion);
 
 // ! PRINT DISCUSSIONS :
 
-char* list_discussion_messages(database_t* db, discussion_t *discussion);
+char* list_discussion_messages(discussion_t *discussion);
 
 // ! DEBUG:
 
