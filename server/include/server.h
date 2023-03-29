@@ -14,7 +14,6 @@
         "USAGE: ./myteams_server port\n\n\
         \tport is the port number on which the server socket listens.\n"
 
-    #define MAX_CLIENTS 10
     #define BUFFER_SIZE 1024
 
     // ! My includes:

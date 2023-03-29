@@ -40,6 +40,7 @@ thread_t* find_thread_by_uuid(database_t* database, char* uuid);
 // ! LIST
 
 char* list_threads(database_t* db, char *channel_uuid);
+
 // ! LOAD
 
 void load_threads_from_file(database_t* db);

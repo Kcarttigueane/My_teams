@@ -18,8 +18,17 @@ typedef struct database {
     LIST_HEAD(users_head, user_s) users;
 } database_t;
 
+// ! INIT
+
 database_t init_database(void);
+
+// ! FREE
+
 void free_database(database_t* database);
+
+// ! SAVE
+
+void save_database(database_t* database);
 
 // ! SAVE AND LOAD [USERS]
 
@@ -45,3 +54,4 @@ void load_channels_from_file(database_t* db);
 
 void save_threads_to_file(database_t* db);
 void load_threads_from_file(database_t* db);
+

@@ -50,7 +50,8 @@
         MAX_NAME_LENGTH = 32,
         MAX_DESCRIPTION_LENGTH = 255,
         MAX_BODY_LENGTH = 512,
-        MAX_UUID_STR_LEN = 37
+        MAX_UUID_STR_LEN = 37,
+        MAX_CLIENTS = 10
     };
 
     #ifndef LIST_FOREACH_SAFE

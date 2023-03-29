@@ -6,7 +6,7 @@
 */
 
 #include <sys/queue.h>
-#include "../include/server.h"
+#include "../../include/server.h"
 
 database_t init_database(void)
 {
@@ -18,6 +18,15 @@ database_t init_database(void)
         .users = LIST_HEAD_INITIALIZER(database.users),
     };
     return database;
+}
+
+void save_database(database_t* database)
+{
+    save_teams_to_file(database);
+    save_channels_to_file(database);
+    save_threads_to_file(database);
+    save_discussions_to_file(database);
+    save_users_to_file(database);
 }
 
 void free_database(database_t* database)
