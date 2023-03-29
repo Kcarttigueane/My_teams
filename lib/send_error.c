@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2022
 ** B-NWP-400-LYN-4-1-myteams-jules.dutel
 ** File description:
-** send_json_error_response.c
+** send_error.c
 */
 
 #include "../include/lib.h"
 
-void send_json_error_response(int socket_fd, int status_code,
+void send_error(int socket_fd, int status_code,
 const char* error_message)
 {
     char* json_error_resp =

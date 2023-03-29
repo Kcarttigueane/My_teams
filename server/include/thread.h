@@ -52,4 +52,3 @@ void free_all_threads(database_t* db);
 // ! DEBUG
 
 void debug_thread(thread_t* new_thread);
-

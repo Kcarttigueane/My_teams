@@ -15,7 +15,7 @@ void msgs(list_args_t* args)
         args->db, args->client->current_user_uuid, args->split_command[1]);
 
     if (discussion == NULL) {
-        send_json_error_response(args->client->socket_fd, 530,
+        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Discussion not found");
         return;
     }

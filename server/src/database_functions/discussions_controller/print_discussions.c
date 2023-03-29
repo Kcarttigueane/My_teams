@@ -31,7 +31,7 @@ static void append_messages_json(database_t* db, discussion_t* discussion,
 char* json)
 {
     strncat(json,
-    "  \"status\": 221,\n"
+    "  \"status\": 212,\n"
     "  \"message\": \"Message list\",\n"
     "  \"recipient_uuid\": \"user_uuid\",\n"
     "  \"messages\": [\n",

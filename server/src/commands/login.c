@@ -10,20 +10,20 @@
 bool error_handling_login(list_args_t* args, char* username)
 {
     if (args->client->is_logged) {
-        send_json_error_response(args->client->socket_fd,
+        send_error(args->client->socket_fd,
         CONNECTION_DENIED, "Already logged in");
         return false;
     }
 
     if (strlen(username) > MAX_NAME_LENGTH) {
-        send_json_error_response(args->client->socket_fd,
+        send_error(args->client->socket_fd,
         CONNECTION_DENIED, "Username too long");
         args->client->is_logged = false;
         return false;
     }
 
     if (strlen(username) == 0) {
-        send_json_error_response(args->client->socket_fd,
+        send_error(args->client->socket_fd,
         CONNECTION_DENIED, "Username too short");
         args->client->is_logged = false;
         return false;
@@ -36,7 +36,7 @@ void create_and_log_user(list_args_t* args, char* username)
     user_t* user = create_user(args->db, username);
 
     if (user == NULL) {
-        send_json_error_response(args->client->socket_fd,
+        send_error(args->client->socket_fd,
         CONNECTION_DENIED, "Failed to create user");
         args->client->is_logged = false;
         return;

@@ -53,7 +53,7 @@ const char* USER_DETAILS =
 
 const char* SEND_MSG_JSON_REP =
     "{\n"
-    "  \"status\": 205,\n"
+    "  \"status\": 202,\n"
     "  \"message\": \"Message sent successfully\",\n"
     "  \"recipient_uuid\": \"%s\",\n"
     "  \"message_body\": \"%s\"\n"
@@ -61,7 +61,7 @@ const char* SEND_MSG_JSON_REP =
 
 const char* CREATE_TEAM =
     "{\n"
-    "  \"status\": 210,\n"
+    "  \"status\": 204,\n"
     "  \"message\": \"Team created\",\n"
     "  \"team_uuid\": \"%s\",\n"
     "  \"team_name\": \"%s\",\n"
@@ -70,7 +70,7 @@ const char* CREATE_TEAM =
 
 const char* CREATE_CHANNEL =
     "{\n"
-    "  \"status\": 210,\n"
+    "  \"status\": 205,\n"
     "  \"message\": \"Channel created\",\n"
     "  \"channel_uuid\": \"%s\",\n"
     "  \"channel_name\": \"%s\",\n"
@@ -79,7 +79,7 @@ const char* CREATE_CHANNEL =
 
 const char* CREATE_THREAD =
     "{\n"
-    "  \"status\": 210,\n"
+    "  \"status\": 206,\n"
     "  \"message\": \"Thread created\",\n"
     "  \"thread_uuid\": \"%s\",\n"
     "  \"thread_title\": \"%s\",\n"

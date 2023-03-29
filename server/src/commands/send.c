@@ -11,22 +11,19 @@ void send_msg(list_args_t* args)
 {
     remove_quotes(args->split_command[1]);
     if (find_user_by_uuid(args->db, args->split_command[1]) == NULL) {
-        send_json_error_response(args->client->socket_fd, 530,
-        "User not found");
+        send_error(args->client->socket_fd, 530, "User not found");
         return;
     }
     discussion_t* dis = create_discussion(args->db, args->split_command[1],
     args->client->current_user_uuid);
     if (dis == NULL) {
-        send_json_error_response(args->client->socket_fd, 530,
+        send_error(args->client->socket_fd, 530,
         "Impossible to create discussion");
         return;
     }
     if (add_message_to_discussion(args->db, args->client->current_user_uuid,
-    args->split_command[1],
-    args->split_command[2]) == false) {
-        send_json_error_response(args->client->socket_fd, 530,
-    "Message not sent");
+    args->split_command[1], args->split_command[2]) == false) {
+        send_error(args->client->socket_fd, 530, "Message not sent");
         return;
     }
     dprintf(args->client->socket_fd, SEND_MSG_JSON_REP, args->split_command[1],
