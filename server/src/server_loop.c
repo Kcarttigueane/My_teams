@@ -34,7 +34,7 @@ void server_loop(server_data_t* s, database_t* db)
 {
     clients_t *clients = calloc(MAX_CLIENTS, sizeof(clients_t));
     for (size_t i = 0; i < MAX_CLIENTS; i++)
-        clients[i].use_args_count = -1;
+        clients[i].use_args_count = FAILURE;
 
     struct timeval tv = {.tv_sec = 5, .tv_usec = 0};
 
