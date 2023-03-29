@@ -15,9 +15,9 @@ char* json)
         if (user != NULL) {
             char user_json[BUFFER_SIZE];
             snprintf(user_json, BUFFER_SIZE,
-                     "\t{\n\t  \"user_uuid\": \"%s\",\n\t  \"username\": "
-                     "\"%s\"\n\t},\n",
-                     user->uuid, user->username);
+            "\t{\n\t  \"user_uuid\": \"%s\",\n\t  \"username\": "
+            "\"%s\"\n\t},\n",
+            user->uuid, user->username);
             strncat(json, user_json, BUFFER_SIZE - strlen(json) - 1);
         }
     }
@@ -36,7 +36,7 @@ char* json)
             "  \"message\": \"Users subscribed to team\",\n",
             BUFFER_SIZE - strlen(json) - 1);
     snprintf(json + strlen(json), BUFFER_SIZE - strlen(json),
-             "  \"team_uuid\": \"%s\",\n", team->uuid);
+    "  \"team_uuid\": \"%s\",\n", team->uuid);
     strncat(json, "  \"users\": [\n", BUFFER_SIZE - strlen(json) - 1);
     append_subscribed_users_to_team(db, team, json);
     strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);

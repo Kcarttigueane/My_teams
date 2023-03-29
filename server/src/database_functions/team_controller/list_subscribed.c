@@ -24,9 +24,9 @@ static void append_subscribed_teams(database_t* db, char* user_uuid, char* json)
         if (find_user_in_team(team, user_uuid) >= 0) {
             char team_json[BUFFER_SIZE];
             snprintf(team_json, BUFFER_SIZE,
-                     "\t{\n\t  \"team_uuid\": \"%s\",\n\t  \"team_name\": "
-                     "\"%s\"\n\t},\n",
-                     team->uuid, team->name);
+            "\t{\n\t  \"team_uuid\": \"%s\",\n\t  \"team_name\": "
+            "\"%s\"\n\t},\n",
+            team->uuid, team->name);
             strncat(json, team_json, BUFFER_SIZE - strlen(json) - 1);
         }
     }
