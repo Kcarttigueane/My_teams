@@ -45,7 +45,7 @@ char* user_uuid);
 
 // ! LIST
 
-char* list_channels(database_t* db);
+char* list_channels(database_t* db, char *team_uuid);
 
 // ! FREE
 

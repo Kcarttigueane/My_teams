@@ -19,4 +19,4 @@ typedef struct reply_s {
 
 char* list_replies_for_thread(database_t* db, char* thread_uuid);
 reply_t* add_reply_to_thread(database_t* db, char* thread_uuid,
-char* reply_body, char* user_uuid);
+char* reply_body);
