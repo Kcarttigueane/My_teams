@@ -7,7 +7,7 @@
 
 #include "../../../include/server.h"
 
-static void append_replies_json(database_t* db, thread_t* thread, char* json)
+static void append_replies_json(thread_t* thread, char* json)
 {
     strncat(json,
             "  \"status\": 231,\n"
@@ -46,7 +46,7 @@ char* list_replies_for_thread(database_t* db, char* thread_uuid)
     }
 
     snprintf(json, BUFFER_SIZE, "{\n");
-    append_replies_json(db, thread, json);
+    append_replies_json(thread, json);
     strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     return json;

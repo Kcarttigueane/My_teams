@@ -45,9 +45,3 @@ void load_channels_from_file(database_t* db);
 
 void save_threads_to_file(database_t* db);
 void load_threads_from_file(database_t* db);
-
-// ! UTILS:
-
-bool is_channel_related_to_team(team_t* team, channel_t* channel);
-bool is_thread_related_to_channel_to_team(team_t* team, channel_t* channel,
-thread_t* thread);

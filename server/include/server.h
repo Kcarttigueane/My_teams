@@ -115,6 +115,11 @@ bool check_quoted_args(char** args);
 bool is_login_required(const clients_t* client, size_t cmd_index);
 bool handle_input_error(char** split_command);
 
+
+bool is_channel_related_to_team(team_t* team, channel_t* channel);
+bool is_thread_related_to_channel_to_team(team_t* team, channel_t* channel,
+thread_t* thread);
+
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
 
