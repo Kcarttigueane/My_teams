@@ -14,7 +14,7 @@ static ssize_t find_user_in_channel(channel_t* channel, const char* user_uuid)
             return (ssize_t)i;
         }
     }
-    return -1;
+    return FAILURE;
 }
 
 bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid)

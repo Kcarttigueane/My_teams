@@ -20,7 +20,7 @@ static void append_channels(database_t* db, char* json)
         "\"channel_team_uuid\": \"%s\",\n\t  "
         "\"channel_creator_uuid\": \"%s\",\n\t  "
         "\"channel_created_at\": \"%ld\",\n\t  "
-        "\"channel_nb_users\": \"%zu\"\n\t},\n",
+        "\"channel_nb_users\": \"%zu\"\n\t}",
         channel->uuid, channel->name, channel->description,
         channel->team_uuid, channel->creator_uuid,
         (long)channel->created_at, channel->nb_users);
@@ -33,10 +33,10 @@ static void append_channels_json(database_t* db, char* json)
     strncat(json,
             "  \"status\": 228,\n"
             "  \"message\": \"Channels list\",\n"
-            "  \"teams\": [\n",
+            "  \"channels\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
     append_channels(db, json);
-    strncat(json, "   \n]\n", BUFFER_SIZE - strlen(json) - 1);
+    strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 char* list_channels(database_t* db)

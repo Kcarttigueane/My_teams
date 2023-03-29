@@ -9,7 +9,7 @@
 
 static channel_t* create_channel_obj(create_channel_params_t* param)
 {
-    channel_t* new_channel = malloc(sizeof(channel_t));
+    channel_t* new_channel = (channel_t*)malloc(sizeof(channel_t));
 
     if (new_channel == NULL) {
         printf("Error: Failed to allocate memory for new channel\n");
@@ -24,7 +24,6 @@ static channel_t* create_channel_obj(create_channel_params_t* param)
     strncpy(new_channel->creator_uuid, param->creator_uuid, MAX_UUID_STR_LEN);
     strncpy(new_channel->team_uuid, param->team_uuid, MAX_UUID_STR_LEN);
     new_channel->nb_users = 0;
-    new_channel->users_count = 0;
     new_channel->created_at = time(NULL);
 
     free(channel_uuid);
