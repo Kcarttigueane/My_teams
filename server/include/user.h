@@ -24,3 +24,5 @@ void free_users(database_t* db);
 user_t* find_user_by_uuid(database_t* db, char* uuid);
 
 user_t* find_user_by_username(database_t* db, char* username);
+
+void debug_user(user_t* user);

@@ -39,5 +39,12 @@ void free_discussion(discussion_t* discussion);
 
 // ! PRINT DISCUSSIONS :
 
-void print_discussion_details(database_t* db, char* discussion_uuid);
-void print_all_messages_in_discussion(database_t* db, char* discussion_uuid);
+char* list_discussion_messages(database_t* db, discussion_t *discussion);
+
+// ! DEBUG:
+
+void debug_discussion(discussion_t* new_discussion);
+
+// ! LOAD DISCUSSIONS :
+
+void load_discussions_from_file(database_t* db);

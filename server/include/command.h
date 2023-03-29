@@ -81,3 +81,4 @@ extern const char* CREATE_TEAM;
 extern const char* CREATE_CHANNEL;
 extern const char* CREATE_THREAD;
 extern const char* CREATE_REPLY;
+extern const char* LIST_TEAM;

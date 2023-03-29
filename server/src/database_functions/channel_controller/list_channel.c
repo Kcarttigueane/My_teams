@@ -7,44 +7,50 @@
 
 #include "../../../include/server.h"
 
-void list_channels(database_t* db)
+static void append_channels(database_t* db, char* json)
 {
     channel_t* channel;
 
     LIST_FOREACH(channel, &(db->channels), entries) {
-        printf("Channel UUID: %s\n", channel->uuid);
-        printf("Channel name: %s\n", channel->name);
-        printf("Channel description: %s\n", channel->description);
-        printf("Channel creator UUID: %s\n", channel->creator_uuid);
-        printf("Channel team UUID: %s\n", channel->team_uuid);
-        printf("Current Unix timestamp: %ld\n", (long)channel->created_at);
-        printf("Channel users: ");
-
-        for (size_t i = 0; i < channel->nb_users; i++)
-            printf("%s ", channel->users[i]);
-
-        printf("\n\n");
+        debug_channel(channel);
+        char channel_json[BUFFER_SIZE];
+        snprintf(channel_json, BUFFER_SIZE,
+        "\t{\n\t  \"channel_uuid\": \"%s\",\n\t  \"channel_name\": "
+        "\"%s\",\n\t  \"channel_description\": \"%s\",\n\t  "
+        "\"channel_team_uuid\": \"%s\",\n\t  "
+        "\"channel_creator_uuid\": \"%s\",\n\t  "
+        "\"channel_created_at\": \"%ld\",\n\t  "
+        "\"channel_nb_users\": \"%zu\"\n\t}",
+        channel->uuid, channel->name, channel->description,
+        channel->team_uuid, channel->creator_uuid,
+        (long)channel->created_at, channel->nb_users);
+        strncat(json, channel_json, BUFFER_SIZE - strlen(json) - 1);
     }
 }
 
-void display_channel_info(database_t* db, char* channel_uuid)
+static void append_channels_json(database_t* db, char* json)
 {
-    channel_t* channel = find_channel_by_uuid(db, channel_uuid);
-    if (channel == NULL) {
-        printf("Error: Channel not found\n");
-        return;
+    strncat(json,
+            "  \"status\": 228,\n"
+            "  \"message\": \"Channels list\",\n"
+            "  \"channels\": [\n",
+            BUFFER_SIZE - strlen(json) - 1);
+    append_channels(db, json);
+    strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
+}
+
+char* list_channels(database_t* db)
+{
+    char* json = malloc(BUFFER_SIZE * sizeof(char));
+
+    if (json == NULL) {
+        printf("Error: Failed to allocate memory for JSON string\n");
+        return NULL;
     }
 
-    printf("Channel UUID: %s\n", channel->uuid);
-    printf("Channel name: %s\n", channel->name);
-    printf("Channel description: %s\n", channel->description);
-    printf("Channel creator UUID: %s\n", channel->creator_uuid);
-    printf("Channel team UUID: %s\n", channel->team_uuid);
-    printf("Current Unix timestamp: %ld\n", (long)channel->created_at);
-    printf("Channel users: \n");
+    snprintf(json, BUFFER_SIZE, "{\n");
+    append_channels_json(db, json);
+    strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
-    for (size_t i = 0; i < channel->nb_users; i++)
-        printf("    - %s\n", channel->users[i]);
-
-    printf("\n\n");
+    return json;
 }

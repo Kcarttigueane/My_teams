@@ -20,10 +20,11 @@ typedef struct team_s {
 } team_t;
 
 team_t* create_team(database_t* db, char* name, char* description);
-void list_teams(database_t* db);
+char* list_teams(database_t* db);
 void free_teams(database_t* db);
 bool is_team_exists(database_t* db, char* team_uuid);
-void display_team_info(database_t* db, char* team_uuid);
 bool add_user_to_team(database_t* db, char* team_uuid, char* user_uuid);
 bool remove_user_from_team(database_t* db, char* team_uuid, char* user_uuid);
 team_t* find_team_by_uuid(database_t* db, char* team_uuid);
+
+void debug_team(team_t* new_team);

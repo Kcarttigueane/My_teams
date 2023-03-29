@@ -34,10 +34,12 @@ static thread_t *create_thread_obj(create_thread_params_t *params)
 thread_t* create_thread(database_t* db, create_thread_params_t* params)
 {
     thread_t* new_thread = create_thread_obj(params);
+
     if (new_thread == NULL)
         return NULL;
 
     LIST_INIT(&(new_thread->replies));
+
     LIST_INSERT_HEAD(&(db->threads), new_thread, entries);
 
     return new_thread;

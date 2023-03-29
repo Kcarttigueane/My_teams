@@ -7,44 +7,53 @@
 
 #include "../../../include/server.h"
 
-void print_discussion_details(database_t* db, char* discussion_uuid)
+static void append_messages(database_t* db, discussion_t* discussion,
+char* json)
 {
-    discussion_t* discussion = find_discussion_by_uuid(db, discussion_uuid);
+    message_t* message;
 
-    if (discussion == NULL) {
-        printf("Error: Discussion not found\n");
-        return;
+    LIST_FOREACH(message, &(discussion->messages), entries) {
+        char message_json[BUFFER_SIZE];
+        snprintf(message_json, BUFFER_SIZE,
+        "\t{\n\t  \"message_body\": \"%s\",\n\t  \"timestamp\": "
+        "\"%ld\"\n\t},\n",
+        message->body, (long)message->created_at);
+        strncat(json, message_json, BUFFER_SIZE - strlen(json) - 1);
     }
 
-    printf("Discussion UUID: %s\n", discussion->uuid);
-    printf("Sender UUID: %s\n", discussion->sender_uuid);
-    printf("Receiver UUID: %s\n", discussion->receiver_uuid);
-    printf("Messages:\n");
-
-    message_t* message;
-    LIST_FOREACH(message, &(discussion->messages), entries) {
-        printf(" - %s\n", message->body);
-        printf("   Sender UUID: %s\n", message->sender_uuid);
-        printf("   Created at: %s", ctime(&(message->created_at)));
+    if (json[strlen(json) - 2] == ',') {
+        json[strlen(json) - 2] = '\n';
+        json[strlen(json) - 1] = '\0';
     }
 }
 
-void print_all_messages_in_discussion(database_t* db, char* discussion_uuid)
+static void append_messages_json(database_t* db, discussion_t* discussion,
+char* json)
 {
-    discussion_t* discussion = find_discussion_by_uuid(db, discussion_uuid);
+    strncat(json,
+    "  \"status\": 221,\n"
+    "  \"message\": \"Message list\",\n"
+    "  \"recipient_uuid\": \"user_uuid\",\n"
+    "  \"messages\": [\n",
+    BUFFER_SIZE - strlen(json) - 1);
+    append_messages(db, discussion, json);
+    strncat(json, "  \n]\n", BUFFER_SIZE - strlen(json) - 1);
+}
 
-    if (discussion == NULL) {
-        printf("Error: Discussion not found\n");
-        return;
+char* list_discussion_messages(database_t* db, discussion_t *discussion)
+{
+    char* json = (char *)malloc(BUFFER_SIZE * sizeof(char));
+
+    if (json == NULL) {
+        printf("Error: Failed to allocate memory for JSON string\n");
+        return NULL;
     }
 
-    printf("Messages in discussion with UUID %s:\n", discussion->uuid);
+    debug_discussion(discussion);
 
-    message_t* message;
+    snprintf(json, BUFFER_SIZE, "{\n");
+    append_messages_json(db, discussion, json);
+    strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
-    LIST_FOREACH(message, &(discussion->messages), entries) {
-        printf(" - %s\n", message->body);
-        printf("   Sender UUID: %s\n", message->sender_uuid);
-        printf("   Created at: %s", ctime(&(message->created_at)));
-    }
+    return json;
 }
