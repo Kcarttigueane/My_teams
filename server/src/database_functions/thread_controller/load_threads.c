@@ -7,8 +7,7 @@
 
 #include "../../../include/server.h"
 
-static void handle_curly_brace(database_t* db, thread_t** current_thread,
-reply_t** current_reply)
+static void handle_curly_brace(database_t* db, thread_t** current_thread)
 {
     if (*current_thread) {
         reply_t* reply = (reply_t*)calloc(1, sizeof(reply_t));
@@ -67,7 +66,7 @@ void load_threads_from_file(database_t* db)
 
     while (fgets(line, sizeof(line), file)) {
         (strstr(line, "{")) ?
-        handle_curly_brace(db, &current_thread, &current_reply) :
+        handle_curly_brace(db, &current_thread) :
         (strstr(line, "}")) ?
         handle_closing_brace(&current_thread, &current_reply) :
         (current_thread) ?

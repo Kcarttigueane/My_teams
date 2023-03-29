@@ -45,8 +45,7 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params)
     return new_thread;
 }
 
-static reply_t* create_reply_obj(char* thread_uuid, char* reply_body,
-char* user_uuid)
+static reply_t* create_reply_obj(char* thread_uuid, char* reply_body)
 {
     reply_t* new_reply = (reply_t *)malloc(sizeof(reply_t));
 
@@ -68,7 +67,7 @@ char* user_uuid)
 }
 
 reply_t* add_reply_to_thread(database_t* db, char* thread_uuid,
-char* reply_body, char* user_uuid)
+char* reply_body)
 {
     thread_t* thread = find_thread_by_uuid(db, thread_uuid);
 
@@ -77,7 +76,7 @@ char* reply_body, char* user_uuid)
         return NULL;
     }
 
-    reply_t* new_reply = create_reply_obj(thread_uuid, reply_body, user_uuid);
+    reply_t* new_reply = create_reply_obj(thread_uuid, reply_body);
 
     if (new_reply == NULL)
         return NULL;

@@ -61,8 +61,7 @@ static void handle_create_thread(list_args_t* args)
 static void handle_create_reply(list_args_t* args)
 {
     reply_t* new_reply = add_reply_to_thread(
-        args->db, args->client->current_team_uuid, args->split_command[2],
-        args->client->current_user_uuid);
+        args->db, args->client->current_team_uuid, args->split_command[2]);
 
     if (new_reply == NULL) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
