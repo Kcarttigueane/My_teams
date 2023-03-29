@@ -14,7 +14,8 @@ void check_command_args(list_args_t* args, size_t cmd_index)
     bool login_required = is_login_required(args->client, cmd_index);
 
     if (login_required) {
-        printf("You need to be logged in to use this command\n");
+        send_error(args->client->socket_fd, UNAUTHORIZED,
+        "You need to be logged in");
         return;
     }
 
@@ -24,9 +25,8 @@ void check_command_args(list_args_t* args, size_t cmd_index)
             return;
         }
     }
-
-    printf("Invalid number of arguments for command %s\n",
-    COMMANDS_DATA[cmd_index].name);
+    send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+    "Invalid number of arguments");
 }
 
 void parse_client_input(clients_t* clients, server_data_t* s,
@@ -51,5 +51,5 @@ char* input_buffer, database_t* db)
         }
     }
     free_word_array(split_command);
-    send_error(clients->socket_fd, 500, "Invalid command");
+    send_error(clients->socket_fd, INTERNAL_SERVER_ERROR, "Invalid command");
 }
