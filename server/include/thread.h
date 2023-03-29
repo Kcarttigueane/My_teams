@@ -29,8 +29,27 @@ typedef struct create_thread_params_s {
     char creator_uuid[MAX_UUID_STR_LEN];
 } create_thread_params_t;
 
+// ! CREATE
+
 thread_t* create_thread(database_t* db, create_thread_params_t* params);
-void list_threads(database_t* db);
-void free_all_threads(database_t* db);
-void list_replies_for_thread(database_t* db, char* thread_uuid);
+
+// ! FIND
+
 thread_t* find_thread_by_uuid(database_t* database, char* uuid);
+
+// ! LIST
+
+void list_threads(database_t* db);
+
+// ! LOAD
+
+void load_threads_from_file(database_t* db);
+
+// ! FREE
+
+void free_all_threads(database_t* db);
+
+// ! DEBUG
+
+void debug_thread(thread_t* new_thread);
+

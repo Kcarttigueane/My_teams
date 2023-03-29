@@ -19,7 +19,7 @@ int handle_server_input(client_data_t* client, char* buffer)
     printf(RED);
     printf("---------------Received from server:----------------\n");
     printf(YELLOW);
-    printf("%s", buffer);
+    printf("%s\n", buffer);
     printf(RED);
     printf("-----------End of received from server:-----------\n");
     printf(RESET);

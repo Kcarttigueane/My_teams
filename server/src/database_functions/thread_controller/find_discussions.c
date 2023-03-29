@@ -15,6 +15,6 @@ thread_t* find_thread_by_uuid(database_t* database, char* uuid)
         if (!strcmp(thread->uuid, uuid))
             return thread;
     }
-
+    printf("Error: Thread not found\n");
     return NULL;
 }

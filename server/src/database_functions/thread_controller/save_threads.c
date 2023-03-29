@@ -41,6 +41,7 @@ void save_thread(FILE* file, thread_t* thread)
     fprintf(file, "    \"related_channel_uuid\": \"%s\",\n",
     thread->related_channel_uuid);
     fprintf(file, "    \"creator_uuid\": \"%s\",\n", thread->creator_uuid);
+    fprintf(file, "    \"created_at\": \"%ld\",\n", thread->created_at);
     save_replies(file, thread);
     fprintf(file, " }");
 }

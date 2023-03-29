@@ -32,7 +32,7 @@ static void append_teams(database_t* db, char* json)
 static void append_teams_json(database_t* db, char* json)
 {
     strncat(json,
-            "  \"status\": 228,\n"
+            "  \"status\": 211,\n"
             "  \"message\": \"Teams list\",\n"
             "  \"teams\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
@@ -53,6 +53,5 @@ char* list_teams(database_t* db)
     append_teams_json(db, json);
     strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
-    printf("%s\n", json);
     return json;
 }

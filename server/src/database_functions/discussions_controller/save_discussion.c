@@ -12,7 +12,8 @@ void save_message(FILE* file, message_t* message)
     fprintf(file, "      {\n");
     fprintf(file, "        \"uuid\": \"%s\",\n", message->uuid);
     fprintf(file, "        \"body\": \"%s\",\n", message->body);
-    fprintf(file, "        \"sender_uuid\": \"%s\"\n", message->sender_uuid);
+    fprintf(file, "        \"sender_uuid\": \"%s\",\n", message->sender_uuid);
+    fprintf(file, "        \"created_at\": \"%ld\"\n", message->created_at);
     fprintf(file, "      }");
 }
 
@@ -22,7 +23,7 @@ void save_discussion(FILE* file, discussion_t* discussion)
     fprintf(file, "    \"uuid\": \"%s\",\n", discussion->uuid);
     fprintf(file, "    \"sender_uuid\": \"%s\",\n", discussion->sender_uuid);
     fprintf(file, "    \"receiver_uuid\": \"%s\",\n",
-            discussion->receiver_uuid);
+    discussion->receiver_uuid);
     fprintf(file, "    \"messages\": [\n");
 
     message_t* message;
