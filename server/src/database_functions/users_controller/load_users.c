@@ -9,14 +9,14 @@
 
 static user_t* create_new_user(database_t* db)
 {
-    user_t* user = (user_t*)malloc(sizeof(user_t));
+    user_t* user = (user_t*)calloc(1, sizeof(user_t));
     LIST_INSERT_HEAD(&db->users, user, entries);
     return user;
 }
 
 static void set_user_field(user_t* user, char* line)
 {
-    char key[64], value[64];
+    char key[64] = {0}, value[64] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
 
     if (!strcmp(key, "uuid")) {
