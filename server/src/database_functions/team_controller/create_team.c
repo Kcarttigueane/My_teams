@@ -10,9 +10,9 @@
 
 static team_t* create_team_object(char* name, char* description)
 {
-    team_t* new_team = malloc(sizeof(team_t));
+    team_t* new_team = (team_t*)malloc(sizeof(team_t));
 
-    if (new_team == NULL) {
+    if (!new_team) {
         printf("Error: Failed to allocate memory for new team\n");
         return NULL;
     }

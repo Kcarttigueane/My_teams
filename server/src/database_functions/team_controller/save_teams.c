@@ -14,6 +14,7 @@ static void write_team_to_file(FILE* file, team_t* team)
     fprintf(file, "    \"name\": \"%s\",\n", team->name);
     fprintf(file, "    \"description\": \"%s\",\n", team->description);
     fprintf(file, "    \"users_count\": %d,\n", team->users_count);
+    fprintf(file, "    \"created_at\": \"%ld\",\n", team->created_at);
 
     fprintf(file, "    \"users\": [\n");
     for (int i = 0; i < team->users_count; ++i) {
