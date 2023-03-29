@@ -6,9 +6,9 @@
 */
 
 #ifndef LIB_MYTEAMS_LOGGING_CLIENT_H
-#define LIB_MYTEAMS_LOGGING_CLIENT_H
+    #define LIB_MYTEAMS_LOGGING_CLIENT_H
 
-#include <time.h>
+    #include <time.h>
 
 /*
 ** The functions that have event in their name are called when you receive

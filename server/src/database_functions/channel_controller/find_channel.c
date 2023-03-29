@@ -15,6 +15,6 @@ channel_t* find_channel_by_uuid(database_t* db, char* channel_uuid)
         if (!strcmp(channel->uuid, channel_uuid))
             return channel;
     }
-
+    printf("Error: Channel not found\n");
     return NULL;
 }

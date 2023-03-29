@@ -6,7 +6,7 @@
 */
 
 #ifndef LIB_MYTEAMS_LOGGING_SERVER_H
-#define LIB_MYTEAMS_LOGGING_SERVER_H
+    #define LIB_MYTEAMS_LOGGING_SERVER_H
 
 /*
 ** As the server never initialize an action all function here are called events
