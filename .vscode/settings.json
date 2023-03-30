@@ -71,7 +71,8 @@
     "locale_t.h": "c",
     "reply.h": "c",
     "string.h": "c",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "logging_client.h": "c"
   },
   "cSpell.words": ["myteams"]
 }

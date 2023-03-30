@@ -15,6 +15,7 @@ int handle_server_input(client_data_t* client, char* buffer)
     if (bytes_received <= 0) {
         exit_with_error("Server closed connection.\n");
     }
+
     printf(RED);
     printf("---------------Received from server:----------------\n");
     printf(YELLOW);

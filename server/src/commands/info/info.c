@@ -15,7 +15,7 @@ void handle_info_user(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "User not found");
     else
-        dprintf(args->client->socket_fd, INFO_USER, USER_INFO, user->username,
+        dprintf(args->client->socket_fd, INFO_USER, INFO_USER, user->username,
         user->uuid);
 }
 
@@ -27,7 +27,7 @@ void handle_info_team(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Team not found");
     else
-        dprintf(args->client->socket_fd, INFO_TEAM, TEAM_INFO, team->uuid,
+        dprintf(args->client->socket_fd, INFO_TEAM, INFO_TEAM, team->uuid,
         team->name, team->description, team->users_count,
         ctime(&team->created_at));
 }
@@ -41,7 +41,7 @@ static void handle_info_channel(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Channel not found");
     else
-        dprintf(args->client->socket_fd, INFO_CHANNEL, CHANNEL_INFO,
+        dprintf(args->client->socket_fd, INFO_CHANNEL, INFO_CHANNEL,
         channel->uuid, channel->name, channel->description, channel->team_uuid,
         channel->nb_users, ctime(&channel->created_at));
 }
@@ -55,7 +55,7 @@ static void handle_info_thread(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Thread not found");
     else
-        dprintf(args->client->socket_fd, INFO_THREAD, THREAD_INFO, thread->uuid,
+        dprintf(args->client->socket_fd, INFO_THREAD, INFO_THREAD, thread->uuid,
         thread->title, thread->message, thread->related_channel_uuid,
         thread->creator_uuid, ctime(&thread->created_at));
 }
