@@ -41,6 +41,8 @@ const char* LOGOUT_JSON_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Logout successful\"\n"
+    "  \"username\": \"%s\"\n"
+    "  \"user_uuid\": \"%s\"\n"
     "}\n";
 
 const char* USER_DETAILS_RESP =
