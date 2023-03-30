@@ -11,4 +11,3 @@ void channel_created(void)
 {
     printf("Channel created\n");
 }
-

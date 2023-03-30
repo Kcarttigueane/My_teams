@@ -12,8 +12,8 @@
 
     #define CLIENT_USAGE \
         "USAGE: ./myteams_cli ip port\n\
-                \tip is the server ip address on which the server socket listens\n\
-                \tport is the port number on which the server socket listens\n"
+            \tip is the server ip address on which the server socket listens\n\
+            \tport is the port number on which the server socket listens\n"
 
     #define DEFAULT_TIMEOUT 5
 
