@@ -7,7 +7,18 @@
 
 #include "../../include/server.h"
 
-void logout(__attribute_maybe_unused__ list_args_t* args)
+void logout(list_args_t* args)
 {
-    printf("LOGOUT\n");
+    if (args->client->is_logged == false) {
+        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+        "Not logged in");
+        return;
+    }
+
+    args->client->current_user_uuid[0] = '\0';
+    args->client->is_logged = false;
+
+    dprintf(args->client->socket_fd, LOGOUT_JSON_REP, DISCONNECTION_SUCCESSFUL);
+
+    printf("User %s logged out\n", args->client->current_user_uuid);
 }

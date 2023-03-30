@@ -1,19 +1,20 @@
 /*
 ** EPITECH PROJECT, 2022
-** Repository-MyFTP
+** MyTeams
 ** File description:
 ** open_file.c
 */
 
-#include "../include/lib.h"
+#include <stdio.h>
 
-FILE* open_file(char* file_name, int control_socket, char* message)
+FILE* open_file(const char* filename, const char* mode)
 {
-    FILE* file = fopen(file_name, "rb");
+    FILE* fp = fopen(filename, mode);
 
-    if (file == NULL) {
-        dprintf(control_socket, message, file_name);
+    if (fp == NULL) {
+        fprintf(stdout, "Error opening file %s\n", filename);
         return NULL;
     }
-    return file;
+
+    return fp;
 }

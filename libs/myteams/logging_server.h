@@ -21,8 +21,10 @@
 ** Commands:
 ** /create "team_name" "team_description"
 **/
-int server_event_team_created(char const* team_uuid, char const* team_name,
-char const* user_uuid);
+int server_event_team_created(
+    char const *team_uuid,
+    char const *team_name,
+    char const *user_uuid);
 
 /**
 ** @brief Must be called when a new channel is created
@@ -33,9 +35,10 @@ char const* user_uuid);
 ** Commands:
 ** /create "channel_name" "channel_description"
 **/
-int server_event_channel_created(char const* team_uuid,
-char const* channel_uuid,
-char const* channel_name);
+int server_event_channel_created(
+    char const *team_uuid,
+    char const *channel_uuid,
+    char const *channel_name);
 
 /**
 ** @brief Must be called when a new thread is created
@@ -48,10 +51,12 @@ char const* channel_name);
 ** Commands:
 ** /create "thread_title" "thread_body"
 **/
-int server_event_thread_created(char const* channel_uuid,
-char const* thread_uuid, char const* user_uuid,
-char const* thread_title,
-char const* thread_body);
+int server_event_thread_created(
+    char const *channel_uuid,
+    char const *thread_uuid,
+    char const *user_uuid,
+    char const *thread_title,
+    char const *thread_body);
 
 /**
 ** @brief Must be called when a new reply is created in a thread
@@ -62,8 +67,10 @@ char const* thread_body);
 ** Commands:
 ** /create "reply_body"
 **/
-int server_event_reply_created(char const* thread_uuid, char const* user_uuid,
-char const* reply_body);
+int server_event_reply_created(
+    char const *thread_uuid,
+    char const *user_uuid,
+    char const *reply_body);
 
 /**
 ** @brief Must be called when a user subscribe to a team
@@ -73,7 +80,7 @@ char const* reply_body);
 ** Commands:
 ** /subscribe "team_uuid"
 **/
-int server_event_user_subscribed(char const* team_uuid, char const* user_uuid);
+int server_event_user_subscribed(char const *team_uuid, char const *user_uuid);
 
 /**
 ** @brief Must be called when a user unsubscribe from a team
@@ -83,8 +90,7 @@ int server_event_user_subscribed(char const* team_uuid, char const* user_uuid);
 ** Commands:
 ** /unsubscribe "team_uuid"
 **/
-int server_event_user_unsubscribed(char const* team_uuid,
-char const* user_uuid);
+int server_event_user_unsubscribed(char const *team_uuid, char const *user_uuid);
 
 /**
 ** @brief Must be called when a user didn't existed in save and was created
@@ -94,7 +100,7 @@ char const* user_uuid);
 ** Commands:
 ** /login "user_name"
 **/
-int server_event_user_created(char const* user_uuid, char const* user_name);
+int server_event_user_created(char const *user_uuid, char const *user_name);
 
 /**
 ** @brief Must be called when a user was loaded from the save file
@@ -106,7 +112,7 @@ int server_event_user_created(char const* user_uuid, char const* user_name);
 ** Commands:
 ** None, should be used at server start
 **/
-int server_event_user_loaded(char const* user_uuid, char const* user_name);
+int server_event_user_loaded(char const *user_uuid, char const *user_name);
 
 /**
 ** @brief Must be called when a user logged in
@@ -115,7 +121,7 @@ int server_event_user_loaded(char const* user_uuid, char const* user_name);
 ** Commands:
 ** /login
 **/
-int server_event_user_logged_in(char const* user_uuid);
+int server_event_user_logged_in(char const *user_uuid);
 
 /**
 ** @brief Must be called when a user logged out
@@ -125,7 +131,7 @@ int server_event_user_logged_in(char const* user_uuid);
 ** /logout
 ** When a user lost connexion to the server
 **/
-int server_event_user_logged_out(char const* user_uuid);
+int server_event_user_logged_out(char const *user_uuid);
 
 /**
 ** @brief Must be called when a private message was sent between users
@@ -136,8 +142,11 @@ int server_event_user_logged_out(char const* user_uuid);
 ** Commands:
 ** /send "user_uuid" "message_body"
 **/
-int server_event_private_message_sended(char const* sender_uuid,
-char const* receiver_uuid,
-char const* message_body);
+int server_event_private_message_sended(
+    char const *sender_uuid,
+    char const *receiver_uuid,
+    char const *message_body);
+
+
 
 #endif /* LIB_MYTEAMS_LOGGING_SERVER_H */

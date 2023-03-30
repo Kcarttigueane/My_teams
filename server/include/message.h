@@ -8,8 +8,9 @@
 #pragma once
 
 typedef struct message_s {
-    char uuid[MAX_UUID_STR_LEN];  // Message unique identifier
-    char body[MAX_BODY_LENGTH];  // Message body
-    user_t* sender;          // Pointer to the sender user
-    struct message_s* next;  // Pointer to the next message in the linked list
+    char uuid[MAX_UUID_STR_LEN];
+    char body[MAX_BODY_LENGTH];
+    char sender_uuid[MAX_UUID_STR_LEN];
+    time_t created_at;
+    LIST_ENTRY(message_s) entries;
 } message_t;

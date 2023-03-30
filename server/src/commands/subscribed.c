@@ -7,7 +7,13 @@
 
 #include "../../include/server.h"
 
-void subscribed(__attribute_maybe_unused__ list_args_t* args)
+void subscribed(list_args_t* args)
 {
-    printf("SUBSCRIBED\n");
+    size_t size = get_size_word_array(args->split_command) - 1;
+
+    if (size == 0) {
+        list_subscribed_teams(args->db, args->client->current_user_uuid);
+    } else if (size == 1) {
+        list_users_subscribed_to_team(args->db, args->split_command[1]);
+    }
 }

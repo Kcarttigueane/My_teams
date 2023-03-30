@@ -15,8 +15,6 @@
             \tip is the server ip address on which the server socket listens\n\
             \tport is the port number on which the server socket listens\n"
 
-    #define BUFFER_SIZE 1024
-
     #define DEFAULT_TIMEOUT 5
 
     // ! My includes:

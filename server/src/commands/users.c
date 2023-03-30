@@ -7,7 +7,9 @@
 
 #include "../../include/server.h"
 
-void users(__attribute_maybe_unused__ list_args_t* args)
+void users(list_args_t* args)
 {
-    printf("USERS\r\n");
+    char* json_users_resp = print_users(args->db);
+
+    send(args->client->socket_fd, json_users_resp, strlen(json_users_resp), 0);
 }

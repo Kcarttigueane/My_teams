@@ -7,7 +7,20 @@
 
 #include "../../include/server.h"
 
-void msgs(__attribute_maybe_unused__ list_args_t* args)
+void msgs(list_args_t* args)
 {
-    printf("SEND\r\n");
+    remove_quotes(args->split_command[1]);
+
+    discussion_t* discussion = find_discussion_by_users(
+        args->db, args->client->current_user_uuid, args->split_command[1]);
+
+    if (discussion == NULL) {
+        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+        "Discussion not found");
+        return;
+    }
+
+    char* json_resp = list_discussion_messages(discussion);
+    send(args->client->socket_fd, json_resp, strlen(json_resp), 0);
+    free(json_resp);
 }
