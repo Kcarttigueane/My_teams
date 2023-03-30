@@ -16,7 +16,7 @@ SRCS = $(shell find ../lib -type f -name "*.c") \
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
-CFLAGS += -Wall -Wextra -I ../include -g3 -luuid
+CFLAGS += -Wall -Wextra -I ../include -g3 -L ../libs/myteams/ -lmyteams -luuid
 
 # Add color to output
 COLOR_RESET   = \033[0m
