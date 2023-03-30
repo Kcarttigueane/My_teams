@@ -10,6 +10,7 @@
 void send_msg(list_args_t* args)
 {
     remove_quotes(args->split_command[1]);
+    remove_quotes(args->split_command[2]);
     if (find_user_by_uuid(args->db, args->split_command[1]) == NULL) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "User not found");
@@ -28,6 +29,6 @@ void send_msg(list_args_t* args)
         return;
     }
     dprintf(args->client->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_SENT,
-    args->split_command[1], args->split_command[2]);
+    args->client->current_user_uuid, args->split_command[2]);
     printf("Message sent to discussion %s\n", args->split_command[1]);
 }
