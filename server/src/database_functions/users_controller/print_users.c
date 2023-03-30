@@ -12,12 +12,13 @@ static void append_users(database_t* db, char* json)
     user_t* user;
 
     LIST_FOREACH(user, &(db->users), entries) {
-        char user_json[1024];
-        snprintf(
-            user_json, 1024,
-            "\t{\n\t  \"username\": \"%s\",\n\t  \"user_uuid\": \"%s\"\n\t},\n",
-            user->username, user->uuid);
-        strncat(json, user_json, 1024 - strlen(json) - 1);
+        char user_json[BUFFER_SIZE];
+        snprintf(user_json, BUFFER_SIZE,
+        "\t{\n\t  \"username\": \"%s\",\n\t  \"user_uuid\": "
+        "\"%s\",\n\t  \"is_logged_in\": %s\n\t},\n",
+        user->username, user->uuid,
+        user->is_logged_in ? "true" : "false");
+        strncat(json, user_json, BUFFER_SIZE - strlen(json) - 1);
     }
 
     if (json[strlen(json) - 2] == ',') {
@@ -29,26 +30,26 @@ static void append_users(database_t* db, char* json)
 static void append_users_json(database_t* db, char* json)
 {
     strncat(json,
-            "  \"status\": 203,\n"
-            "  \"message\": \"Users listed\",\n"
-            "  \"users\": [\n",
-            1024 - strlen(json) - 1);
+    "  \"status\": 207,\n"
+    "  \"message\": \"Users listed\",\n"
+    "  \"users\": [\n",
+    BUFFER_SIZE - strlen(json) - 1);
     append_users(db, json);
-    strncat(json, "   \n]\n", 1024 - strlen(json) - 1);
+    strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 char* print_users(database_t* db)
 {
-    char* json = malloc(1024 * sizeof(char));
+    char* json = malloc(BUFFER_SIZE * sizeof(char));
 
     if (json == NULL) {
         printf("Error: Failed to allocate memory for JSON string\n");
         return NULL;
     }
 
-    snprintf(json, 1024, "{\n");
+    snprintf(json, BUFFER_SIZE, "{\n");
     append_users_json(db, json);
-    strncat(json, "}", 1024 - strlen(json) - 1);
+    strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     return json;
 }
