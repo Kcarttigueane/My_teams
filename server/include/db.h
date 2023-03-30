@@ -54,4 +54,3 @@ void load_channels_from_file(database_t* db);
 
 void save_threads_to_file(database_t* db);
 void load_threads_from_file(database_t* db);
-

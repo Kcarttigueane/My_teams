@@ -17,6 +17,10 @@
 
     #define DEFAULT_TIMEOUT 5
 
+    #define MAX_COMMAND_LENGTH 1000
+    #define MAX_ARGUMENTS 10
+    #define MAX_ARGUMENT_LENGTH 100
+
     // ! My includes:
 
     #include "../../include/my_teams.h"

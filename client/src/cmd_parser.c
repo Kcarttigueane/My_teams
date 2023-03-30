@@ -5,13 +5,7 @@
 ** test
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_COMMAND_LENGTH 1000
-#define MAX_ARGUMENTS 10
-#define MAX_ARGUMENT_LENGTH 100
+#include "../include/client.h"
 
 char *parse_quoted_string(char *str)
 {
