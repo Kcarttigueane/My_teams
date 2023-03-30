@@ -13,8 +13,7 @@ int handle_server_input(client_data_t* client, char* buffer)
     ssize_t bytes_received = recv(client->socket_fd, buffer, BUFFER_SIZE, 0);
 
     if (bytes_received <= 0) {
-        fprintf(stderr, "Server closed connection.\n");
-        return FAILURE;
+        exit_with_error("Server closed connection.\n");
     }
     printf(RED);
     printf("---------------Received from server:----------------\n");
