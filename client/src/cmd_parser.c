@@ -62,17 +62,3 @@ char **parse_command(char *command)
     args[i] = NULL;
     return args;
 }
-
-int main(void)
-{
-    char command[MAX_COMMAND_LENGTH] = "/use \"argument 1\" argument azerty \"a b c d\te f g h\"";
-    char **args = parse_command(command);
-
-    for (int i = 0; args[i] != NULL; i++) {
-        printf("|%s|", args[i]);
-    }
-
-    free(args);
-
-    return 0;
-}
