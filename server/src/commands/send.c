@@ -27,7 +27,7 @@ void send_msg(list_args_t* args)
         send_error(args->client->socket_fd, 530, "Message not sent");
         return;
     }
-    dprintf(args->client->socket_fd, SEND_MSG_JSON_REP, MESSAGE_SENT,
+    dprintf(args->client->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_SENT,
     args->split_command[1], args->split_command[2]);
     printf("Message sent to discussion %s\n", args->split_command[1]);
 }

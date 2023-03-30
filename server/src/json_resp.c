@@ -7,7 +7,7 @@
 
 #include "../include/server.h"
 
-const char* HELP_JSON_REP =
+const char* HELP_JSON_RESP =
     "{\n"
     "  \"status\": 202,\n"
     "  \"message\": \"Help listed\",\n"
@@ -29,7 +29,7 @@ const char* HELP_JSON_REP =
     "   ]\n"
     "}\n";
 
-const char* LOGIN_JSON_REP =
+const char* LOGIN_JSON_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Connection successful\",\n"
@@ -37,13 +37,13 @@ const char* LOGIN_JSON_REP =
     "  \"user_uuid\": \"%s\"\n"
     "}\n";
 
-const char* LOGOUT_JSON_REP =
+const char* LOGOUT_JSON_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Logout successful\"\n"
     "}\n";
 
-const char* USER_DETAILS =
+const char* USER_DETAILS_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"User information\"\n"
@@ -51,7 +51,7 @@ const char* USER_DETAILS =
     "  \"user_uuid\": \"%s\"\n"
     "}\n";
 
-const char* SEND_MSG_JSON_REP =
+const char* SEND_MSG_JSON_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Message sent successfully\",\n"
@@ -59,7 +59,7 @@ const char* SEND_MSG_JSON_REP =
     "  \"message_body\": \"%s\"\n"
     "}\n";
 
-const char* CREATE_TEAM =
+const char* CREATE_TEAM_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Team created\",\n"
@@ -68,7 +68,7 @@ const char* CREATE_TEAM =
     "  \"team_description\": \"%s\"\n"
     "}\n";
 
-const char* CREATE_CHANNEL =
+const char* CREATE_CHANNEL_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Channel created\",\n"
@@ -77,7 +77,7 @@ const char* CREATE_CHANNEL =
     "  \"channel_description\": \"%s\"\n"
     "}\n";
 
-const char* CREATE_THREAD =
+const char* CREATE_THREAD_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Thread created\",\n"
@@ -87,7 +87,7 @@ const char* CREATE_THREAD =
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
 
-const char* CREATED_REPLY =
+const char* CREATED_REPLY_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Reply created\",\n"
@@ -96,7 +96,7 @@ const char* CREATED_REPLY =
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
 
-const char* INFO_TEAM =
+const char* INFO_TEAM_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Team listed\",\n"
@@ -107,7 +107,7 @@ const char* INFO_TEAM =
     "  \"created_at\" \": \"%s\"\n"
     "}\n";
 
-const char* INFO_CHANNEL =
+const char* INFO_CHANNEL_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Channel listed\",\n"
@@ -119,7 +119,7 @@ const char* INFO_CHANNEL =
     "  \"created_at\" \": \"%s\"\n"
     "}\n";
 
-const char* INFO_THREAD =
+const char* INFO_THREAD_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Thread listed\",\n"
@@ -131,7 +131,7 @@ const char* INFO_THREAD =
     "  \"created_at\" \": \"%s\"\n"
     "}\n";
 
-const char* INFO_USER =
+const char* INFO_USER_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Info User\",\n"

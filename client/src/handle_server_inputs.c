@@ -8,6 +8,19 @@
 #include "../include/client.h"
 #include "../include/color.h"
 
+void analyze_server_response(client_data_t* client, char* buffer)
+{
+    int status_code = get_status_code(buffer);
+
+    for (size_t i = 0; i < LIST_EVENTS_CODE_SIZE; i++) {
+        if (status_code == LIST_EVENTS_CODE[i].status_code) {
+            LIST_EVENTS_CODE[i].function();
+            printf("Event received: %s\n", ENDPOINTS_LIST[i]);
+            break;
+        }
+    }
+}
+
 int handle_server_input(client_data_t* client, char* buffer)
 {
     ssize_t bytes_received = recv(client->socket_fd, buffer, BUFFER_SIZE, 0);
@@ -27,6 +40,8 @@ int handle_server_input(client_data_t* client, char* buffer)
     printf("%s", CLIENT_PROMPT);
     printf(RESET);
     fflush(stdout);
+
+    analyze_server_response(client, buffer);
 
     return SUCCESS;
 }

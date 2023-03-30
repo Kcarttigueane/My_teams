@@ -28,9 +28,6 @@
 
     // ! STRUCTURES:
 
-    extern const char* ENDPOINTS_LIST[];
-    extern const size_t ENDPOINTS_LIST_SIZE;
-
     typedef struct client_data {
         int socket_fd;
         fd_set read_fds;
@@ -38,10 +35,10 @@
 
     typedef void (*func_t)(void);
 
-    typedef struct cmd_s {
+    typedef struct events_s {
         int status_code;
         func_t function;
-    } cmd_t;
+    } events_t;
 
 
 // ! PROTOTYPES:
@@ -50,6 +47,8 @@ bool are_arguments_valid(int argc, char* argv[]);
 
 int connect_to_server(const char* server_address, int port);
 int client_loop(client_data_t* client);
+
+int get_status_code(const char* json_string);
 
 // ! SIGNALS:
 
@@ -99,5 +98,12 @@ void unknow_team(void);
 void unknow_thread(void);
 void unknow_user(void);
 void unsubscribed_from_team(void);
+
+
+extern const char* ENDPOINTS_LIST[];
+extern const size_t ENDPOINTS_LIST_SIZE;
+
+extern const events_t LIST_EVENTS_CODE[];
+extern const size_t LIST_EVENTS_CODE_SIZE;
 
 #endif  // CLIENT_H
