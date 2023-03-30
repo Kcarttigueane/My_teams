@@ -55,6 +55,7 @@ void create_and_log_user(list_args_t* args, char* username)
 void login(list_args_t* args)
 {
     char* username = args->split_command[1];
+    remove_quotes(args->split_command[1]);
     if (!error_handling_login(args, username))
         return;
 

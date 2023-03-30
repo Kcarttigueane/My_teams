@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void subscribed_to_team(void)
+void subscribed_to_team(char* json_response)
 {
     printf("Subscribed to team\n");
 }

@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void info_user(void)
+void info_user(char* json_response)
 {
     printf("Info user\n");
 }

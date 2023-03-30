@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void print_users(void)
+void print_users(char* json_response)
 {
     printf("Print users\n");
 }

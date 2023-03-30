@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void disconnection_successful(void)
+void disconnection_successful(char* json_response)
 {
     printf("Disconnection successful\n");
 }

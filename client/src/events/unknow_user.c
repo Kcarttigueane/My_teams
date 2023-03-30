@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unknow_user(void)
+void unknow_user(char* json_response)
 {
     printf("Unknow user\n");
 }

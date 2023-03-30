@@ -25,6 +25,7 @@
 
     #include "../../include/lib.h"
     #include "../../include/my_teams.h"
+    #include "../../libs/myteams/logging_client.h"
 
     // ! STRUCTURES:
 
@@ -33,7 +34,7 @@
         fd_set read_fds;
     } client_data_t;
 
-    typedef void (*func_t)(void);
+    typedef void (*func_t)(char* json_response);
 
     typedef struct events_s {
         int status_code;
@@ -62,42 +63,41 @@ int handle_user_input(client_data_t* client);
 
 // ! PARSE JSON SERVER RESPONSE:
 
-void parse_json_value(const char* json, const char* key, char* value,
-size_t value_size);
+char* json_get_value(char* json_str, const char* key);
 
 // ! EVENTS:
 
-void user_already_exist(void);
-void channel_created(void);
-void channel_created_notification(void);
-void connection_successful(void);
-void disconnection_successful(void);
-void info_channel(void);
-void info_team(void);
-void info_thread(void);
-void info_user(void);
-void internal_server_error(void);
-void message_sent(void);
-void not_implemented(void);
-void print_channels(void);
-void print_messages(void);
-void print_teams(void);
-void print_thread_replies(void);
-void print_threads(void);
-void print_users(void);
-void reply_created_notification(void);
-void subscribed_to_team(void);
-void team_created(void);
-void team_created_notification(void);
-void thread_created(void);
-void thread_created_notification(void);
-void thread_reply_created(void);
-void unauthorized(void);
-void unknow_channel(void);
-void unknow_team(void);
-void unknow_thread(void);
-void unknow_user(void);
-void unsubscribed_from_team(void);
+void user_already_exist(char *json_response);
+void channel_created(char *json_response);
+void channel_created_notification(char *json_response);
+void connection_successful(char *json_response);
+void disconnection_successful(char *json_response);
+void info_channel(char *json_response);
+void info_team(char *json_response);
+void info_thread(char *json_response);
+void info_user(char *json_response);
+void internal_server_error(char *json_response);
+void message_sent(char *json_response);
+void not_implemented(char *json_response);
+void print_channels(char *json_response);
+void print_messages(char *json_response);
+void print_teams(char *json_response);
+void print_thread_replies(char *json_response);
+void print_threads(char *json_response);
+void print_users(char *json_response);
+void reply_created_notification(char *json_response);
+void subscribed_to_team(char *json_response);
+void team_created(char *json_response);
+void team_created_notification(char *json_response);
+void thread_created(char *json_response);
+void thread_created_notification(char *json_response);
+void thread_reply_created(char *json_response);
+void unauthorized(char *json_response);
+void unknow_channel(char *json_response);
+void unknow_team(char *json_response);
+void unknow_thread(char *json_response);
+void unknow_user(char *json_response);
+void unsubscribed_from_team(char *json_response);
 
 
 extern const char* ENDPOINTS_LIST[];

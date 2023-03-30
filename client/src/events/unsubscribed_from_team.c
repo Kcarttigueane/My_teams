@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unsubscribed_from_team(void)
+void unsubscribed_from_team(char* json_response)
 {
     printf("Unsubscribed from team\n");
 }

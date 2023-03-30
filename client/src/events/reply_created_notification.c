@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void reply_created_notification(void)
+void reply_created_notification(char* json_response)
 {
     printf("Reply created notification\n");
 }

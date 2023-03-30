@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void internal_server_error(void)
+void internal_server_error(char* json_response)
 {
     printf("Internal server error\n");
 }

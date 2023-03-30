@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unknow_channel(void)
+void unknow_channel(char* json_response)
 {
     printf("Unknow channel\n");
 }

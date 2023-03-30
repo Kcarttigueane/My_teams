@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void user_already_exist(void)
+void user_already_exist(char *json_response)
 {
     printf("User already exist\n");
 }

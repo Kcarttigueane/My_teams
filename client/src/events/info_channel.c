@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void info_channel(void)
+void info_channel(char* json_response)
 {
     printf("Info channel\n");
 }

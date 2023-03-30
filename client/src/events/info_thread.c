@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void info_thread(void)
+void info_thread(char* json_response)
 {
     printf("Info thread\n");
 }

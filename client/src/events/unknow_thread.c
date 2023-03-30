@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unknow_thread(void)
+void unknow_thread(char* json_response)
 {
     printf("Unknow thread\n");
 }

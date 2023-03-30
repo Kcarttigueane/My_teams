@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void thread_created_notification(void)
+void thread_created_notification(char *json_response)
 {
     printf("Thread created notification\n");
 }

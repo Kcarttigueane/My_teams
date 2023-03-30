@@ -7,7 +7,18 @@
 
 #include "../../include/client.h"
 
-void connection_successful(void)
+void connection_successful(char* json_response)
 {
-    printf("Connection successful\n");
+    char* username = json_get_value(json_response, "username");
+    char* user_uuid = json_get_value(json_response, "user_uuid");
+
+    if (username == NULL || user_uuid == NULL) {
+        printf("Error: invalid JSON format\n");
+        return;
+    }
+
+    client_event_logged_in(user_uuid, username);
+
+    free(user_uuid);
+    free(username);
 }

@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void channel_created(void)
+void channel_created(char* json_response)
 {
     printf("Channel created\n");
 }

@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void thread_created(void)
+void thread_created(char* json_response)
 {
     printf("Thread created\n");
 }

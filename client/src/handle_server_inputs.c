@@ -14,8 +14,7 @@ void analyze_server_response(client_data_t* client, char* buffer)
 
     for (size_t i = 0; i < LIST_EVENTS_CODE_SIZE; i++) {
         if (status_code == LIST_EVENTS_CODE[i].status_code) {
-            LIST_EVENTS_CODE[i].function();
-            printf("Event received: %s\n", ENDPOINTS_LIST[i]);
+            LIST_EVENTS_CODE[i].function(buffer);
             break;
         }
     }
@@ -24,10 +23,8 @@ void analyze_server_response(client_data_t* client, char* buffer)
 int handle_server_input(client_data_t* client, char* buffer)
 {
     ssize_t bytes_received = recv(client->socket_fd, buffer, BUFFER_SIZE, 0);
-
-    if (bytes_received <= 0) {
+    if (bytes_received <= 0)
         exit_with_error("Server closed connection.\n");
-    }
 
     printf(RED);
     printf("---------------Received from server:----------------\n");
@@ -36,12 +33,13 @@ int handle_server_input(client_data_t* client, char* buffer)
     printf(RED);
     printf("-----------End of received from server:-----------\n");
     printf(RESET);
+    write(1, GREEN, SIZE_COLOUR);
+    write(1, "[LOGGING LIBRARY] : ", strlen("[LOGGING LIBRARY] : "));
+    analyze_server_response(client, buffer);
+    write(1, RESET, SIZE_RESET);
     printf(CYAN);
     printf("%s", CLIENT_PROMPT);
     printf(RESET);
     fflush(stdout);
-
-    analyze_server_response(client, buffer);
-
     return SUCCESS;
 }

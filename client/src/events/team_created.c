@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void team_created(void)
+void team_created(char *json_response)
 {
     printf("Team created\n");
 }

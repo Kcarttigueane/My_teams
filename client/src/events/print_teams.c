@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void print_teams(void)
+void print_teams(char* json_response)
 {
     printf("Print teams\n");
 }

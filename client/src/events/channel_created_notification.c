@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void channel_created_notification(void)
+void channel_created_notification(char* json_response)
 {
     printf("Channel created notification\n");
 }

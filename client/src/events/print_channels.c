@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void print_channels(void)
+void print_channels(char* json_response)
 {
     printf("Print channels\n");
 }

@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unknow_team(void)
+void unknow_team(char* json_response)
 {
     printf("Unknow team\n");
 }

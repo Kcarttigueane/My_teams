@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void print_messages(void)
+void print_messages(char* json_response)
 {
     printf("Print messages\n");
 }
