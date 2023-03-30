@@ -80,7 +80,7 @@ extern const char* SEND_MSG_JSON_REP;
 extern const char* CREATE_TEAM;
 extern const char* CREATE_CHANNEL;
 extern const char* CREATE_THREAD;
-extern const char* CREATE_REPLY;
+extern const char* CREATED_REPLY;
 extern const char* INFO_TEAM;
 extern const char* INFO_CHANNEL;
 extern const char* INFO_THREAD;

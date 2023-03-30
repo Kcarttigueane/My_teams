@@ -31,7 +31,7 @@ const char* HELP_JSON_REP =
 
 const char* LOGIN_JSON_REP =
     "{\n"
-    "  \"status\": 200,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Connection successful\",\n"
     "  \"username\": \"%s\",\n"
     "  \"user_uuid\": \"%s\"\n"
@@ -39,13 +39,13 @@ const char* LOGIN_JSON_REP =
 
 const char* LOGOUT_JSON_REP =
     "{\n"
-    "  \"status\": 201,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Logout successful\"\n"
     "}\n";
 
 const char* USER_DETAILS =
     "{\n"
-    "  \"status\": 204,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"User information\"\n"
     "  \"username\": \"%s\"\n"
     "  \"user_uuid\": \"%s\"\n"
@@ -53,7 +53,7 @@ const char* USER_DETAILS =
 
 const char* SEND_MSG_JSON_REP =
     "{\n"
-    "  \"status\": 202,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Message sent successfully\",\n"
     "  \"recipient_uuid\": \"%s\",\n"
     "  \"message_body\": \"%s\"\n"
@@ -61,7 +61,7 @@ const char* SEND_MSG_JSON_REP =
 
 const char* CREATE_TEAM =
     "{\n"
-    "  \"status\": 204,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Team created\",\n"
     "  \"team_uuid\": \"%s\",\n"
     "  \"team_name\": \"%s\",\n"
@@ -70,7 +70,7 @@ const char* CREATE_TEAM =
 
 const char* CREATE_CHANNEL =
     "{\n"
-    "  \"status\": 205,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Channel created\",\n"
     "  \"channel_uuid\": \"%s\",\n"
     "  \"channel_name\": \"%s\",\n"
@@ -79,7 +79,7 @@ const char* CREATE_CHANNEL =
 
 const char* CREATE_THREAD =
     "{\n"
-    "  \"status\": 206,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Thread created\",\n"
     "  \"thread_uuid\": \"%s\",\n"
     "  \"thread_title\": \"%s\",\n"
@@ -87,9 +87,9 @@ const char* CREATE_THREAD =
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
 
-const char* CREATE_REPLY =
+const char* CREATED_REPLY =
     "{\n"
-    "  \"status\": 210,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Reply created\",\n"
     "  \"reply_uuid\": \"%s\",\n"
     "  \"reply_body\": \"%s\",\n"
@@ -98,7 +98,7 @@ const char* CREATE_REPLY =
 
 const char* INFO_TEAM =
     "{\n"
-    "  \"status\": 211,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Team listed\",\n"
     "  \"team_uuid\": \"%s\",\n"
     "  \"team_name\": \"%s\",\n"
@@ -109,7 +109,7 @@ const char* INFO_TEAM =
 
 const char* INFO_CHANNEL =
     "{\n"
-    "  \"status\": 212,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Channel listed\",\n"
     "  \"channel_uuid\": \"%s\",\n"
     "  \"channel_name\": \"%s\",\n"
@@ -121,7 +121,7 @@ const char* INFO_CHANNEL =
 
 const char* INFO_THREAD =
     "{\n"
-    "  \"status\": 213,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Thread listed\",\n"
     "  \"thread_uuid\": \"%s\",\n"
     "  \"thread_title\": \"%s\",\n"
@@ -133,7 +133,7 @@ const char* INFO_THREAD =
 
 const char* INFO_USER =
     "{\n"
-    "  \"status\": 213,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Info User\",\n"
     "  \"username\": \"%s\",\n"
     "  \"user_uuid\": \"%s\"\n"
@@ -141,14 +141,14 @@ const char* INFO_USER =
 
 const char* SUBSCRIBE_TO_TEAM =
     "{\n"
-    "  \"status\": 214,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Subscribed to team and channels\",\n"
     "  \"team_uuid\": \"%s\"\n"
     "}\n";
 
 const char *UNSUBSCRIBE_TO_TEAM =
     "{\n"
-    "  \"status\": 215,\n"
+    "  \"status\": %i,\n"
     "  \"message\": \"Unsubscribed to team and channels\",\n"
     "  \"team_uuid\": \"%s\"\n"
     "}\n";

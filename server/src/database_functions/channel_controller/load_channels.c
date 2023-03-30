@@ -31,7 +31,7 @@ void load_channel_users(channel_t* channel, char* line, FILE* file)
 
 static void set_channel_field(channel_t* channel, char* line, FILE* file)
 {
-    char key[64] = {0}, value[256] = {0};
+    char key[KEY_BUFFER] = {0}, value[256] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
 
     !strcmp(key, "uuid") ? strcpy(channel->uuid, value)

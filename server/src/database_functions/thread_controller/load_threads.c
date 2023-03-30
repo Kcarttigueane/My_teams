@@ -32,7 +32,7 @@ reply_t** current_reply)
 static void handle_key_value_pairs(char* line, thread_t* current_thread,
 reply_t* current_reply)
 {
-    char key[64] = {0}, value[256] = {0};
+    char key[KEY_BUFFER] = {0}, value[256] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
 
     (!strcmp(key, "uuid"))

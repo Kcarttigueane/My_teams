@@ -19,5 +19,6 @@ void user(list_args_t* args)
         return;
     }
 
-    dprintf(args->client->socket_fd, USER_DETAILS, user->username, user->uuid);
+    dprintf(args->client->socket_fd, USER_DETAILS, USER_INFO, user->username,
+    user->uuid);
 }

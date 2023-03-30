@@ -26,7 +26,7 @@ void handle_users_line(team_t* current_team, char* line, int* user_index)
 
 void handle_team_line(team_t* current_team, char* line)
 {
-    char key[64] = {0}, value[256] = {0};
+    char key[KEY_BUFFER] = {0}, value[256] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
 
     (!strcmp(key, "uuid")) ? strcpy(current_team->uuid, value) : 0;

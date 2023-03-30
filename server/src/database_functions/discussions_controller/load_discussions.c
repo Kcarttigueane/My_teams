@@ -34,7 +34,7 @@ message_t** current_message)
 static void handle_key_value_pairs(char* line, discussion_t* current_discussion,
 message_t* current_message)
 {
-    char key[64] = {0}, value[256] = {0};
+    char key[KEY_BUFFER] = {0}, value[256] = {0};
     int ret = sscanf(line, " \"%63[^\"]\": \"%255[^\"]\"", key, value);
     if (ret != 2) {
         return;

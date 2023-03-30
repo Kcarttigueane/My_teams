@@ -51,7 +51,9 @@
         MAX_DESCRIPTION_LENGTH = 255,
         MAX_BODY_LENGTH = 512,
         MAX_UUID_STR_LEN = 37,
-        MAX_CLIENTS = 10
+        MAX_CLIENTS = 10,
+        BUFFER_SIZE = 1024,
+        KEY_BUFFER = 64
     };
 
     #ifndef LIST_FOREACH_SAFE

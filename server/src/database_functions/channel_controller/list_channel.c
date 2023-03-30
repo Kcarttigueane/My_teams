@@ -32,7 +32,7 @@ static void append_channels(database_t* db, char* json, char* team_uuid)
 static void append_channels_json(database_t* db, char* json, char* team_uuid)
 {
     strncat(json,
-            "  \"status\": 228,\n"
+            "  \"status\": 209,\n"
             "  \"message\": \"Channels list\",\n"
             "  \"channels\": [\n",
             BUFFER_SIZE - strlen(json) - 1);

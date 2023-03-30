@@ -12,7 +12,7 @@ static void handle_list_teams(list_args_t* args)
     char* json_response = list_teams(args->db);
 
     if (!json_response) {
-        send_error(args->client->socket_fd, 404, "No teams found");
+        send_error(args->client->socket_fd, UNAUTHORIZED, "No teams found");
         return;
     }
 
@@ -26,7 +26,7 @@ static void handle_list_channels(list_args_t* args)
         list_channels(args->db, args->client->current_team_uuid);
 
     if (!json_response) {
-        send_error(args->client->socket_fd, 404, "Team not found");
+        send_error(args->client->socket_fd, UNAUTHORIZED, "Team not found");
         return;
     }
 
@@ -40,7 +40,7 @@ static void handle_list_threads(list_args_t* args)
         list_threads(args->db, args->client->current_channel_uuid);
 
     if (!json_response) {
-        send_error(args->client->socket_fd, 404, "Channel not found");
+        send_error(args->client->socket_fd, UNAUTHORIZED, "Channel not found");
         return;
     }
 
@@ -54,7 +54,7 @@ static void handle_list_replies(list_args_t* args)
         list_replies_for_thread(args->db, args->client->current_thread_uuid);
 
     if (!json_response) {
-        send_error(args->client->socket_fd, 404, "Thread not found");
+        send_error(args->client->socket_fd, UNAUTHORIZED, "Thread not found");
         return;
     }
 

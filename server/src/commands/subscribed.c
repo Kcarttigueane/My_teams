@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-void subscribed(__attribute_maybe_unused__ list_args_t* args)
+void subscribed(list_args_t* args)
 {
     size_t size = get_size_word_array(args->split_command) - 1;
 

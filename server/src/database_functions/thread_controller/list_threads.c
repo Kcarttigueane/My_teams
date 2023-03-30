@@ -31,7 +31,7 @@ static void append_threads(database_t* db, char* json, char* channel_uuid)
 static void append_threads_json(database_t* db, char* json, char* channel_uuid)
 {
     strncat(json,
-            "  \"status\": 230,\n"
+            "  \"status\": 210,\n"
             "  \"message\": \"Threads list\",\n"
             "  \"threads\": [\n",
             BUFFER_SIZE - strlen(json) - 1);

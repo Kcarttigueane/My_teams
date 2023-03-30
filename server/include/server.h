@@ -14,8 +14,6 @@
         "USAGE: ./myteams_server port\n\n\
         \tport is the port number on which the server socket listens.\n"
 
-    #define BUFFER_SIZE 1024
-
     // ! My includes:
 
     #include "../../include/my_teams.h"
@@ -53,30 +51,37 @@
         CONNECTION_SUCCESSFUL = 200,
         DISCONNECTION_SUCCESSFUL = 201,
         MESSAGE_SENT = 202,
+
         THREAD_REPLY_CREATED = 203,
         TEAM_CREATED = 204,
         CHANNEL_CREATED = 205,
         THREAD_CREATED = 206,
+
         LIST_USERS = 207,
         LIST_TEAMS = 208,
         LIST_CHANNELS = 209,
         LIST_THREADS = 210,
         LIST_THREAD_REPLIES = 211,
         LIST_PRIVATE_MESSAGES = 212,
+
         USER_INFO = 213,
         TEAM_INFO = 214,
         CHANNEL_INFO = 215,
         THREAD_INFO = 216,
+
         TEAM_CREATED_NOTIFICATION = 217,
         CHANNEL_CREATED_NOTIFICATION = 218,
         THREAD_CREATED_NOTIFICATION = 219,
         REPLY_CREATED_NOTIFICATION = 220,
+
         SUBSCRIBED_TO_TEAM = 221,
         UNSUBSCRIBED_FROM_TEAM = 222,
+
         UNKNOWN_TEAM = 400,
         UNKNOWN_CHANNEL = 401,
         UNKNOWN_THREAD = 402,
         UNKNOWN_USER = 403,
+
         UNAUTHORIZED = 404,
         ALREADY_EXISTS = 405,
         CONNECTION_DENIED = 406,

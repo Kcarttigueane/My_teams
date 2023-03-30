@@ -16,7 +16,7 @@ static user_t* create_new_user(database_t* db)
 
 static void set_user_field(user_t* user, char* line)
 {
-    char key[64] = {0}, value[64] = {0};
+    char key[KEY_BUFFER] = {0}, value[KEY_BUFFER] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
 
     if (!strcmp(key, "uuid")) {
