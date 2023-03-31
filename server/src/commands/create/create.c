@@ -55,7 +55,9 @@ static void handle_create_thread(list_args_t* args)
         "Thread not created");
 
     dprintf(args->client->socket_fd, CREATE_THREAD_RESP, THREAD_CREATED,
-    new_thread->uuid, new_thread->title, new_thread->message);
+    new_thread->uuid, new_thread->title, new_thread->message,
+    new_thread->related_channel_uuid, new_thread->creator_uuid,
+    (long)new_thread->created_at);
 }
 
 static void handle_create_reply(list_args_t* args)

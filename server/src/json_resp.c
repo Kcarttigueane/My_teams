@@ -85,7 +85,9 @@ const char* CREATE_THREAD_RESP =
     "  \"message\": \"Thread created\",\n"
     "  \"thread_uuid\": \"%s\",\n"
     "  \"thread_title\": \"%s\",\n"
-    "  \"thread_body\": \"%s\"\n"
+    "  \"thread_message\": \"%s\"\n"
+    "  \"related_channel_uuid\": \"%s\"\n"
+    "  \"creator_uuid\": \"%s\"\n"
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
 
@@ -153,4 +155,11 @@ const char *UNSUBSCRIBE_TO_TEAM =
     "  \"status\": %i,\n"
     "  \"message\": \"Unsubscribed to team and channels\",\n"
     "  \"team_uuid\": \"%s\"\n"
+    "}\n";
+
+const char* UNKNOWN_USER_RESP =
+    "{\n"
+    "  \"status\": %i,\n"
+    "  \"message\": \"Unknown user\",\n"
+    "  \"user_uuid\": \"%s\"\n"
     "}\n";

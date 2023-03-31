@@ -12,8 +12,8 @@ void send_msg(list_args_t* args)
     remove_quotes(args->split_command[1]);
     remove_quotes(args->split_command[2]);
     if (find_user_by_uuid(args->db, args->split_command[1]) == NULL) {
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "User not found");
+        dprintf(args->client->socket_fd, UNKNOWN_USER_RESP, UNKNOWN_USER,
+        args->split_command[1]);
         return;
     }
     discussion_t* dis = create_discussion(args->db, args->split_command[1],

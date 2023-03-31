@@ -9,5 +9,14 @@
 
 void unknow_user(char* json_response)
 {
-    printf("Unknow user\n");
+    char* user_uuid = json_get_value(json_response, "user_uuid");
+
+    if (user_uuid == NULL) {
+        printf("Error: Failed to get user information\n");
+        return;
+    }
+
+    client_error_unknown_user(user_uuid);
+
+    free(user_uuid);
 }

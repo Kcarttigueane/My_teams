@@ -87,3 +87,4 @@ extern const char* INFO_THREAD_RESP;
 extern const char* INFO_USER_RESP;
 extern const char* SUBSCRIBE_TO_TEAM;
 extern const char* UNSUBSCRIBE_TO_TEAM;
+extern const char* UNKNOWN_USER_RESP;

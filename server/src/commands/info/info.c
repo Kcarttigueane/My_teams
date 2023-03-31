@@ -27,7 +27,7 @@ void handle_info_team(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Team not found");
     else
-        dprintf(args->client->socket_fd, INFO_TEAM_RESP, INFO_CHANNEL,
+        dprintf(args->client->socket_fd, INFO_TEAM_RESP, INFO_TEAM,
         team->uuid, team->name, team->description, team->users_count,
         ctime(&team->created_at));
 }
