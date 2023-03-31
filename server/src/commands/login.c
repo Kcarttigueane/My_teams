@@ -66,7 +66,7 @@ void login(list_args_t* args)
         args->client->is_logged = true;
         strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
         user->is_logged_in = true;
-        // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING
+        server_event_user_logged_in(user->uuid);
         return;
     }
 
