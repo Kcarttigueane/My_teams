@@ -11,6 +11,7 @@ static void handle_client_disconnected(int socket_fd, clients_t* client)
 {
     close(socket_fd);
     client->socket_fd = 0;
+    // ! NEED TO SHIFT ALL THE CLIENTS AFTER THIS ONE
     printf("Client disconnected, socket fd is %d\n", socket_fd);
 }
 
