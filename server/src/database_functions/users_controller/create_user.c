@@ -10,7 +10,7 @@
 
 static user_t* create_user_object(char* username)
 {
-    user_t* new_user = (user_t*)malloc(sizeof(user_t));
+    user_t* new_user = (user_t*)calloc(1, sizeof(user_t));
 
     if (new_user == NULL) {
         printf("Error: Failed to allocate memory for new user\n");

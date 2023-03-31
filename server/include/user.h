@@ -12,6 +12,7 @@
 typedef struct user_s {
     char uuid[MAX_UUID_STR_LEN];
     char username[MAX_NAME_LENGTH];
+    bool is_logged_in;
     LIST_ENTRY(user_s) entries;
 } user_t;
 

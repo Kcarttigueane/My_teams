@@ -15,9 +15,10 @@ char* json)
         if (user != NULL) {
             char user_json[BUFFER_SIZE];
             snprintf(user_json, BUFFER_SIZE,
-            "\t{\n\t  \"user_uuid\": \"%s\",\n\t  \"username\": "
-            "\"%s\"\n\t},\n",
-            user->uuid, user->username);
+            "\t{\n\t  \"username\": \"%s\",\n\t  \"user_uuid\": "
+            "\"%s\",\n\t  \"is_logged_in\": %s\n\t},\n",
+            user->username, user->uuid,
+            user->is_logged_in ? "true" : "false");
             strncat(json, user_json, BUFFER_SIZE - strlen(json) - 1);
         }
     }
@@ -32,7 +33,7 @@ static void append_subscribed_users_to_team_json(database_t* db, team_t* team,
 char* json)
 {
     strncat(json,
-            "  \"status\": 236,\n"
+            "  \"status\": 207,\n"
             "  \"message\": \"Users subscribed to team\",\n",
             BUFFER_SIZE - strlen(json) - 1);
     snprintf(json + strlen(json), BUFFER_SIZE - strlen(json),
