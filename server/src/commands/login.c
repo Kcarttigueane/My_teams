@@ -42,6 +42,8 @@ void create_and_log_user(list_args_t* args, char* username)
         return;
     }
 
+    server_event_user_created(user->uuid, user->username);
+
     args->client->is_logged = true;
     strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
     user->is_logged_in = true;

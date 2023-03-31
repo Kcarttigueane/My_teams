@@ -44,7 +44,6 @@ user_t* create_user(database_t* database, char* username)
 
     LIST_INSERT_HEAD(&database->users, new_user, entries);
 
-    // ** server_event_user_created(user->uuid, user->username); ! LOGGING LIB
     debug_user(new_user);
     return new_user;
 }
