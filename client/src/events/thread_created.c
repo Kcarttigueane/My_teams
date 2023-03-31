@@ -16,8 +16,7 @@ void thread_created(char* json_response)
     char *timestamp = json_get_value(json_response, "timestamp");
 
     if (thread_uuid == NULL || thread_title == NULL || thread_message == NULL ||
-        creator_uuid == NULL ||
-        timestamp == NULL) {
+        creator_uuid == NULL || timestamp == NULL) {
         printf("Error: Failed to get thread information\n");
         return;
     }

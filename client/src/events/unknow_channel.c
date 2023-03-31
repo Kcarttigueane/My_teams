@@ -9,5 +9,14 @@
 
 void unknow_channel(char* json_response)
 {
-    printf("Unknow channel\n");
+    char *channel_uuid = json_get_value(json_response, "channel_uuid");
+
+    if (channel_uuid == NULL) {
+        printf("Error: invalid JSON format\n");
+        return;
+    }
+
+    client_error_unknown_channel(channel_uuid);
+
+    free(channel_uuid);
 }

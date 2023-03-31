@@ -9,5 +9,5 @@
 
 void unauthorized(char* json_response)
 {
-    printf("Unauthorized\n");
+    client_error_unauthorized();
 }
