@@ -31,4 +31,6 @@ void send_msg(list_args_t* args)
     dprintf(args->client->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_SENT,
     args->client->current_user_uuid, args->split_command[2]);
     printf("Message sent to discussion %s\n", args->split_command[1]);
+    server_event_private_message_sended(args->client->current_user_uuid,
+    args->split_command[1], args->split_command[2]);
 }

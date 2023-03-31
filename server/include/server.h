@@ -18,7 +18,7 @@
 
     #include "../../include/my_teams.h"
     #include "../../include/lib.h"
-
+    #include "../../libs/myteams/logging_server.h"
 
     // ! STRUCTURES:
 

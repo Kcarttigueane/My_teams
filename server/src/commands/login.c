@@ -46,7 +46,7 @@ void create_and_log_user(list_args_t* args, char* username)
     strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
     user->is_logged_in = true;
 
-    // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING LIB
+    server_event_user_logged_in(user->uuid);
 
     dprintf(args->client->socket_fd, LOGIN_JSON_RESP, CONNECTION_SUCCESSFUL,
     user->username, user->uuid);

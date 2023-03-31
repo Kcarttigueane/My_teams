@@ -30,4 +30,5 @@ void unsubscribe(list_args_t* args)
     }
     dprintf(args->client->socket_fd, UNSUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,
     args->split_command[1], args->client->current_user_uuid);
+    server_event_user_unsubscribed(team->uuid, args->client->current_user_uuid);
 }

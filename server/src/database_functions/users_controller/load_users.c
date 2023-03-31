@@ -24,6 +24,7 @@ static void set_user_field(user_t* user, char* line)
     } else if (!strcmp(key, "username")) {
         strcpy(user->username, value);
     }
+    server_event_user_loaded(user->uuid, user->username);
 }
 
 void load_users_from_file(database_t* db)

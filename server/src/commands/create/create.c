@@ -16,6 +16,9 @@ static void handle_create_team(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Team not created");
 
+    server_event_team_created(new_teams->uuid, new_teams->name,
+    args->client->current_user_uuid);
+
     dprintf(args->client->socket_fd, CREATE_TEAM_RESP, TEAM_CREATED,
     new_teams->uuid, new_teams->name, new_teams->description);
 }
@@ -39,6 +42,8 @@ static void handle_create_channel(list_args_t* args)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Channel not created");
 
+    server_event_channel_created(new_channel->team_uuid, new_channel->uuid,
+    new_channel->name);
     dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP, CHANNEL_CREATED,
     new_channel->uuid, new_channel->name, new_channel->description);
 }
@@ -66,6 +71,9 @@ static void handle_create_thread(list_args_t* args)
     new_thread->uuid, new_thread->title, new_thread->message,
     new_thread->related_channel_uuid, new_thread->creator_uuid,
     (long)new_thread->created_at);
+    server_event_thread_created(new_thread->related_channel_uuid,
+    new_thread->uuid, args->client->current_user_uuid,
+    new_thread->title, new_thread->message);
 }
 
 static void handle_create_reply(list_args_t* args)
@@ -99,6 +107,9 @@ static void handle_create_reply(list_args_t* args)
     }
     dprintf(args->client->socket_fd, CREATED_REPLY_RESP, THREAD_REPLY_CREATED,
     new_reply->uuid, new_reply->body, (long)new_reply->created_at);
+
+    server_event_reply_created(thread->uuid, args->client->current_user_uuid,
+    new_reply->body);
 }
 
 void create(list_args_t* args)

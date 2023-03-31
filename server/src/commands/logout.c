@@ -22,5 +22,7 @@ void logout(list_args_t* args)
     dprintf(args->client->socket_fd, LOGOUT_JSON_RESP,
     DISCONNECTION_SUCCESSFUL, user->username, user->uuid);
 
+    server_event_user_logged_out(user->uuid);
+
     printf("User %s logged out\n", args->client->current_user_uuid);
 }
