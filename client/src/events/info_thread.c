@@ -21,7 +21,6 @@ void info_thread(char* json_response)
         printf("Error: Failed to get thread information\n");
         return;
     }
-
     client_print_thread(thread_uuid, creator_uuid, (time_t) timestamp,
     thread_title, thread_message);
 
@@ -29,4 +28,5 @@ void info_thread(char* json_response)
     free(thread_title);
     free(thread_message);
     free(creator_uuid);
+    free(timestamp);
 }
