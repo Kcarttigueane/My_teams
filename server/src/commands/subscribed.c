@@ -7,6 +7,18 @@
 
 #include "../../include/server.h"
 
+static void list_users_of_team(list_args_t* args, char* team_uuid)
+{
+    team_t* team = find_team_by_uuid(args->db, team_uuid);
+
+    if (team == NULL) {
+        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
+        team_uuid);
+        return;
+    }
+    list_users_subscribed_to_team(args->db, team);
+}
+
 void subscribed(list_args_t* args)
 {
     size_t size = get_size_word_array(args->split_command) - 1;
@@ -15,12 +27,6 @@ void subscribed(list_args_t* args)
         list_subscribed_teams(args->db, args->client->current_user_uuid);
     } else if (size == 1) {
         remove_quotes(args->split_command[1]);
-        team_t *team = find_team_by_uuid(args->db, args->split_command[1]);
-        if (team == NULL) {
-            dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
-            args->split_command[1]);
-            return;
-        }
-        list_users_subscribed_to_team(args->db, team);
+        list_users_of_team(args, args->split_command[1]);
     }
 }

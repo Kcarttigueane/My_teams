@@ -18,7 +18,7 @@ static bool validate_recipient(list_args_t* args, char* recipient_uuid)
 }
 
 static discussion_t* create_new_discussion(list_args_t* args,
-const char* recipient_uuid)
+char* recipient_uuid)
 {
     discussion_t* dis = create_discussion(args->db, recipient_uuid,
     args->client->current_user_uuid);
@@ -43,10 +43,10 @@ char* message)
 
 void send_msg(list_args_t* args)
 {
+    remove_quotes(args->split_command[1]);
+    remove_quotes(args->split_command[2]);
     char* recipient_uuid = args->split_command[1];
     char* message = args->split_command[2];
-    remove_quotes(recipient_uuid);
-    remove_quotes(message);
 
     if (!validate_recipient(args, recipient_uuid))
         return;

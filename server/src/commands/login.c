@@ -10,21 +10,21 @@
 bool error_handling_login(list_args_t* args, char* username)
 {
     if (args->client->is_logged) {
-        send_error(args->client->socket_fd,
-        CONNECTION_DENIED, "Already logged in");
+        send_error(args->client->socket_fd, CONNECTION_DENIED,
+        "Already logged in");
         return false;
     }
 
     if (strlen(username) > MAX_NAME_LENGTH) {
-        send_error(args->client->socket_fd,
-        CONNECTION_DENIED, "Username too long");
+        send_error(args->client->socket_fd, CONNECTION_DENIED,
+        "Username too long");
         args->client->is_logged = false;
         return false;
     }
 
     if (strlen(username) == 0) {
-        send_error(args->client->socket_fd,
-        CONNECTION_DENIED, "Username too short");
+        send_error(args->client->socket_fd, CONNECTION_DENIED,
+        "Username too short");
         args->client->is_logged = false;
         return false;
     }
@@ -36,8 +36,8 @@ void create_and_log_user(list_args_t* args, char* username)
     user_t* user = create_user(args->db, username);
 
     if (user == NULL) {
-        send_error(args->client->socket_fd,
-        CONNECTION_DENIED, "Failed to create user");
+        send_error(args->client->socket_fd, CONNECTION_DENIED,
+        "Failed to create user");
         args->client->is_logged = false;
         return;
     }
@@ -66,7 +66,7 @@ void login(list_args_t* args)
         args->client->is_logged = true;
         strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
         user->is_logged_in = true;
-        // ** server_event_user_logged_in(char const* user_uuid); // ! LOGGING
+        server_event_user_logged_in(user->uuid);
         return;
     }
 
