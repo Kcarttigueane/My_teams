@@ -31,8 +31,7 @@ team_t* find_team_by_uuid(database_t* db, char* team_uuid);
 
 char* list_teams(database_t* db);
 char* list_subscribed_teams(database_t* db, char* user_uuid);
-char* list_users_subscribed_to_team(database_t* db, char* team_uuid);
-
+char* list_users_subscribed_to_team(database_t* db, team_t *team);
 // ! FREE
 
 void free_teams(database_t* db);

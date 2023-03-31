@@ -43,12 +43,8 @@ char* json)
     strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
-char* list_users_subscribed_to_team(database_t* db, char* team_uuid)
+char* list_users_subscribed_to_team(database_t* db, team_t *team)
 {
-    team_t* team = find_team_by_uuid(db, team_uuid);
-    if (!team)
-        return NULL;
-
     char* json = malloc(BUFFER_SIZE * sizeof(char));
     if (json == NULL) {
         printf("Error: Failed to allocate memory for JSON string\n");

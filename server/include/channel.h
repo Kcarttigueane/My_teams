@@ -30,6 +30,7 @@ typedef struct create_channel_params_s {
 
 // ! CREATE
 
+create_channel_params_t init_create_channel_params(list_args_t* args);
 channel_t* create_channel(database_t* db, create_channel_params_t* param);
 
 // ! FIND

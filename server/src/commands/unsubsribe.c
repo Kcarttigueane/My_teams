@@ -9,9 +9,11 @@
 
 void unsubscribe(list_args_t* args)
 {
+    remove_quotes(args->split_command[1]);
     team_t* team = find_team_by_uuid(args->db, args->split_command[1]);
     if (team == NULL) {
-        send_error(args->client->socket_fd, UNAUTHORIZED, "Team not found");
+        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
+        args->split_command[1]);
         return;
     }
     if (remove_user_from_team(args->db, args->split_command[1],
@@ -27,5 +29,5 @@ void unsubscribe(list_args_t* args)
         return;
     }
     dprintf(args->client->socket_fd, UNSUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,
-    args->split_command[1]);
+    args->split_command[1], args->client->current_user_uuid);
 }

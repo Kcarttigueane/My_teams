@@ -51,6 +51,7 @@ const char* USER_DETAILS_RESP =
     "  \"message\": \"User information\"\n"
     "  \"username\": \"%s\"\n"
     "  \"user_uuid\": \"%s\"\n"
+    "  \"is_logged_in\": %s\n"
     "}\n";
 
 const char* SEND_MSG_JSON_RESP =
@@ -141,12 +142,14 @@ const char* INFO_USER_RESP =
     "  \"message\": \"Info User\",\n"
     "  \"username\": \"%s\",\n"
     "  \"user_uuid\": \"%s\"\n"
+    "  \"is_logged_in\": %s\n"
     "}\n";
 
 const char* SUBSCRIBE_TO_TEAM =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Subscribed to team and channels\",\n"
+    "  \"user_uuid\": \"%s\",\n"
     "  \"team_uuid\": \"%s\"\n"
     "}\n";
 
@@ -154,6 +157,7 @@ const char *UNSUBSCRIBE_TO_TEAM =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Unsubscribed to team and channels\",\n"
+    "  \"user_uuid\": \"%s\",\n"
     "  \"team_uuid\": \"%s\"\n"
     "}\n";
 
@@ -162,4 +166,25 @@ const char* UNKNOWN_USER_RESP =
     "  \"status\": %i,\n"
     "  \"message\": \"Unknown user\",\n"
     "  \"user_uuid\": \"%s\"\n"
+    "}\n";
+
+const char *UNKNOWN_TEAM_RESP =
+    "{\n"
+    "  \"status\": %i,\n"
+    "  \"message\": \"Unknown team\",\n"
+    "  \"team_uuid\": \"%s\"\n"
+    "}\n";
+
+const char *UNKNOWN_CHANNEL_RESP =
+    "{\n"
+    "  \"status\": %i,\n"
+    "  \"message\": \"Unknown channel\",\n"
+    "  \"channel_uuid\": \"%s\"\n"
+    "}\n";
+
+const char *UNKNOWN_THREAD_RESP =
+    "{\n"
+    "  \"status\": %i,\n"
+    "  \"message\": \"Unknown thread\",\n"
+    "  \"thread_uuid\": \"%s\"\n"
     "}\n";

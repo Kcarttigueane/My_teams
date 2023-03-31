@@ -31,6 +31,7 @@ typedef struct create_thread_params_s {
 
 // ! CREATE
 
+create_thread_params_t init_create_thread_params(list_args_t* args);
 thread_t* create_thread(database_t* db, create_thread_params_t* params);
 
 // ! FIND

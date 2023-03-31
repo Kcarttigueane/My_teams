@@ -7,25 +7,24 @@
 
 #include "../../../include/server.h"
 
-void handle_info_user(list_args_t* args)
+static void handle_info_user(list_args_t* args)
 {
     user_t* user = find_user_by_uuid(args->db, args->client->current_user_uuid);
 
     if (!user)
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "User not found");
+        dprintf(args->client->socket_fd, UNKNOWN_USER_RESP, UNKNOWN_USER, args->client->current_user_uuid);
     else
         dprintf(args->client->socket_fd, INFO_USER_RESP, INFO_USER,
-        user->username, user->uuid);
+        user->username, user->uuid, user->is_logged_in);
 }
 
-void handle_info_team(list_args_t* args)
+static void handle_info_team(list_args_t* args)
 {
     team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
 
     if (!team)
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Team not found");
+        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
+        args->client->current_team_uuid);
     else
         dprintf(args->client->socket_fd, INFO_TEAM_RESP, INFO_TEAM,
         team->uuid, team->name, team->description, team->users_count,
@@ -38,8 +37,7 @@ static void handle_info_channel(list_args_t* args)
         find_channel_by_uuid(args->db, args->client->current_channel_uuid);
 
     if (!channel)
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Channel not found");
+        dprintf(args->client->socket_fd, UNKNOWN_CHANNEL_RESP, UNKNOWN_CHANNEL, args->client->current_channel_uuid);
     else
         dprintf(args->client->socket_fd, INFO_CHANNEL_RESP, INFO_CHANNEL,
         channel->uuid, channel->name, channel->description, channel->team_uuid,
@@ -52,8 +50,7 @@ static void handle_info_thread(list_args_t* args)
         find_thread_by_uuid(args->db, args->client->current_thread_uuid);
 
     if (!thread)
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Thread not found");
+        dprintf(args->client->socket_fd, UNKNOWN_THREAD_RESP, UNKNOWN_THREAD, args->client->current_thread_uuid);
     else
         dprintf(args->client->socket_fd, INFO_THREAD_RESP, INFO_THREAD_RESP,
         thread->uuid, thread->title, thread->message,

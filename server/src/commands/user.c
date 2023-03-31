@@ -20,5 +20,5 @@ void user(list_args_t* args)
     }
 
     dprintf(args->client->socket_fd, USER_DETAILS_RESP, INFO_USER,
-    user->username, user->uuid);
+    user->username, user->uuid, user->is_logged_in);
 }
