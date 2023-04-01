@@ -95,7 +95,7 @@ void team_created_notification(char *json_response);
 void thread_created(char *json_response);
 void thread_created_notification(char *json_response);
 void thread_reply_created(char *json_response);
-void unauthorized(char *json_response);
+void unauthorized();
 void unknow_channel(char *json_response);
 void unknow_team(char *json_response);
 void unknow_thread(char *json_response);

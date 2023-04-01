@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unauthorized(char* json_response)
+void unauthorized()
 {
     client_error_unauthorized();
 }

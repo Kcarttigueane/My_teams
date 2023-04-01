@@ -14,9 +14,10 @@ static void append_messages(discussion_t* discussion, char* json)
     LIST_FOREACH(message, &(discussion->messages), entries) {
         char message_json[BUFFER_SIZE];
         snprintf(message_json, BUFFER_SIZE,
-        "\t{\n\t  \"message_body\": \"%s\",\n\t  \"timestamp\": "
-        "\"%ld\"\n\t},\n",
-        message->body, (long)message->created_at);
+        "\t{\n\t  \"message_body\": \"%s\",\n\t  \"sender_uuid\": "
+        "\"%s\",\n\t  \"timestamp\": \"%ld\"\n\t},\n",
+        message->body, message->sender_uuid,
+        (long)message->created_at);
         strncat(json, message_json, BUFFER_SIZE - strlen(json) - 1);
     }
 
@@ -35,7 +36,7 @@ static void append_messages_json(discussion_t* discussion, char* json)
     "  \"messages\": [\n",
     BUFFER_SIZE - strlen(json) - 1);
     append_messages(discussion, json);
-    strncat(json, "  \n]\n", BUFFER_SIZE - strlen(json) - 1);
+    strncat(json, "  \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 char* list_discussion_messages(discussion_t *discussion)

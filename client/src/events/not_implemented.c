@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void not_implemented(char* json_response)
+void not_implemented(__attribute_maybe_unused__ char* json_response)
 {
     printf("Not implemented\n");
 }

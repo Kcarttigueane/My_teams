@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void team_created_notification(char* json_response)
+void team_created_notification(__attribute_maybe_unused__ char* json_response)
 {
     printf("Team created notification\n");
 }

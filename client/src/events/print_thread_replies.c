@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void print_thread_replies(char* json_response)
+void print_thread_replies(__attribute_maybe_unused__ char* json_response)
 {
     printf("Print thread replies\n");
 }
