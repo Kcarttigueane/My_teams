@@ -61,9 +61,13 @@
 
 bool are_arguments_valid(int argc, char const* argv[]);
 
+
+void initialize_clients(clients_t* clients);
+void free_clients(clients_t* clients);
+
 int bind_and_listen_socket(server_data_t* s);
 int initialize_server(server_data_t* s);
-void server_loop(server_data_t* s, database_t* db);
+int server_loop(server_data_t* s, database_t* db);
 
 void accept_new_connection(int server_socket, clients_t *clients);
 void handle_client_activity(clients_t *clients, server_data_t* s,
@@ -89,5 +93,7 @@ channel_t** channel);
 
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
+
+extern volatile sig_atomic_t stop_server;
 
 #endif  // SERVER_H

@@ -7,6 +7,8 @@
 
 #include "../include/server.h"
 
+volatile sig_atomic_t stop_server = false;
+
 static void add_client_socket_to_set(clients_t* clients,
 server_data_t* s)
 {
@@ -30,26 +32,26 @@ static int get_max_socket_descriptor(clients_t* clients, int server_socket)
     return (max_socket_descriptor + 1);
 }
 
-void server_loop(server_data_t* s, database_t* db)
+int server_loop(server_data_t* s, database_t* db)
 {
     clients_t *clients = calloc(MAX_CLIENTS, sizeof(clients_t));
-    for (size_t i = 0; i < MAX_CLIENTS; i++)
-        clients[i].use_args_count = FAILURE;
-
+    initialize_clients(clients);
     struct timeval tv = {.tv_sec = 5, .tv_usec = 0};
 
-    while (true) {
+    while (!stop_server) {
         FD_ZERO(&s->readfds);
         FD_SET(s->socket_fd, &s->readfds);
-
         add_client_socket_to_set(clients, s);
 
         if ((select(get_max_socket_descriptor(clients, s->socket_fd),
             &s->readfds, NULL, NULL, &tv) == FAILURE) && (errno != EINTR)) {
             handle_error("Select failed");
         }
+        if (stop_server) break;
         if (FD_ISSET(s->socket_fd, &s->readfds))
             accept_new_connection(s->socket_fd, clients);
         handle_client_activity(clients, s, db);
     }
+    free_clients(clients);
+    return SUCCESS;
 }

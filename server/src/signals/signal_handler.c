@@ -7,16 +7,20 @@
 
 #include "../../include/server.h"
 
-void sigint_handler(int sig)
+void sigint_handler(__attribute_maybe_unused__ int sig)
 {
-    (void)sig;
-    printf("SIGINT received, exiting server gracefully ... \n");
-    exit(SUCCESS);
+    stop_server = true;
 }
 
-void sigterm_handler(int sig)
+int setup_signal_handler(void)
 {
-    (void)sig;
-    printf("SIGTERM received, exiting server gracefully ... \n");
-    exit(SUCCESS);
+    struct sigaction sa;
+    sa.sa_handler = sigint_handler;
+    sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
+
+    if (sigaction(SIGINT, &sa, NULL) == FAILURE)
+        handle_error("Sigaction failed");
+
+    return SUCCESS;
 }

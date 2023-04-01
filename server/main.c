@@ -11,8 +11,7 @@ int main(int argc, char const* argv[])
 {
     if (!are_arguments_valid(argc, argv)) return ERROR;
 
-    signal(SIGINT, sigint_handler);
-    signal(SIGTERM, sigterm_handler);
+    if (setup_signal_handler() == ERROR) return ERROR;
 
     server_data_t server_data = {
         .PORT = atoi(argv[1]),

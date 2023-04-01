@@ -8,4 +8,4 @@
 #pragma once
 
 void sigint_handler(int sig);
-void sigterm_handler(int sig);
+int setup_signal_handler(void);
