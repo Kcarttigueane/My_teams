@@ -13,7 +13,7 @@ void user(list_args_t* args)
 
     user_t* user = find_user_by_uuid(args->db, args->split_command[1]);
 
-    if (user == NULL) {
+    if (!user) {
         dprintf(args->client->socket_fd, UNKNOWN_USER_RESP, UNKNOWN_USER,
         args->split_command[1]);
         return;

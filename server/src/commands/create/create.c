@@ -35,9 +35,7 @@ static void handle_create_channel(list_args_t* args)
     }
 
     create_channel_params_t params = init_create_channel_params(args);
-
     channel_t* new_channel = create_channel(args->db, &params);
-
     if (!new_channel)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Channel not created");
@@ -67,36 +65,18 @@ static void handle_create_thread(list_args_t* args)
     if (!new_thread)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Thread not created");
-    dprintf(args->client->socket_fd, CREATE_THREAD_RESP, THREAD_CREATED,
-    new_thread->uuid, new_thread->title, new_thread->message,
-    new_thread->related_channel_uuid, new_thread->creator_uuid,
-    (long)new_thread->created_at);
-    server_event_thread_created(new_thread->related_channel_uuid,
-    new_thread->uuid, args->client->current_user_uuid,
-    new_thread->title, new_thread->message);
+    thread_creation_send_json_resp(args, new_thread);
 }
 
 static void handle_create_reply(list_args_t* args)
 {
-    team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
-    if (team == NULL) {
-        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
-        args->client->current_team_uuid);
+    team_t* team;
+    channel_t* channel;
+    thread_t* thread;
+
+    if (!validate_team_channel_thread(args, &team, &channel, &thread))
         return;
-    }
-    channel_t* channel =
-        find_channel_by_uuid(args->db, args->client->current_channel_uuid);
-    if (channel == NULL) {
-        dprintf(args->client->socket_fd, UNKNOWN_CHANNEL_RESP, UNKNOWN_CHANNEL, args->client->current_channel_uuid);
-        return;
-    }
-    thread_t* thread =
-        find_thread_by_uuid(args->db, args->client->current_thread_uuid);
-    if (thread == NULL) {
-        dprintf(args->client->socket_fd, UNKNOWN_THREAD_RESP, UNKNOWN_THREAD, args->client->current_thread_uuid);
-        return;
-    }
-    // CHECK RELATION IS CHANEL RELATED TO TEAMS
+
     reply_t* new_reply = add_reply_to_thread(
         args->db, args->client->current_team_uuid, args->split_command[2]);
 
@@ -105,9 +85,9 @@ static void handle_create_reply(list_args_t* args)
         "Reply not created");
         return;
     }
+
     dprintf(args->client->socket_fd, CREATED_REPLY_RESP, THREAD_REPLY_CREATED,
     new_reply->uuid, new_reply->body, (long)new_reply->created_at);
-
     server_event_reply_created(thread->uuid, args->client->current_user_uuid,
     new_reply->body);
 }

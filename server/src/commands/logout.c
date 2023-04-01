@@ -11,9 +11,8 @@ void logout(list_args_t* args)
 {
     user_t* user = find_user_by_uuid(args->db, args->client->current_user_uuid);
 
-    if (user == NULL)
+    if (!user)
         send_error(args->client->socket_fd, UNKNOWN_USER, "Unknown user");
-
 
     args->client->current_user_uuid[0] = '\0';
     args->client->is_logged = false;

@@ -81,6 +81,12 @@ bool is_channel_related_to_team(team_t* team, channel_t* channel);
 bool is_thread_related_to_channel_to_team(team_t* team, channel_t* channel,
 thread_t* thread);
 
+bool validate_team_channel_thread(list_args_t* args, team_t** team,
+channel_t** channel, thread_t** thread);
+
+bool validate_team_channel(list_args_t* args, team_t** team,
+channel_t** channel);
+
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
 

@@ -22,5 +22,6 @@ void msgs(list_args_t* args)
 
     char* json_resp = list_discussion_messages(discussion);
     send(args->client->socket_fd, json_resp, strlen(json_resp), 0);
+
     free(json_resp);
 }
