@@ -8,6 +8,24 @@
 #include <sys/queue.h>
 #include "../../include/server.h"
 
+void save_database(database_t* database)
+{
+    save_teams_to_file(database);
+    save_channels_to_file(database);
+    save_threads_to_file(database);
+    save_discussions_to_file(database);
+    save_users_to_file(database);
+}
+
+static void load_database(database_t* database)
+{
+    load_teams_from_file(database);
+    load_channels_from_file(database);
+    load_threads_from_file(database);
+    load_discussions_from_file(database);
+    load_users_from_file(database);
+}
+
 database_t init_database(void)
 {
     database_t database = {
@@ -17,16 +35,9 @@ database_t init_database(void)
         .discussions = LIST_HEAD_INITIALIZER(database.discussions),
         .users = LIST_HEAD_INITIALIZER(database.users),
     };
-    return database;
-}
 
-void save_database(database_t* database)
-{
-    save_teams_to_file(database);
-    save_channels_to_file(database);
-    save_threads_to_file(database);
-    save_discussions_to_file(database);
-    save_users_to_file(database);
+    load_database(&database);
+    return database;
 }
 
 void free_database(database_t* database)

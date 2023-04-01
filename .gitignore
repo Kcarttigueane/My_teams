@@ -58,3 +58,9 @@ myteams_cli
 vgcore.*
 
 # Database
+
+users.json
+teams.json
+channels.json
+threads.json
+discussions.json
