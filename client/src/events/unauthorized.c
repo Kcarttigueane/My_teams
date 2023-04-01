@@ -7,7 +7,7 @@
 
 #include "../../include/client.h"
 
-void unauthorized()
+void unauthorized(void)
 {
     client_error_unauthorized();
 }

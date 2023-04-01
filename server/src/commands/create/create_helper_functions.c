@@ -18,6 +18,12 @@ void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread)
     new_thread->uuid,
     args->client->current_user_uuid,
     new_thread->title, new_thread->message);
+
+    dprintf(args->client->socket_fd, CREATE_THREAD_RESP,
+    THREAD_CREATED_NOTIFICATION,
+    new_thread->uuid, new_thread->title, new_thread->message,
+    new_thread->related_channel_uuid, new_thread->creator_uuid,
+    (long)new_thread->created_at);
 }
 
 bool validate_team_channel_thread(list_args_t* args, team_t** team,

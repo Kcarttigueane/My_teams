@@ -52,7 +52,6 @@ void create_and_log_user(list_args_t* args, char* username)
 
     dprintf(args->client->socket_fd, LOGIN_JSON_RESP, CONNECTION_SUCCESSFUL,
     user->username, user->uuid);
-    printf("User %s logged in with uuid %s\n", username, user->uuid);
 }
 
 void login(list_args_t* args)

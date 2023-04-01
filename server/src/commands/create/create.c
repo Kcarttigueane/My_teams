@@ -21,19 +21,21 @@ static void handle_create_team(list_args_t* args)
 
     dprintf(args->client->socket_fd, CREATE_TEAM_RESP, TEAM_CREATED,
     new_teams->uuid, new_teams->name, new_teams->description);
+
+    dprintf(args->client->socket_fd, CREATE_TEAM_RESP,
+    TEAM_CREATED_NOTIFICATION, new_teams->uuid, new_teams->name,
+    new_teams->description);
 }
 
 static void handle_create_channel(list_args_t* args)
 {
     team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
-
     if (!team) {
         dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
         args->client->current_team_uuid);
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Unknown team");
         return;
     }
-
     create_channel_params_t params = init_create_channel_params(args);
     channel_t* new_channel = create_channel(args->db, &params);
     if (!new_channel)
@@ -44,6 +46,9 @@ static void handle_create_channel(list_args_t* args)
     new_channel->name);
     dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP, CHANNEL_CREATED,
     new_channel->uuid, new_channel->name, new_channel->description);
+    dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP,
+    CHANNEL_CREATED_NOTIFICATION, new_channel->team_uuid, new_channel->uuid,
+    new_channel->name, new_channel->description);
 }
 
 static void handle_create_thread(list_args_t* args)
