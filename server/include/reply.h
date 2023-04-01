@@ -10,9 +10,9 @@
 #include "user.h"
 
 typedef struct reply_s {
-    char uuid[MAX_UUID_STR_LEN];
+    char uuid[MAX_UUID_LENGTH];
     char body[MAX_BODY_LENGTH];
-    char related_thread_uuid[MAX_UUID_STR_LEN];
+    char related_thread_uuid[MAX_UUID_LENGTH];
     time_t created_at;
     LIST_ENTRY(reply_s) entries;
 } reply_t;

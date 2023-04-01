@@ -18,9 +18,9 @@ static discussion_t* create_disc_obj(char* sender_uuid, char* receiver_uuid)
 
     char* discussion_uuid = generate_uuid();
 
-    strncpy(new_discussion->uuid, discussion_uuid, MAX_UUID_STR_LEN);
-    strncpy(new_discussion->sender_uuid, sender_uuid, MAX_UUID_STR_LEN);
-    strncpy(new_discussion->receiver_uuid, receiver_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_discussion->uuid, discussion_uuid, MAX_UUID_LENGTH);
+    strncpy(new_discussion->sender_uuid, sender_uuid, MAX_UUID_LENGTH);
+    strncpy(new_discussion->receiver_uuid, receiver_uuid, MAX_UUID_LENGTH);
 
     free(discussion_uuid);
 
@@ -63,9 +63,9 @@ message_t* create_message_obj(char* message_body, char* sender_uuid)
 
     char* message_uuid = generate_uuid();
 
-    strncpy(new_message->uuid, message_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_message->uuid, message_uuid, MAX_UUID_LENGTH);
     strncpy(new_message->body, message_body, MAX_BODY_LENGTH);
-    strncpy(new_message->sender_uuid, sender_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_message->sender_uuid, sender_uuid, MAX_UUID_LENGTH);
     new_message->created_at = time(NULL);
 
     free(message_uuid);

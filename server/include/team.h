@@ -10,10 +10,10 @@
 #include "db.h"
 
 typedef struct team_s {
-    char uuid[MAX_UUID_STR_LEN];
+    char uuid[MAX_UUID_LENGTH];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
-    char users[10][MAX_UUID_STR_LEN];
+    char users[10][MAX_UUID_LENGTH];
     int users_count;
     time_t created_at;
     LIST_ENTRY(team_s) entries;

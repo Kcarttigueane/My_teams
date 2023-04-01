@@ -24,7 +24,7 @@ bool add_user_to_team(database_t* db, char* team_uuid, char* user_uuid)
         printf("Error: Maximum number of users in the team has been reached\n");
         return false;
     }
-    strncpy(team->users[team->users_count], user_uuid, MAX_UUID_STR_LEN);
+    strncpy(team->users[team->users_count], user_uuid, MAX_UUID_LENGTH);
     team->users_count++;
     return true;
 }
@@ -47,7 +47,7 @@ bool remove_user_from_team(database_t* db, char* team_uuid, char* user_uuid)
         return false;
     }
     for (int i = user_index; i < team->users_count - 1; i++)
-        strncpy(team->users[i], team->users[i + 1], MAX_UUID_STR_LEN);
+        strncpy(team->users[i], team->users[i + 1], MAX_UUID_LENGTH);
 
     team->users_count--;
     return true;

@@ -18,7 +18,7 @@ void print_users(char* json_response)
     while (ptr != NULL && *ptr != ']') {
         if (*ptr == ',')
             ptr++;
-        char user_uuid[MAX_UUID_STR_LEN] = {0};
+        char user_uuid[MAX_UUID_LENGTH] = {0};
         char username[MAX_NAME_LENGTH] = {0};
         bool is_logged_in;
         if (!extract_value("user_uuid", ptr, user_uuid, sizeof(user_uuid)))

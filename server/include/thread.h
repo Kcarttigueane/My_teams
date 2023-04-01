@@ -12,11 +12,11 @@
 #include "channel.h"
 
 typedef struct thread_s {
-    char uuid[MAX_UUID_STR_LEN];
+    char uuid[MAX_UUID_LENGTH];
     char title[MAX_NAME_LENGTH];
     char message[MAX_BODY_LENGTH];
-    char related_channel_uuid[MAX_UUID_STR_LEN];
-    char creator_uuid[MAX_UUID_STR_LEN];
+    char related_channel_uuid[MAX_UUID_LENGTH];
+    char creator_uuid[MAX_UUID_LENGTH];
     time_t created_at;
     LIST_HEAD(replies_head, reply_s) replies;
     LIST_ENTRY(thread_s) entries;
@@ -25,8 +25,8 @@ typedef struct thread_s {
 typedef struct create_thread_params_s {
     char title[MAX_NAME_LENGTH];
     char message[MAX_BODY_LENGTH];
-    char related_channel_uuid[MAX_UUID_STR_LEN];
-    char creator_uuid[MAX_UUID_STR_LEN];
+    char related_channel_uuid[MAX_UUID_LENGTH];
+    char creator_uuid[MAX_UUID_LENGTH];
 } create_thread_params_t;
 
 // ! CREATE

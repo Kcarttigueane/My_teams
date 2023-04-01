@@ -18,12 +18,12 @@ static thread_t *create_thread_obj(create_thread_params_t *params)
 
     char *thread_uuid = generate_uuid();
 
-    strncpy(new_thread->uuid, thread_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_thread->uuid, thread_uuid, MAX_UUID_LENGTH);
     strncpy(new_thread->title, params->title, MAX_NAME_LENGTH);
     strncpy(new_thread->message, params->message, MAX_BODY_LENGTH);
     strncpy(new_thread->related_channel_uuid, params->related_channel_uuid,
-    MAX_UUID_STR_LEN);
-    strncpy(new_thread->creator_uuid, params->creator_uuid, MAX_UUID_STR_LEN);
+    MAX_UUID_LENGTH);
+    strncpy(new_thread->creator_uuid, params->creator_uuid, MAX_UUID_LENGTH);
     new_thread->created_at = time(NULL);
 
     free(thread_uuid);
@@ -56,9 +56,9 @@ static reply_t* create_reply_obj(char* thread_uuid, char* reply_body)
 
     char* reply_uuid = generate_uuid();
 
-    strncpy(new_reply->uuid, reply_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_reply->uuid, reply_uuid, MAX_UUID_LENGTH);
     strncpy(new_reply->body, reply_body, MAX_BODY_LENGTH);
-    strncpy(new_reply->related_thread_uuid, thread_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_reply->related_thread_uuid, thread_uuid, MAX_UUID_LENGTH);
     new_reply->created_at = time(NULL);
 
     free(reply_uuid);

@@ -19,7 +19,7 @@ static team_t* create_team_object(char* name, char* description)
 
     char* team_uuid = generate_uuid();
 
-    strncpy(new_team->uuid, team_uuid, MAX_UUID_STR_LEN);
+    strncpy(new_team->uuid, team_uuid, MAX_UUID_LENGTH);
     strncpy(new_team->name, name, MAX_NAME_LENGTH);
     strncpy(new_team->description, description, MAX_DESCRIPTION_LENGTH);
     new_team->users_count = 0;

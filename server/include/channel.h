@@ -10,12 +10,12 @@
 #include "db.h"
 
 typedef struct channel_s {
-    char uuid[MAX_UUID_STR_LEN];
+    char uuid[MAX_UUID_LENGTH];
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
-    char team_uuid[MAX_UUID_STR_LEN];
-    char creator_uuid[MAX_UUID_STR_LEN];
-    char users[10][MAX_UUID_STR_LEN];
+    char team_uuid[MAX_UUID_LENGTH];
+    char creator_uuid[MAX_UUID_LENGTH];
+    char users[10][MAX_UUID_LENGTH];
     size_t nb_users;
     time_t created_at;
     LIST_ENTRY(channel_s) entries;
@@ -24,8 +24,8 @@ typedef struct channel_s {
 typedef struct create_channel_params_s {
     char name[MAX_NAME_LENGTH];
     char description[MAX_DESCRIPTION_LENGTH];
-    char team_uuid[MAX_UUID_STR_LEN];
-    char creator_uuid[MAX_UUID_STR_LEN];
+    char team_uuid[MAX_UUID_LENGTH];
+    char creator_uuid[MAX_UUID_LENGTH];
 } create_channel_params_t;
 
 // ! CREATE

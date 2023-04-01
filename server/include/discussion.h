@@ -12,9 +12,9 @@
 #include "db.h"
 
 typedef struct discussion_s {
-    char uuid[MAX_UUID_STR_LEN];
-    char sender_uuid[MAX_UUID_STR_LEN];
-    char receiver_uuid[MAX_UUID_STR_LEN];
+    char uuid[MAX_UUID_LENGTH];
+    char sender_uuid[MAX_UUID_LENGTH];
+    char receiver_uuid[MAX_UUID_LENGTH];
     LIST_HEAD(messages_s, message_s) messages;
     LIST_ENTRY(discussion_s) entries;
 } discussion_t;

@@ -33,7 +33,7 @@ bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid)
     if (!user)
         return false;
 
-    strncpy(channel->users[channel->nb_users], user_uuid, MAX_UUID_STR_LEN);
+    strncpy(channel->users[channel->nb_users], user_uuid, MAX_UUID_LENGTH);
     channel->nb_users++;
 
     return true;
@@ -53,7 +53,7 @@ char* user_uuid)
     }
 
     for (size_t i = user_index; i < channel->nb_users - 1; i++) {
-        strncpy(channel->users[i], channel->users[i + 1], MAX_UUID_STR_LEN);
+        strncpy(channel->users[i], channel->users[i + 1], MAX_UUID_LENGTH);
     }
     channel->nb_users--;
 

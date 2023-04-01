@@ -45,7 +45,7 @@ void create_and_log_user(list_args_t* args, char* username)
     server_event_user_created(user->uuid, user->username);
 
     args->client->is_logged = true;
-    strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+    strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_LENGTH);
     user->is_logged_in = true;
 
     server_event_user_logged_in(user->uuid);
@@ -66,7 +66,7 @@ void login(list_args_t* args)
 
     if ((user = find_user_by_username(args->db, username)) != NULL) {
         args->client->is_logged = true;
-        strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_STR_LEN);
+        strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_LENGTH);
         user->is_logged_in = true;
         server_event_user_logged_in(user->uuid);
         return;

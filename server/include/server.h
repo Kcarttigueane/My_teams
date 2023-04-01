@@ -30,10 +30,10 @@
 
     typedef struct clients {
         int socket_fd;
-        char current_user_uuid[MAX_UUID_STR_LEN];
-        char current_team_uuid[MAX_UUID_STR_LEN];
-        char current_channel_uuid[MAX_UUID_STR_LEN];
-        char current_thread_uuid[MAX_UUID_STR_LEN];
+        char current_user_uuid[MAX_UUID_LENGTH];
+        char current_team_uuid[MAX_UUID_LENGTH];
+        char current_channel_uuid[MAX_UUID_LENGTH];
+        char current_thread_uuid[MAX_UUID_LENGTH];
         bool is_logged;
         int use_args_count;
     } clients_t;

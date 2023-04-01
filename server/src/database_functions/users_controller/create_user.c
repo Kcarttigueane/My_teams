@@ -19,7 +19,7 @@ static user_t* create_user_object(char* username)
 
     char* uuid_str = generate_uuid();
 
-    strncpy(new_user->uuid, uuid_str, MAX_UUID_STR_LEN);
+    strncpy(new_user->uuid, uuid_str, MAX_UUID_LENGTH);
     strncpy(new_user->username, username, MAX_NAME_LENGTH);
 
     free(uuid_str);
