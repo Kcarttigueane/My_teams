@@ -61,26 +61,31 @@ Category: Communication protocol                                       J.DUTEL
 
 
 
-    3.2. Responses =>
+    3.2. Responses
 
+    The MyTeams protocol responses are in JSON format and have the following structure:
 
-    The MyTeams protocol responses are in string format and have the following structure:
+        {
+            "status": "success" or "error",
+            "message" : "Team list"
+            "teams": [
+                {
 
-    [STATUS] [MESSAGE_DATA]
+                }
+            ],
+        }
 
+    3.3. Error handling
 
+    In case of an error, the response data will contain the error message, like:
 
-    3.3. Error handling =>
+    {
+        "status": "error",
+        "message" : "Invalid command"
+    }
 
-
-        In case of an error, the response data will contain the error message, like:
-
-        [STATUS] [MESSAGE_DATA]
-
-
-    STATUS: indicates if the command was successful or not.
-    MESSAGE_DATA: contains the response data.
-
+    status: indicates if the command was successful or not.
+    message contains the response data.
 
 
 // -------------------------------------------------------------------------//

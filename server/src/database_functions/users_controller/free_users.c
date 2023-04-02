@@ -10,9 +10,9 @@
 void free_users(database_t* db)
 {
     user_t* user;
+    user_t* tmp;
 
-    while (!LIST_EMPTY(&db->users)) {
-        user = LIST_FIRST(&db->users);
+    LIST_FOREACH_SAFE(user, &(db->users), entries, tmp) {
         LIST_REMOVE(user, entries);
         free(user);
     }

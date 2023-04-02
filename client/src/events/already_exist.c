@@ -9,5 +9,5 @@
 
 void user_already_exist(__attribute_maybe_unused__ char* json_response)
 {
-    printf("User already exist\n");
+    client_error_already_exist();
 }

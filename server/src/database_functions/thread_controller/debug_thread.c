@@ -26,6 +26,7 @@ void debug_thread(thread_t* new_thread)
         printf("\t\t[Reply] %s\n", CLIENT_PROMPT);
         printf("\t\t\t[UUID] %s\n", reply->uuid);
         printf("\t\t\t[Body] %s\n", reply->body);
+        printf("\t\t\t[Creator UUID] %s\n", reply->creator_uuid);
         printf("\t\t\t[Related Thread UUID] %s\n", reply->related_thread_uuid);
         printf("\t\t\t[Created at] %s", ctime(&(reply->created_at)));
     }

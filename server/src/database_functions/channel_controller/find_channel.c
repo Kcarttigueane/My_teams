@@ -18,3 +18,14 @@ channel_t* find_channel_by_uuid(database_t* db, char* channel_uuid)
     printf("Error: Channel not found\n");
     return NULL;
 }
+
+bool is_channel_already_exist(database_t* db, char* channel_name)
+{
+    channel_t* channel;
+
+    LIST_FOREACH(channel, &(db->channels), entries) {
+        if (!strcmp(channel->name, channel_name))
+            return true;
+    }
+    return false;
+}

@@ -26,6 +26,7 @@ team_t* create_team(database_t* db, char* name, char* description);
 // ! FIND
 
 team_t* find_team_by_uuid(database_t* db, char* team_uuid);
+bool is_team_already_exist(database_t* db, char* team_name);
 
 // ! LIST
 

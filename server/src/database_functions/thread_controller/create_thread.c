@@ -45,7 +45,8 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params)
     return new_thread;
 }
 
-static reply_t* create_reply_obj(char* thread_uuid, char* reply_body)
+static reply_t* create_reply_obj(char* thread_uuid, char* reply_body,
+char* creator_uuid)
 {
     reply_t* new_reply = (reply_t *)malloc(sizeof(reply_t));
 
@@ -53,12 +54,13 @@ static reply_t* create_reply_obj(char* thread_uuid, char* reply_body)
         printf("Error: Failed to allocate memory for new reply\n");
         return NULL;
     }
-
     char* reply_uuid = generate_uuid();
 
     strncpy(new_reply->uuid, reply_uuid, MAX_UUID_LENGTH);
     strncpy(new_reply->body, reply_body, MAX_BODY_LENGTH);
     strncpy(new_reply->related_thread_uuid, thread_uuid, MAX_UUID_LENGTH);
+    strncpy(new_reply->creator_uuid, creator_uuid, MAX_UUID_LENGTH);
+
     new_reply->created_at = time(NULL);
 
     free(reply_uuid);
@@ -67,7 +69,7 @@ static reply_t* create_reply_obj(char* thread_uuid, char* reply_body)
 }
 
 reply_t* add_reply_to_thread(database_t* db, char* thread_uuid,
-char* reply_body)
+char* reply_body, char* creator_uuid)
 {
     thread_t* thread = find_thread_by_uuid(db, thread_uuid);
 
@@ -76,10 +78,10 @@ char* reply_body)
         return NULL;
     }
 
-    reply_t* new_reply = create_reply_obj(thread_uuid, reply_body);
+    reply_t* new_reply =
+        create_reply_obj(thread_uuid, reply_body, creator_uuid);
 
-    if (new_reply == NULL)
-        return NULL;
+    if (!new_reply) return NULL;
 
     LIST_INSERT_HEAD(&(thread->replies), new_reply, entries);
 

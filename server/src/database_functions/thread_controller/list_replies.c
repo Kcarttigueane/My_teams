@@ -14,14 +14,14 @@ static void append_replies_json(thread_t* thread, char* json)
             "  \"message\": \"Replies list\",\n"
             "  \"replies\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
-
     reply_t* reply;
     LIST_FOREACH(reply, &(thread->replies), entries) {
         char reply_json[BUFFER_SIZE];
         snprintf(reply_json, BUFFER_SIZE,
         "\t{\n\t  \"reply_uuid\": \"%s\",\n\t  \"reply_body\": "
-        "\"%s\",\n\t  \"timestamp\": \"%ld\"\n\t},\n",
-        reply->uuid, reply->body, (long)reply->created_at);
+        "\"%s\",\n\t  \"creator_uuid\": \"%s\",\n\t  \"timestamp\": "
+        "\"%ld\"\n\t},\n", reply->uuid, reply->body, reply->creator_uuid,
+        (long)reply->created_at);
         strncat(json, reply_json, BUFFER_SIZE - strlen(json) - 1);
     }
     if (json[strlen(json) - 2] == ',') {

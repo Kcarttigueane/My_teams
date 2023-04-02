@@ -37,6 +37,7 @@ thread_t* create_thread(database_t* db, create_thread_params_t* params);
 // ! FIND
 
 thread_t* find_thread_by_uuid(database_t* database, char* uuid);
+bool is_thread_already_exist(database_t* database, char* thread_title);
 
 // ! LIST
 

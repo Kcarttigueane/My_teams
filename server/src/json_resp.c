@@ -96,8 +96,10 @@ const char* CREATED_REPLY_RESP =
     "{\n"
     "  \"status\": %i,\n"
     "  \"message\": \"Reply created\",\n"
-    "  \"reply_uuid\": \"%s\",\n"
+    "  \"team_uuid\": \"%s\",\n"
     "  \"reply_body\": \"%s\",\n"
+    "  \"creator_uuid\": \"%s\"\n"
+    "  \"thread_uuid\": \"%s\"\n"
     "  \"timestamp\": \"%ld\"\n"
     "}\n";
 

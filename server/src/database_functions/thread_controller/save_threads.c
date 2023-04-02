@@ -14,6 +14,7 @@ void save_reply(FILE* file, reply_t* reply)
     fprintf(file, "        \"body\": \"%s\",\n", reply->body);
     fprintf(file, "        \"related_thread_uuid\": \"%s\"\n",
             reply->related_thread_uuid);
+    fprintf(file, "        \"creator_uuid\": \"%s\",\n", reply->creator_uuid);
     fprintf(file, "      }");
 }
 

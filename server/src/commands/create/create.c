@@ -12,6 +12,12 @@ static void handle_create_team(list_args_t* args)
     char *team_name = args->split_command[1];
     char *team_description = args->split_command[2];
 
+    if (is_team_already_exist(args->db, team_name) == true) {
+        send_error(args->client->socket_fd, ALREADY_EXISTS,
+        "Team already exist");
+        return;
+    }
+
     team_t* new_teams = create_team(args->db, team_name, team_description);
 
     if (!new_teams)
@@ -31,11 +37,13 @@ static void handle_create_channel(list_args_t* args)
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Unknown team");
         return;
     }
-
+    if (is_channel_already_exist(args->db, args->split_command[1]) == true) {
+        send_error(args->client->socket_fd, ALREADY_EXISTS,
+        "Channel already exist");
+        return;
+    }
     create_channel_params_t params = init_create_channel_params(args);
-
     channel_t* new_channel = create_channel(args->db, &params);
-
     if (!new_channel)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Channel not created");
@@ -47,10 +55,14 @@ static void handle_create_thread(list_args_t* args)
 {
     team_t* team;
     channel_t* channel;
-
     if (!validate_team_channel(args, &team, &channel))
         return;
 
+    if (is_thread_already_exist(args->db, args->split_command[1]) == true) {
+        send_error(args->client->socket_fd, ALREADY_EXISTS,
+        "Thread already exist");
+        return;
+    }
     create_thread_params_t params = init_create_thread_params(args);
     thread_t* new_thread = create_thread(args->db, &params);
 
@@ -72,17 +84,17 @@ static void handle_create_reply(list_args_t* args)
         args->client->current_thread_uuid);
         return;
     }
+
     reply_t* new_reply = add_reply_to_thread(
-        args->db, args->client->current_team_uuid, args->split_command[2]);
+        args->db, args->client->current_team_uuid, args->split_command[2],
+        args->client->current_user_uuid);
+
     if (new_reply == NULL) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Reply not created");
         return;
     }
-    dprintf(args->client->socket_fd, CREATED_REPLY_RESP, THREAD_REPLY_CREATED,
-    new_reply->uuid, new_reply->body, (long)new_reply->created_at);
-    server_event_reply_created(thread->uuid, args->client->current_user_uuid,
-    new_reply->body);
+    reply_creation_send_json_resp(args, new_reply, thread->uuid, team->uuid);
 }
 
 void create(list_args_t* args)

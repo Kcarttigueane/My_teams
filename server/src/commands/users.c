@@ -12,4 +12,6 @@ void users(list_args_t* args)
     char* json_users_resp = print_users(args->db);
 
     send(args->client->socket_fd, json_users_resp, strlen(json_users_resp), 0);
+
+    free(json_users_resp);
 }

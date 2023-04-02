@@ -36,7 +36,7 @@ channel_t* create_channel(database_t* db, create_channel_params_t* param);
 // ! FIND
 
 channel_t* find_channel_by_uuid(database_t* db, char* channel_uuid);
-bool is_channel_exist(database_t* db, char* team_uuid);
+bool is_channel_already_exist(database_t* db, char* channel_name);
 
 // ! ADD / REMOVE / UPDATE
 
