@@ -22,6 +22,4 @@ void logout(list_args_t* args)
     DISCONNECTION_SUCCESSFUL, user->username, user->uuid);
 
     server_event_user_logged_out(user->uuid);
-
-    printf("User %s logged out\n", args->client->current_user_uuid);
 }

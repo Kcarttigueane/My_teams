@@ -44,3 +44,7 @@ bool remove_user_from_team(database_t* db, char* team_uuid, char* user_uuid);
 // ! DEBUG
 
 void debug_team(team_t* new_team);
+
+// ! HELPERS FUNCTIONS:
+
+void team_creation_send_json_resp(list_args_t* args, team_t* new_team);

@@ -60,3 +60,7 @@ void free_channels(database_t* db);
 // ! DEBUG
 
 void debug_channel(channel_t* new_channel);
+
+// ! HELPERS FUNCTIONS:
+
+void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel);

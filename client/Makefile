@@ -28,34 +28,34 @@ GREEN	=	\033[0;32m
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Linking...\
+	@printf "\033[00;36mclient \033[0;33m➜  $(COLOR_PENDING)Linking...\
 	$(COLOR_RESET)\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
+	@printf "\033[00;36mclient \033[0;32m➜  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 -include $(DEPS)
 
 %.o: %.c
-	@printf "\033[00;36mclient \033[0;34m▷  $(GREEN)「✔」	$(COLOR_DEFAULT)\
+	@printf "\033[00;36mclient \033[0;34m➜  $(GREEN)「✔」	$(COLOR_DEFAULT)\
 	Compiling $<...$(COLOR_RESET)\n"
 	@$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 clean:
-	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Cleaning...\
+	@printf "\033[00;36mclient \033[0;33m➜  $(COLOR_PENDING)Cleaning...\
 	$(COLOR_RESET)\n"
 	@$(RM) $(OBJS)
 	@$(RM) $(DEPS)
 	@make -C ../tests fclean
-	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
+	@printf "\033[00;36mclient \033[0;32m➜  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 fclean: clean
-	@printf "\033[00;36mclient \033[0;33m▷  $(COLOR_PENDING)Full cleaning...\
+	@printf "\033[00;36mclient \033[0;33m➜  $(COLOR_PENDING)Full cleaning...\
 	$(COLOR_RESET)\n"
 	@$(RM) $(NAME)
 	@$(RM) $(wildcard vgcore*)
-	@printf "\033[00;36mclient \033[0;32m▷  $(COLOR_SUCCESS)Done.\
+	@printf "\033[00;36mclient \033[0;32m➜  $(COLOR_SUCCESS)Done.\
 	$(COLOR_RESET)\n"
 
 re: fclean all
