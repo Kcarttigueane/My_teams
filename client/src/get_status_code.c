@@ -10,6 +10,7 @@
 int get_status_code(const char* json_string)
 {
     int status_code = 0;
+
     const char* status_field = strstr(json_string, "\"status\": ");
 
     if (status_field != NULL)

@@ -7,27 +7,6 @@
 
 #include "../include/client.h"
 
-char* json_get_value(char* json_str, const char* key)
-{
-    char* ptr = strstr(json_str, key);
-    if (ptr == NULL) {
-        printf("Error: key not found\n");
-        return NULL;
-    }
-    ptr += strlen(key) + strlen("\": \"");
-    char* value_start = ptr;
-    char* value_end = strchr(ptr, '\"');
-    if (value_end == NULL) {
-        printf("Error: invalid JSON format\n");
-        return NULL;
-    }
-    size_t value_length = value_end - value_start;
-    char* value = (char*)malloc(value_length + 1);
-    strncpy(value, value_start, value_length);
-    value[value_length] = '\0';
-    return value;
-}
-
 bool extract_value(const char* key, char* json_str, char* value, int max_length)
 {
     int key_len = strlen(key);

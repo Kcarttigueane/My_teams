@@ -61,7 +61,6 @@ int handle_user_input(client_data_t* client);
 
 // ! PARSE JSON SERVER RESPONSE:
 
-char* json_get_value(char* json_str, const char* key);
 bool extract_value(const char* key, char* json_str, char* value,
 int max_length);
 bool extract_boolean_value(const char* key, char* json_str, bool* value);
