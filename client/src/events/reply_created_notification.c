@@ -9,21 +9,23 @@
 
 void reply_created_notification(__attribute_maybe_unused__ char* json_response)
 {
-    char* creator_uuid = json_get_value(json_response, "creator_uuid");
-    char* reply_body = json_get_value(json_response, "reply_body");
-    char* thread_uuid = json_get_value(json_response, "thread_uuid");
-    char *timestamp = json_get_value(json_response, "timestamp");
+    char creator_uuid[MAX_UUID_LENGTH] = {0};
+    char reply_body[MAX_BODY_LENGTH] = {0};
+    char thread_uuid[MAX_UUID_LENGTH] = {0};
+    char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
 
-    if (creator_uuid == NULL || reply_body == NULL || timestamp == NULL ||
-        thread_uuid == NULL) {
-        printf("Error: Invalid json response from server\n");
+    if (!extract_value("creator_uuid", json_response, creator_uuid,
+        sizeof(creator_uuid)) ||
+        !extract_value("reply_body", json_response, reply_body,
+        sizeof(reply_body)) ||
+        !extract_value("thread_uuid", json_response, thread_uuid,
+        sizeof(thread_uuid)) ||
+        !extract_value("timestamp", json_response, timestamp,
+        sizeof(timestamp))) {
+        printf("Error: invalid JSON format\n");
         return;
     }
+
     client_print_reply_created(thread_uuid, creator_uuid, (time_t)timestamp,
     reply_body);
-
-    free(creator_uuid);
-    free(reply_body);
-    free(timestamp);
-    free(thread_uuid);
 }

@@ -9,22 +9,23 @@
 
 void thread_reply_created(char* json_response)
 {
-    char *creator_uuid = json_get_value(json_response, "creator_uuid");
-    char *reply_body = json_get_value(json_response, "reply_body");
-    char *team_uuid = json_get_value(json_response, "team_uuid");
-    char *thread_uuid = json_get_value(json_response, "thread_uuid");
+    char creator_uuid[MAX_UUID_LENGTH] = {0};
+    char reply_body[MAX_BODY_LENGTH] = {0};
+    char team_uuid[MAX_UUID_LENGTH] = {0};
+    char thread_uuid[MAX_UUID_LENGTH] = {0};
 
-    if (creator_uuid == NULL || reply_body == NULL || creator_uuid == NULL ||
-    thread_uuid == NULL) {
-        printf("Error: Invalid json response from server\n");
+    if (!extract_value("creator_uuid", json_response, creator_uuid,
+        sizeof(creator_uuid)) ||
+        !extract_value("reply_body", json_response, reply_body,
+        sizeof(reply_body)) ||
+        !extract_value("team_uuid", json_response, team_uuid,
+        sizeof(team_uuid)) ||
+        !extract_value("thread_uuid", json_response, thread_uuid,
+        sizeof(thread_uuid))) {
+        printf("Error: invalid JSON format\n");
         return;
     }
 
-    client_event_thread_reply_received(team_uuid, reply_body, thread_uuid,
+    client_event_thread_reply_received(team_uuid, creator_uuid, thread_uuid,
     reply_body);
-
-    free(creator_uuid);
-    free(reply_body);
-    free(team_uuid);
-    free(thread_uuid);
 }

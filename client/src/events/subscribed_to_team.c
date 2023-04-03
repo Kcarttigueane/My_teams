@@ -9,16 +9,16 @@
 
 void subscribed_to_team(char* json_response)
 {
-    char *user_uuid = json_get_value(json_response, "user_uuid");
-    char *team_uuid = json_get_value(json_response, "team_uuid");
+    char user_uuid[MAX_UUID_LENGTH] = {0};
+    char team_uuid[MAX_UUID_LENGTH] = {0};
 
-    if (user_uuid == NULL || team_uuid == NULL) {
+    if (!extract_value("user_uuid", json_response, user_uuid,
+        sizeof(user_uuid)) ||
+        !extract_value("team_uuid", json_response, team_uuid,
+        sizeof(team_uuid))) {
         printf("Error: invalid JSON format\n");
         return;
     }
 
     client_print_subscribed(user_uuid, team_uuid);
-
-    free(user_uuid);
-    free(team_uuid);
 }

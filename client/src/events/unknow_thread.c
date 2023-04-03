@@ -9,14 +9,13 @@
 
 void unknow_thread(char* json_response)
 {
-    char *thread_uuid = json_get_value(json_response, "thread_uuid");
+    char thread_uuid[MAX_UUID_LENGTH] = {0};
 
-    if (thread_uuid == NULL) {
+    if (!extract_value("thread_uuid", json_response, thread_uuid,
+        sizeof(thread_uuid))) {
         printf("Error: invalid JSON format\n");
         return;
     }
 
     client_error_unknown_thread(thread_uuid);
-
-    free(thread_uuid);
 }

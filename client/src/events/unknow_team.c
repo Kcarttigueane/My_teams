@@ -9,14 +9,13 @@
 
 void unknow_team(char* json_response)
 {
-    char *team_uuid = json_get_value(json_response, "team_uuid");
+    char team_uuid[MAX_UUID_LENGTH] = {0};
 
-    if (team_uuid == NULL) {
+    if (!extract_value("team_uuid", json_response, team_uuid,
+        sizeof(team_uuid))) {
         printf("Error: invalid JSON format\n");
         return;
     }
 
     client_error_unknown_team(team_uuid);
-
-    free(team_uuid);
 }

@@ -9,18 +9,19 @@
 
 void info_team(char* json_response)
 {
-    char *team_uuid = json_get_value(json_response, "team_uuid");
-    char *team_name = json_get_value(json_response, "team_name");
-    char *team_description = json_get_value(json_response, "team_description");
+    char team_uuid[MAX_UUID_LENGTH] = {0};
+    char team_name[MAX_NAME_LENGTH] = {0};
+    char team_description[MAX_DESCRIPTION_LENGTH] = {0};
 
-    if (team_uuid == NULL || team_name == NULL || team_description == NULL) {
-        printf("Error: Failed to get team information\n");
+    if (!extract_value("team_uuid", json_response, team_uuid,
+        sizeof(team_uuid)) ||
+        !extract_value("team_name", json_response, team_name,
+        sizeof(team_name)) ||
+        !extract_value("team_description", json_response, team_description,
+        sizeof(team_description))) {
+        printf("Error: invalid JSON format\n");
         return;
     }
 
     client_print_team(team_uuid, team_name, team_description);
-
-    free(team_uuid);
-    free(team_name);
-    free(team_description);
 }

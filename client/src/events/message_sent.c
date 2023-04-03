@@ -9,16 +9,16 @@
 
 void message_sent(char* json_response)
 {
-    char* recipient_uuid = json_get_value(json_response, "recipient_uuid");
-    char* message_body = json_get_value(json_response, "message_body");
+    char recipient_uuid[MAX_UUID_LENGTH] = {0};
+    char message_body[MAX_BODY_LENGTH] = {0};
 
-    if (recipient_uuid == NULL || message_body == NULL) {
+    if (!extract_value("recipient_uuid", json_response, recipient_uuid,
+        sizeof(recipient_uuid)) ||
+        !extract_value("message_body", json_response, message_body,
+        sizeof(message_body))) {
         printf("Error: invalid JSON format\n");
         return;
     }
 
     client_event_private_message_received(recipient_uuid, message_body);
-
-    free(recipient_uuid);
-    free(message_body);
 }

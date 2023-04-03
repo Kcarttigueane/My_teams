@@ -9,13 +9,13 @@
 #include "../../include/utils.h"
 
 const events_t LIST_EVENTS_CODE[] = {
-    {CONNECTION_SUCCESSFUL, connection_successful},        // Done
-    {DISCONNECTION_SUCCESSFUL, disconnection_successful},  // Done
-    {MESSAGE_SENT, message_sent},                          // Done
+    {CONNECTION_SUCCESSFUL, connection_successful},
+    {DISCONNECTION_SUCCESSFUL, disconnection_successful},
+    {MESSAGE_SENT, message_sent},
     {THREAD_REPLY_CREATED, thread_reply_created},
-    {TEAM_CREATED, team_created},        // Done
-    {CHANNEL_CREATED, channel_created},  // Done
-    {THREAD_CREATED, thread_created},    // Done
+    {TEAM_CREATED, team_created},
+    {CHANNEL_CREATED, channel_created},
+    {THREAD_CREATED, thread_created},
     {PRINT_USERS, print_users},
     {PRINT_TEAMS, print_teams},
     {PRINT_CHANNELS, print_channels},
@@ -25,13 +25,13 @@ const events_t LIST_EVENTS_CODE[] = {
     {UNKNOWN_TEAM, unknow_team},
     {UNKNOWN_CHANNEL, unknow_channel},
     {UNKNOWN_THREAD, unknow_thread},
-    {UNKNOWN_USER, unknow_user},   // Done
-    {UNAUTHORIZED, unauthorized},  // Done
+    {UNKNOWN_USER, unknow_user},
+    {UNAUTHORIZED, unauthorized},
     {ALREADY_EXISTS, user_already_exist},
-    {INFO_USER, info_user},        // Done
-    {INFO_TEAM, info_team},        // Done
-    {INFO_CHANNEL, info_channel},  // Done
-    {INFO_THREAD, info_thread},    // Done
+    {INFO_USER, info_user},
+    {INFO_TEAM, info_team},
+    {INFO_CHANNEL, info_channel},
+    {INFO_THREAD, info_thread},
     {TEAM_CREATED_NOTIFICATION, team_created_notification},
     {CHANNEL_CREATED_NOTIFICATION, channel_created_notification},
     {THREAD_CREATED_NOTIFICATION, thread_created_notification},

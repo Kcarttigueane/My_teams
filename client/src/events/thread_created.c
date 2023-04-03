@@ -7,26 +7,26 @@
 
 #include "../../include/client.h"
 
-void thread_created(char* json_response)
+void thread_created(char* json_resp)
 {
-    char *thread_uuid = json_get_value(json_response, "thread_uuid");
-    char *thread_title = json_get_value(json_response, "thread_title");
-    char *thread_message = json_get_value(json_response, "thread_message");
-    char *creator_uuid = json_get_value(json_response, "creator_uuid");
-    char *timestamp = json_get_value(json_response, "timestamp");
+    char thread_uuid[MAX_UUID_LENGTH] = {0};
+    char thread_title[MAX_NAME_LENGTH] = {0};
+    char thread_message[MAX_DESCRIPTION_LENGTH] = {0};
+    char creator_uuid[MAX_UUID_LENGTH] = {0};
+    char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
 
-    if (thread_uuid == NULL || thread_title == NULL || thread_message == NULL ||
-        creator_uuid == NULL || timestamp == NULL) {
-        printf("Error: Failed to get thread information\n");
+    if (!extract_value("thread_uuid", json_resp, thread_uuid,
+        sizeof(thread_uuid)) ||
+        !extract_value("thread_title", json_resp, thread_title,
+        sizeof(thread_title)) ||
+        !extract_value("thread_message", json_resp, thread_message,
+        sizeof(thread_message)) ||
+        !extract_value("creator_uuid", json_resp, creator_uuid,
+        sizeof(creator_uuid)) ||
+        !extract_value("timestamp", json_resp, timestamp, sizeof(timestamp))) {
+        printf("Error: invalid JSON format\n");
         return;
     }
-
-    client_event_thread_created(thread_uuid, creator_uuid, (time_t) timestamp,
+    client_event_thread_created(thread_uuid, creator_uuid, (time_t)timestamp,
     thread_title, thread_message);
-
-    free(thread_uuid);
-    free(thread_title);
-    free(thread_message);
-    free(creator_uuid);
-    free(timestamp);
 }

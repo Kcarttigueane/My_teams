@@ -9,19 +9,19 @@
 
 void info_channel(char* json_response)
 {
-    char *channel_uuid = json_get_value(json_response, "channel_uuid");
-    char *channel_name = json_get_value(json_response, "channel_name");
-    char *channel_description = json_get_value(json_response,
-    "channel_description");
+    char channel_uuid[MAX_UUID_LENGTH] = {0};
+    char channel_name[MAX_NAME_LENGTH] = {0};
+    char channel_description[MAX_DESCRIPTION_LENGTH] = {0};
 
-    if (!channel_uuid || !channel_name || !channel_description) {
-        printf("Error: Failed to get channel information\n");
+    if (!extract_value("channel_uuid", json_response, channel_uuid,
+        sizeof(channel_uuid)) ||
+        !extract_value("channel_name", json_response, channel_name,
+        sizeof(channel_name)) ||
+        !extract_value("channel_description", json_response,
+        channel_description, sizeof(channel_description))) {
+        printf("Error: invalid JSON format\n");
         return;
     }
 
     client_print_channel(channel_uuid, channel_name, channel_description);
-
-    free(channel_uuid);
-    free(channel_name);
-    free(channel_description);
 }
