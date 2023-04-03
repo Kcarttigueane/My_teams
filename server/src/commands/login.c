@@ -7,7 +7,7 @@
 
 #include "../../include/server.h"
 
-bool error_handling_login(list_args_t* args, char* username)
+static bool error_handling_login(list_args_t* args, char* username)
 {
     if (args->client->is_logged) {
         send_error(args->client->socket_fd, CONNECTION_DENIED,

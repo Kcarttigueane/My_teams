@@ -9,6 +9,11 @@
 
 static void list_users_of_team(list_args_t* args, char* team_uuid)
 {
+    if (strlen(team_uuid) != MAX_UUID_LENGTH) {
+        send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
+        return;
+    }
+
     team_t* team = find_team_by_uuid(args->db, team_uuid);
 
     if (team == NULL) {

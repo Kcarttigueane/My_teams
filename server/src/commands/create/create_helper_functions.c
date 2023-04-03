@@ -66,3 +66,20 @@ char *thread_uuid, char *team_uuid)
     REPLY_CREATED_NOTIFICATION, team_uuid, new_reply->body,
     new_reply->creator_uuid,  thread_uuid, (long)new_reply->created_at);
 }
+
+bool error_handling_name_and_description(int control_socket, char *name,
+char *description)
+{
+    if (strlen(name) > MAX_NAME_LENGTH) {
+        send_error(control_socket, INTERNAL_SERVER_ERROR, "Name too long");
+        return false;
+    }
+
+    if (strlen(description) > MAX_DESCRIPTION_LENGTH) {
+        send_error(control_socket, INTERNAL_SERVER_ERROR,
+        "Description too long");
+        return false;
+    }
+
+    return true;
+}

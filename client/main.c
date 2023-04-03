@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
 {
     if (!are_arguments_valid(argc, argv))
         return ERROR;
+
     if (setup_signal_handler() == ERROR)
         return ERROR;
 

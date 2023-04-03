@@ -7,6 +7,22 @@
 
 #include "../../include/server.h"
 
+static bool error_handling_send(list_args_t *args, char *recipient_uuid,
+char *message)
+{
+    if (strlen(recipient_uuid) != MAX_UUID_LENGTH) {
+        send_error(args->client->socket_fd, UNKNOWN_USER, "Invalid UUID");
+        return false;
+    }
+
+    if (strlen(message) > MAX_BODY_LENGTH) {
+        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+        "Message too long");
+        return false;
+    }
+    return true;
+}
+
 static bool validate_recipient(list_args_t* args, char* recipient_uuid)
 {
     if (find_user_by_uuid(args->db, recipient_uuid) == NULL) {
@@ -45,6 +61,9 @@ void send_msg(list_args_t* args)
 {
     char* recipient_uuid = args->split_command[1];
     char* message = args->split_command[2];
+
+    if (!error_handling_send(args, recipient_uuid, message))
+        return;
 
     if (!validate_recipient(args, recipient_uuid))
         return;

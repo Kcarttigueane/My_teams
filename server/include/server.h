@@ -91,6 +91,9 @@ channel_t** channel, thread_t** thread);
 bool validate_team_channel(list_args_t* args, team_t** team,
 channel_t** channel);
 
+bool error_handling_name_and_description(int control_socket, char *name,
+char *description);
+
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
 

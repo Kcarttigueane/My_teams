@@ -36,9 +36,9 @@ char** parse_inputs(char* command)
     }
 
     tokens[token_count] =
-        malloc(strlen(start) + 1);  // Allocate memory for the word
+    malloc(strlen(start) + 1);  // Allocate memory for the word
     strcpy(tokens[token_count++],
-           start);  // Copy the word to the allocated memory
+    start);  // Copy the word to the allocated memory
     tokens[token_count] = NULL;
     return tokens;
 }

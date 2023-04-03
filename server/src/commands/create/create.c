@@ -12,6 +12,10 @@ static void handle_create_team(list_args_t* args)
     char *team_name = args->split_command[1];
     char *team_description = args->split_command[2];
 
+    if (!error_handling_name_and_description(args->client->socket_fd,
+    team_name, team_description))
+        return;
+
     if (is_team_already_exist(args->db, team_name) == true) {
         send_error(args->client->socket_fd, ALREADY_EXISTS,
         "Team already exist");
@@ -30,11 +34,9 @@ static void handle_create_team(list_args_t* args)
 static void handle_create_channel(list_args_t* args)
 {
     team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
-
     if (!team) {
         dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
         args->client->current_team_uuid);
-        send_error(args->client->socket_fd, UNKNOWN_TEAM, "Unknown team");
         return;
     }
     if (is_channel_already_exist(args->db, args->split_command[1]) == true) {
@@ -43,6 +45,8 @@ static void handle_create_channel(list_args_t* args)
         return;
     }
     create_channel_params_t params = init_create_channel_params(args);
+    if (!error_handling_name_and_description(args->client->socket_fd,
+    params.name, params.description)) return;
     channel_t* new_channel = create_channel(args->db, &params);
     if (!new_channel)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
@@ -55,8 +59,7 @@ static void handle_create_thread(list_args_t* args)
 {
     team_t* team;
     channel_t* channel;
-    if (!validate_team_channel(args, &team, &channel))
-        return;
+    if (!validate_team_channel(args, &team, &channel)) return;
 
     if (is_thread_already_exist(args->db, args->split_command[1]) == true) {
         send_error(args->client->socket_fd, ALREADY_EXISTS,
@@ -64,12 +67,15 @@ static void handle_create_thread(list_args_t* args)
         return;
     }
     create_thread_params_t params = init_create_thread_params(args);
+    if (!error_handling_name_and_description(args->client->socket_fd,
+    params.title, params.message)) return;
     thread_t* new_thread = create_thread(args->db, &params);
 
-    if (!new_thread)
+    if (!new_thread) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Thread not created");
-
+        return;
+    }
     thread_creation_send_json_resp(args, new_thread);
 }
 
@@ -84,12 +90,11 @@ static void handle_create_reply(list_args_t* args)
         args->client->current_thread_uuid);
         return;
     }
-
+    if (strlen(args->split_command[1]) > MAX_BODY_LENGTH) return;
     reply_t* new_reply = add_reply_to_thread(
-        args->db, args->client->current_team_uuid, args->split_command[2],
+        args->db, args->client->current_team_uuid, args->split_command[1],
         args->client->current_user_uuid);
-
-    if (new_reply == NULL) {
+    if (!new_reply) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Reply not created");
         return;

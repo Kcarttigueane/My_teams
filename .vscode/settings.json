@@ -73,7 +73,8 @@
     "string.h": "c",
     "typeinfo": "c",
     "logging_client.h": "c",
-    "logging_server.h": "c"
+    "logging_server.h": "c",
+    "regex.h": "c"
   },
   "cSpell.words": ["myteams"]
 }

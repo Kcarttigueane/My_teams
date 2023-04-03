@@ -57,7 +57,6 @@ int handle_user_input(client_data_t* client)
     buffer[len] = '\0';
 
     char** words = parse_inputs(buffer);
-
     if (!words) return 0;
 
     if (!check_quoted_args(words)) {
