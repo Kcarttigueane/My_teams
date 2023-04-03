@@ -22,7 +22,7 @@ char* user_uuid)
 void unsubscribe(list_args_t* args)
 {
     char* team_uuid = args->split_command[1];
-    if (strlen(team_uuid) != MAX_UUID_LENGTH) {
+    if (strlen(team_uuid) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
         return;
     }

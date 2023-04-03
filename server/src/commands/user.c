@@ -11,12 +11,12 @@ void user(list_args_t* args)
 {
     char *uuid = args->split_command[1];
 
-    if (strlen(uuid) != MAX_UUID_LENGTH) {
+    if (strlen(uuid) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
         return;
     }
 
-    if (strlen(uuid) != MAX_UUID_LENGTH) {
+    if (strlen(uuid) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_USER, "Invalid UUID");
         return;
     }

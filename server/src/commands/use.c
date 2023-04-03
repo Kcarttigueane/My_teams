@@ -9,7 +9,7 @@
 
 static void handle_use_one_arg(list_args_t* args)
 {
-    if (strlen(args->split_command[1]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[1]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
         return;
     }
@@ -20,12 +20,12 @@ static void handle_use_one_arg(list_args_t* args)
 
 static void handle_use_two_args(list_args_t* args)
 {
-    if (strlen(args->split_command[1]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[1]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
         return;
     }
 
-    if (strlen(args->split_command[2]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[2]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_CHANNEL, "Invalid UUID");
         return;
     }
@@ -37,17 +37,17 @@ static void handle_use_two_args(list_args_t* args)
 
 static void handle_use_three_args(list_args_t* args)
 {
-    if (strlen(args->split_command[1]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[1]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM, "Invalid UUID");
         return;
     }
 
-    if (strlen(args->split_command[2]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[2]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_CHANNEL, "Invalid UUID");
         return;
     }
 
-    if (strlen(args->split_command[3]) != MAX_UUID_LENGTH) {
+    if (strlen(args->split_command[3]) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_THREAD, "Invalid UUID");
         return;
     }

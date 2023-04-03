@@ -14,7 +14,6 @@ void info_thread(char* json_response)
     char thread_message[MAX_DESCRIPTION_LENGTH] = {0};
     char creator_uuid[MAX_UUID_LENGTH] = {0};
     char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
-
     if (!extract_value("thread_uuid", json_response, thread_uuid,
         sizeof(thread_uuid)) ||
         !extract_value("thread_title", json_response, thread_title,
