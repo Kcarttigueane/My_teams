@@ -26,7 +26,6 @@ void subscribed(list_args_t* args)
     if (size == 0) {
         list_subscribed_teams(args->db, args->client->current_user_uuid);
     } else if (size == 1) {
-        remove_quotes(args->split_command[1]);
         list_users_of_team(args, args->split_command[1]);
     }
 }

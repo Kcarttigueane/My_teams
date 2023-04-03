@@ -9,8 +9,6 @@
 
 void user(list_args_t* args)
 {
-    remove_quotes(args->split_command[1]);
-
     user_t* user = find_user_by_uuid(args->db, args->split_command[1]);
 
     if (!user) {

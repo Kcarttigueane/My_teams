@@ -44,6 +44,8 @@
 
 // ! PROTOTYPES:
 
+char** parse_inputs(char* command);
+
 bool are_arguments_valid(int argc, char* argv[]);
 
 int connect_to_server(const char* server_address, int port);

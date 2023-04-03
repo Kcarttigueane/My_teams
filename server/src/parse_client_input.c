@@ -32,7 +32,7 @@ void check_command_args(list_args_t* args, size_t cmd_index)
 void parse_client_input(clients_t* clients, server_data_t* s,
 char* input_buffer, database_t* db)
 {
-    char** split_command = split_str(input_buffer, " ");
+    char** split_command = split_str(input_buffer, "\n");
 
     if (!handle_input_error(split_command))
         return;

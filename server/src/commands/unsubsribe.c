@@ -21,7 +21,6 @@ char* user_uuid)
 
 void unsubscribe(list_args_t* args)
 {
-    remove_quotes(args->split_command[1]);
     char* team_uuid = args->split_command[1];
 
     team_t* team = find_team_by_uuid(args->db, team_uuid);

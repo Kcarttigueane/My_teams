@@ -190,3 +190,11 @@ const char *UNKNOWN_THREAD_RESP =
     "  \"message\": \"Unknown thread\",\n"
     "  \"thread_uuid\": \"%s\"\n"
     "}\n";
+
+const char* NO_MESSAGES_RESP =
+    "{\n"
+    "  \"status\": %i,\n"
+    "  \"message\": \"Message list\",\n"
+    "  \"recipient_uuid\": \"%s\",\n"
+    "  \"messages\": []\n"
+    "}\n";

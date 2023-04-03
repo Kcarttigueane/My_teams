@@ -21,8 +21,6 @@ char* my_strcat(char* s1, char* s2);
 
 void free_word_array(char** map);
 
-void remove_quotes(char* str);
-
 FILE* open_file(const char* filename, const char* mode);
 
 void send_error(int socket_fd, int status_code,

@@ -43,8 +43,6 @@ char* message)
 
 void send_msg(list_args_t* args)
 {
-    remove_quotes(args->split_command[1]);
-    remove_quotes(args->split_command[2]);
     char* recipient_uuid = args->split_command[1];
     char* message = args->split_command[2];
 

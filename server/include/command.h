@@ -91,3 +91,4 @@ extern const char* UNKNOWN_USER_RESP;
 extern const char* UNKNOWN_TEAM_RESP;
 extern const char* UNKNOWN_CHANNEL_RESP;
 extern const char* UNKNOWN_THREAD_RESP;
+extern const char* NO_MESSAGES_RESP;

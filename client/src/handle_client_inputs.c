@@ -7,17 +7,67 @@
 
 #include "../include/client.h"
 
+static char* convert_2d_array_to_string(char** words)
+{
+    size_t total_length = 0;
+    for (int i = 0; words[i] != NULL; i++)
+        total_length += strlen(words[i]) + 1;
+
+    char* result = malloc(total_length + 1);
+    result[0] = '\0';
+
+    for (int i = 0; words[i] != NULL; i++) {
+        if (i > 0)
+            strcat(result, "\n");
+        for (char* p = words[i]; *p != '\0'; p++) {
+            if (*p != '"') {
+                size_t len = strlen(result);
+                result[len] = *p;
+                result[len + 1] = '\0';
+            }
+        }
+    }
+    return result;
+}
+
+static bool is_quoted_arg(const char* arg)
+{
+    int len = strlen(arg);
+    return (len >= 2 && arg[0] == '"' && arg[len - 1] == '"');
+}
+
+static bool check_quoted_args(char** args)
+{
+    for (int i = 1; args[i] != NULL; i++) {
+        if (!is_quoted_arg(args[i])) {
+            printf("Missing quotes around argument %d: %s\n", i, args[i]);
+            return false;
+        }
+    }
+    return true;
+}
+
 int handle_user_input(client_data_t* client)
 {
     char buffer[BUFFER_SIZE] = {0};
 
-    if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) {
-        return SUCCESS;
-    }
+    if (!fgets(buffer, BUFFER_SIZE, stdin)) return SUCCESS;
+
     size_t len = strcspn(buffer, "\n");
     buffer[len] = '\0';
 
-    send(client->socket_fd, buffer, strlen(buffer), 0);
+    char** words = parse_inputs(buffer);
 
+    if (!words) return 0;
+
+    if (!check_quoted_args(words)) {
+        printf(
+        "Invalid arguments => args should be quoted with doubled quotes\n");
+        free_word_array(words);
+        return SUCCESS;
+    }
+    char *string_to_send = convert_2d_array_to_string(words);
+    send(client->socket_fd, string_to_send, strlen(string_to_send), 0);
+    free(string_to_send);
     return SUCCESS;
 }

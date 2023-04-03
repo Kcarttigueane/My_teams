@@ -42,7 +42,7 @@ char* team_uuid)
     return false;
 }
 
-static void subscribe_to_team(list_args_t* args)
+void subscribe(list_args_t* args)
 {
     char* team_uuid = args->split_command[1];
     team_t* team = find_team_by_uuid(args->db, team_uuid);
@@ -56,11 +56,6 @@ static void subscribe_to_team(list_args_t* args)
 
     dprintf(args->client->socket_fd, SUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,
     team_uuid, args->client->current_user_uuid);
-    server_event_user_subscribed(team->uuid, args->client->current_user_uuid);
-}
 
-void subscribe(list_args_t* args)
-{
-    remove_quotes(args->split_command[1]);
-    subscribe_to_team(args);
+    server_event_user_subscribed(team->uuid, args->client->current_user_uuid);
 }

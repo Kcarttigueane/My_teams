@@ -53,7 +53,8 @@
         MAX_UUID_LENGTH = 37,
         MAX_CLIENTS = 10,
         BUFFER_SIZE = 1024,
-        KEY_BUFFER = 64
+        KEY_BUFFER = 64,
+        MAX_TOKENS  = 10
     };
 
     typedef enum {

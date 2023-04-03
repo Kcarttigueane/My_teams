@@ -31,9 +31,7 @@ static void handle_use_three_args(list_args_t* args)
 void use(list_args_t* args)
 {
     int size = get_size_word_array(args->split_command) - 1;
-    remove_quotes(args->split_command[1]);
-    if (size >= 2) remove_quotes(args->split_command[2]);
-    if (size >= 3) remove_quotes(args->split_command[3]);
+
     switch (size) {
         case 0:
             args->client->use_args_count = 0;
