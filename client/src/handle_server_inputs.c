@@ -8,7 +8,7 @@
 #include "../include/client.h"
 #include "../include/color.h"
 
-void analyze_server_response(client_data_t* client, char* buffer)
+static void analyze_server_response(char* buffer)
 {
     int status_code = get_status_code(buffer);
 
@@ -35,7 +35,7 @@ int handle_server_input(client_data_t* client, char* buffer)
     printf(RESET);
     write(1, GREEN, SIZE_COLOUR);
     write(1, "[LOGGING LIBRARY] : ", strlen("[LOGGING LIBRARY] : "));
-    analyze_server_response(client, buffer);
+    analyze_server_response(buffer);
     write(1, RESET, SIZE_RESET);
     printf(CYAN);
     printf("%s", CLIENT_PROMPT);
