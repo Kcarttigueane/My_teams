@@ -54,7 +54,7 @@ int get_status_code(const char* json_string);
 // ! SIGNALS:
 
 void sigint_handler(int sig);
-void sigterm_handler(int sig);
+int setup_signal_handler(void);
 
 // ! CLIENT LOOP FUNCTIONS:
 
@@ -108,5 +108,7 @@ extern const size_t ENDPOINTS_LIST_SIZE;
 
 extern const events_t LIST_EVENTS_CODE[];
 extern const size_t LIST_EVENTS_CODE_SIZE;
+
+extern volatile sig_atomic_t stop_server;
 
 #endif  // CLIENT_H

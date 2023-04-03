@@ -7,24 +7,7 @@
 
 #include "../include/client.h"
 
-static int select_socket(client_data_t* client)
-{
-    struct timeval tv = {.tv_sec = DEFAULT_TIMEOUT, .tv_usec = 0};
-
-    FD_ZERO(&client->read_fds);
-    FD_SET(STDIN_FILENO, &client->read_fds);
-    FD_SET(client->socket_fd, &client->read_fds);
-
-    int status =
-        select(client->socket_fd + 1, &client->read_fds, NULL, NULL, &tv);
-
-    if (status < 0 && errno != EINTR) {
-        fprintf(stderr, "Select failed. Error: %s\n", strerror(errno));
-        return FAILURE;
-    }
-
-    return SUCCESS;
-}
+volatile sig_atomic_t stop_server = false;
 
 static int handle_inputs(client_data_t* client)
 {
@@ -44,13 +27,23 @@ static int handle_inputs(client_data_t* client)
 
 int client_loop(client_data_t* client)
 {
-    while (true) {
-        if (select_socket(client) == ERROR)
-            return handle_error("Failed to select socket.");
+    struct timeval tv = {.tv_sec = DEFAULT_TIMEOUT, .tv_usec = 0};
+
+    while (!stop_server) {
+        FD_ZERO(&client->read_fds);
+        FD_SET(STDIN_FILENO, &client->read_fds);
+        FD_SET(client->socket_fd, &client->read_fds);
+
+        if ((select(client->socket_fd + 1, &client->read_fds, NULL, NULL,
+            &tv) == FAILURE) && (errno != EINTR)) {
+            handle_error("Select failed");
+        }
+        if (stop_server) break;
 
         if (handle_inputs(client) == ERROR)
             return handle_error("Failed to handle inputs.");
     }
+    printf("Closing connection.\n");
     close(client->socket_fd);
     return 0;
 }
