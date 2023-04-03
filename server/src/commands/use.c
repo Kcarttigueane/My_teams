@@ -61,7 +61,9 @@ static void handle_use_three_args(list_args_t* args)
 void use(list_args_t* args)
 {
     int size = get_size_word_array(args->split_command) - 1;
-
+    memset(args->client->current_team_uuid, 0, MAX_UUID_LENGTH);
+    memset(args->client->current_channel_uuid, 0, MAX_UUID_LENGTH);
+    memset(args->client->current_thread_uuid, 0, MAX_UUID_LENGTH);
     switch (size) {
         case 0:
             args->client->use_args_count = 0;

@@ -16,7 +16,7 @@ static void handle_info_user(list_args_t* args)
         args->client->current_user_uuid);
     else
         dprintf(args->client->socket_fd, INFO_USER_RESP, INFO_USER,
-        user->username, user->uuid, user->is_logged_in);
+        user->username, user->uuid, user->is_logged_in ? "true" : "false");
 }
 
 static void handle_info_team(list_args_t* args)
