@@ -12,11 +12,11 @@ void msgs(list_args_t* args)
     char *uuid = args->split_command[1];
 
     user_t* user = find_user_by_uuid(args->db, uuid);
+
     if (!user) {
         dprintf(args->client->socket_fd, UNKNOWN_USER_RESP, UNKNOWN_USER, uuid);
         return;
     }
-
     discussion_t* discussion = find_discussion_by_users(
         args->db, args->client->current_user_uuid, uuid);
 

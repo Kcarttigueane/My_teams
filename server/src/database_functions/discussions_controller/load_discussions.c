@@ -36,9 +36,8 @@ message_t* current_message)
 {
     char key[KEY_BUFFER] = {0}, value[256] = {0};
     int ret = sscanf(line, " \"%63[^\"]\": \"%255[^\"]\"", key, value);
-    if (ret != 2) {
+    if (ret != 2)
         return;
-    }
     (!strcmp(key, "uuid"))
     ? (current_message ? strcpy(current_message->uuid, value)
     : strcpy(current_discussion->uuid, value))

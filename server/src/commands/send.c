@@ -10,7 +10,7 @@
 static bool error_handling_send(list_args_t *args, char *recipient_uuid,
 char *message)
 {
-    if (strlen(recipient_uuid) != MAX_UUID_LENGTH) {
+    if (strlen(recipient_uuid) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_USER, "Invalid UUID");
         return false;
     }

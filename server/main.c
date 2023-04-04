@@ -17,9 +17,7 @@ int main(int argc, char const* argv[])
         .socket_fd = 0,
         .readfds = {{0}},
     };
-
     database_t *db = init_database();
-
     if (!db) return handle_error("Database initialization failed");
 
     if (initialize_server(&server_data) == ERROR)

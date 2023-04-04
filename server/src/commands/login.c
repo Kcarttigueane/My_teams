@@ -35,7 +35,7 @@ void create_and_log_user(list_args_t* args, char* username)
 {
     user_t* user = create_user(args->db, username);
 
-    if (user == NULL) {
+    if (!user) {
         send_error(args->client->socket_fd, CONNECTION_DENIED,
         "Failed to create user");
         args->client->is_logged = false;

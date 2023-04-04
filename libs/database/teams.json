@@ -1,0 +1,11 @@
+[
+  {
+    "uuid": "b0139256-5ee2-4413-a5f2-095dde60a8b5",
+    "name": "team1",
+    "description": "team_description1",
+    "users_count": 0,
+    "created_at": "1680618645",
+    "users": [
+    ]
+  }
+]
