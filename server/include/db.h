@@ -20,7 +20,7 @@ typedef struct database {
 
 // ! INIT
 
-database_t init_database(void);
+database_t *init_database(void);
 
 // ! FREE
 

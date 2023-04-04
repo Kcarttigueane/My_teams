@@ -74,7 +74,7 @@ static void handle_info_thread(list_args_t* args)
         ctime(&thread->created_at));
 }
 
-void info(__attribute_maybe_unused__ list_args_t* args)
+void info(list_args_t* args)
 {
     switch (args->client->use_args_count) {
         case 0:

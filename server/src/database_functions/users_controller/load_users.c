@@ -7,43 +7,64 @@
 
 #include "../../../include/server.h"
 
-static user_t* create_new_user(database_t* db)
+static bool users_parsing(database_t *db, char* ptr)
 {
-    user_t* user = (user_t*)calloc(1, sizeof(user_t));
-    LIST_INSERT_HEAD(&db->users, user, entries);
-    return user;
+    user_t* current_user = calloc(1, sizeof(user_t));
+    if (!current_user) return false;
+
+    char uuid[MAX_UUID_LENGTH] = {0};
+    char username[MAX_NAME_LENGTH] = {0};
+
+    extract_value("uuid", ptr, uuid, MAX_UUID_LENGTH);
+    extract_value("username", ptr, username, MAX_NAME_LENGTH);
+
+    strcpy(current_user->uuid, uuid);
+    strcpy(current_user->username, username);
+
+    LIST_INSERT_HEAD(&db->users, current_user, entries);
+
+    server_event_user_loaded(current_user->uuid, current_user->username);
+
+    return true;
 }
 
-static void set_user_field(user_t* user, char* line)
+bool parse_users_json(database_t* db, const char* json)
 {
-    char key[KEY_BUFFER] = {0}, value[KEY_BUFFER] = {0};
-    sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
+    LIST_INIT(&db->users);
+    char* ptr = strstr(json, "[");
+    ptr += strlen("[");
 
-    if (!strcmp(key, "uuid")) {
-        strcpy(user->uuid, value);
-    } else if (!strcmp(key, "username")) {
-        strcpy(user->username, value);
+    while (ptr != NULL && *ptr != ']') {
+        if (*ptr == ',') ptr++;
+        if (!users_parsing(db, ptr))
+            return false;
+        ptr = strstr(ptr, "},");
+        if (ptr != NULL) ptr += 2;
     }
-    server_event_user_loaded(user->uuid, user->username);
+
+    return true;
 }
 
 void load_users_from_file(database_t* db)
 {
     FILE* file = open_file("libs/database/users.json", "r");
-
     if (!file) return;
 
-    LIST_INIT(&db->users);
+    char* buffer = read_file_contents(file);
 
-    char line[256];
-    user_t* current_user = NULL;
+    if (!buffer) {
+        fclose(file);
+        return;
+    }
 
-    while (fgets(line, sizeof(line), file)) {
-        is_start_json(line) ? current_user = create_new_user(db)
-        : is_end_json(line) ? current_user = NULL
-        : current_user ? set_user_field(current_user, line)
-        : (void)0;
+    bool success = parse_users_json(db, buffer);
+
+    if (!success) {
+        fclose(file);
+        free(buffer);
+        return;
     }
 
     fclose(file);
+    free(buffer);
 }

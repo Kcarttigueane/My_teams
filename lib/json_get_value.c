@@ -5,7 +5,7 @@
 ** parse_json_resp.c
 */
 
-#include "../include/client.h"
+#include "../include/lib.h"
 
 bool extract_value(const char* key, char* json_str, char* value, int max_length)
 {

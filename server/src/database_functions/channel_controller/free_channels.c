@@ -10,11 +10,9 @@
 void free_channels(database_t* db)
 {
     channel_t* channel;
+    channel_t* tmp;
 
-    while ((channel = LIST_FIRST(&(db->channels))) != NULL) {
-        while (channel->nb_users > 0) {
-            channel->nb_users--;
-        }
+    LIST_FOREACH_SAFE(channel, &db->channels, entries, tmp) {
         LIST_REMOVE(channel, entries);
         free(channel);
     }

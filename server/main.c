@@ -18,15 +18,17 @@ int main(int argc, char const* argv[])
         .readfds = {{0}},
     };
 
-    database_t db = init_database();
+    database_t *db = init_database();
+
+    if (!db) return handle_error("Database initialization failed");
 
     if (initialize_server(&server_data) == ERROR)
         return handle_error("Server initialization failed");
 
-    server_loop(&server_data, &db);
+    server_loop(&server_data, db);
 
-    save_database(&db);
+    save_database(db);
 
-    free_database(&db);
+    free_database(db);
     return SUCCESS;
 };

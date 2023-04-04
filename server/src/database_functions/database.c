@@ -26,17 +26,20 @@ static void load_database(database_t* database)
     load_users_from_file(database);
 }
 
-database_t init_database(void)
+database_t *init_database(void)
 {
-    database_t database = {
-        .teams = LIST_HEAD_INITIALIZER(database.teams),
-        .channels = LIST_HEAD_INITIALIZER(database.channels),
-        .threads = LIST_HEAD_INITIALIZER(database.threads),
-        .discussions = LIST_HEAD_INITIALIZER(database.discussions),
-        .users = LIST_HEAD_INITIALIZER(database.users),
-    };
+    database_t* database = (database_t*)calloc(1, sizeof(database_t));
 
-    load_database(&database);
+    if (!database) return NULL;
+
+    LIST_INIT(&database->users);
+    LIST_INIT(&database->teams);
+    LIST_INIT(&database->channels);
+    LIST_INIT(&database->threads);
+    LIST_INIT(&database->discussions);
+
+    load_database(database);
+
     return database;
 }
 
@@ -47,4 +50,5 @@ void free_database(database_t* database)
     free_all_threads(database);
     free_discussions(database);
     free_users(database);
+    free(database);
 }
