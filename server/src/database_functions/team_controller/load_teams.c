@@ -21,11 +21,20 @@ static bool team_users_parsing(team_t* current_team, char* json)
         char* first_quote = strchr(users_start, '\"');
         char* second_quote = first_quote ? strchr(first_quote + 1, '\"') : NULL;
         if (first_quote && second_quote) {
-            strncpy(user_uuid, first_quote + 1, second_quote - first_quote - 1);
+            size_t uuid_len = second_quote - first_quote - 1;
+            if (uuid_len != (MAX_UUID_LENGTH - 1)) {
+                fprintf(stderr, "Error: UUID too long, skipping...\n");
+                users_start = second_quote + 1;
+                continue;
+            }
+            strncpy(user_uuid, first_quote + 1, uuid_len);
+            user_uuid[uuid_len] = '\0';  // Ensure null termination
             strcpy(current_team->users[user_count], user_uuid);
             user_count++;
             users_start = second_quote + 1;
-        } else break;
+        } else {
+            break;
+        }
     }
     current_team->users_count = user_count;
     return true;

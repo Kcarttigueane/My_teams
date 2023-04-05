@@ -43,7 +43,7 @@
         "?[\"team_uuid\"] ?[\"channel_uuid\"] ?[\"thread_uuid\"] : Display \
     details of the current resource\r\n"
 
-    #define MAX_ARGS 4
+    #define MAX_ARGS 5
 
     typedef void (*command_func_t)(list_args_t* args);
 

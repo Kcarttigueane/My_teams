@@ -9,6 +9,13 @@
 
 static void append_replies_json(thread_t* thread, char* json)
 {
+    if (thread->replies.lh_first == NULL) {
+        strncat(json,
+            "  \"status\": 230,\n"
+            "  \"message\": \"Replies list\"\n",
+            BUFFER_SIZE - strlen(json) - 1);
+        return;
+    }
     strncat(json,
             "  \"status\": 231,\n"
             "  \"message\": \"Replies list\",\n"
@@ -35,8 +42,7 @@ char* list_replies_for_thread(database_t* db, char* thread_uuid)
 {
     thread_t* thread = find_thread_by_uuid(db, thread_uuid);
 
-    if (thread == NULL)
-        return NULL;
+    if (!thread) return NULL;
 
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
