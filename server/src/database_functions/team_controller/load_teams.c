@@ -10,18 +10,11 @@
 static bool team_users_parsing(team_t* current_team, char* json)
 {
     char users_key[] = "\"users\": [";
-
     char* users_start = strstr(json, users_key);
-
-    if (!users_start)
-        return false;
+    if (!users_start) return false;
     users_start += strlen(users_key);
-
     char* users_end = strchr(users_start, ']');
-
-    if (!users_end)
-        return false;
-
+    if (!users_end) return false;
     int user_count = 0;
     while (users_start < users_end) {
         char user_uuid[MAX_UUID_LENGTH] = {0};
@@ -32,9 +25,7 @@ static bool team_users_parsing(team_t* current_team, char* json)
             strcpy(current_team->users[user_count], user_uuid);
             user_count++;
             users_start = second_quote + 1;
-        } else {
-            break;
-        }
+        } else break;
     }
     current_team->users_count = user_count;
     return true;

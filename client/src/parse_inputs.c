@@ -29,14 +29,6 @@ static void initialize_buffer(char* buffer, char* command)
     buffer[BUFFER_SIZE - 1] = '\0';
 }
 
-static bool handle_quotes(char* cursor, bool in_quotes)
-{
-    if (*cursor == '"')
-        return !in_quotes;
-
-    return in_quotes;
-}
-
 static void process_space(char** tokens, char* cursor, char** start,
 int* token_count)
 {
@@ -54,7 +46,7 @@ char** parse_inputs(char* command)
     bool in_quotes = false;
     char* start = buffer;
     for (char* cursor = buffer; *cursor != '\0'; cursor++) {
-        in_quotes = handle_quotes(cursor, in_quotes);
+        in_quotes = *cursor == '"' ? !in_quotes : in_quotes;
         if (*cursor == ' ' && !in_quotes)
             process_space(tokens, cursor, &start, &token_count);
     }

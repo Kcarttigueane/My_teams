@@ -7,23 +7,22 @@
 
 #include "../../../include/server.h"
 
-static void handle_create_team(list_args_t* args)
+static void handle_create_team(list_args_t* args, int nb_args)
 {
+    if (!error_handling_create_args(args->client->socket_fd, nb_args))
+        return;
     char *team_name = args->split_command[1];
     char *team_description = args->split_command[2];
 
     if (!error_handling_name_and_description(args->client->socket_fd,
-    team_name, team_description))
-        return;
+    team_name, team_description)) return;
 
     if (is_team_already_exist(args->db, team_name) == true) {
         send_error(args->client->socket_fd, ALREADY_EXISTS,
         "Team already exist");
         return;
     }
-
     team_t* new_teams = create_team(args->db, team_name, team_description);
-
     if (!new_teams)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Team not created");
@@ -31,8 +30,9 @@ static void handle_create_team(list_args_t* args)
     team_creation_send_json_resp(args, new_teams);
 }
 
-static void handle_create_channel(list_args_t* args)
+static void handle_create_channel(list_args_t* args, int nb_args)
 {
+    if (!error_handling_create_args(args->client->socket_fd, nb_args)) return;
     team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
     if (!team) {
         dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
@@ -51,16 +51,15 @@ static void handle_create_channel(list_args_t* args)
     if (!new_channel)
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Channel not created");
-
     team_channel_send_json_resp(args, new_channel);
 }
 
-static void handle_create_thread(list_args_t* args)
+static void handle_create_thread(list_args_t* args, int nb_args)
 {
+    if (!error_handling_create_args(args->client->socket_fd, nb_args)) return;
     team_t* team;
     channel_t* channel;
     if (!validate_team_channel(args, &team, &channel)) return;
-
     if (is_thread_already_exist(args->db, args->split_command[1]) == true) {
         send_error(args->client->socket_fd, ALREADY_EXISTS,
         "Thread already exist");
@@ -104,22 +103,23 @@ static void handle_create_reply(list_args_t* args)
 
 void create(list_args_t* args)
 {
+    int nb_args = get_size_word_array(args->split_command);
     switch (args->client->use_args_count) {
         case 0:
-            handle_create_team(args);
+            handle_create_team(args, nb_args);
             break;
         case 1:
-            handle_create_channel(args);
+            handle_create_channel(args, nb_args);
             break;
         case 2:
-            handle_create_thread(args);
+            handle_create_thread(args, nb_args);
             break;
         case 3:
+            if (nb_args != 2) send_error(args->client->socket_fd, 500, "Error");
             handle_create_reply(args);
             break;
         default:
-            send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-            "Use /use command first");
+            send_error(args->client->socket_fd, 500, "Use /use command first");
             break;
     }
     args->client->use_args_count = FAILURE;

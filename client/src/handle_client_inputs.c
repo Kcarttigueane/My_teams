@@ -54,7 +54,6 @@ static bool check_quoted_args(char** args)
 int handle_user_input(client_data_t* client)
 {
     char buffer[BUFFER_SIZE] = {0};
-
     if (!fgets(buffer, BUFFER_SIZE, stdin)) return SUCCESS;
 
     size_t len = strcspn(buffer, "\n");

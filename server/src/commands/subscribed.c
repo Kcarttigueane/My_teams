@@ -22,7 +22,6 @@ static void handle_subscribe_one_arg(list_args_t *args)
     free(json_resp);
 }
 
-
 static void list_users_of_team(list_args_t* args, char* team_uuid)
 {
     if (strlen(team_uuid) != (MAX_UUID_LENGTH - 1)) {

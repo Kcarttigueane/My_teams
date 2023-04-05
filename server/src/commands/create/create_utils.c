@@ -30,3 +30,12 @@ create_thread_params_t init_create_thread_params(list_args_t* args)
 
     return params;
 }
+
+bool error_handling_create_args(int socket_fd, int nb_args)
+{
+    if (nb_args != 3) {
+        send_error(socket_fd, INTERNAL_SERVER_ERROR, "Too many arguments");
+        return false;
+    }
+    return true;
+}
