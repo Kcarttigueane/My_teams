@@ -66,11 +66,12 @@ int handle_user_input(client_data_t* client)
     if (!check_quoted_args(words)) {
         printf(
         "Invalid arguments => args should be quoted with doubled quotes\n");
-        free_word_array(words);
+        free_tokens(words);
         return SUCCESS;
     }
     char *string_to_send = convert_2d_array_to_string(words);
     send(client->socket_fd, string_to_send, strlen(string_to_send), 0);
+    free_tokens(words);
     free(string_to_send);
     return SUCCESS;
 }

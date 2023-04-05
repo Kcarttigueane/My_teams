@@ -102,7 +102,8 @@ void list(list_args_t* args)
             handle_list_replies(args);
             break;
         default:
-            send_error(args->client->socket_fd, 400, "Too many arguments");
+            send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+            "Use /use command first");
             break;
     }
     args->client->use_args_count = FAILURE;

@@ -41,6 +41,7 @@
 // ! PROTOTYPES:
 
 char** parse_inputs(char* command);
+void free_tokens(char** tokens);
 
 bool are_arguments_valid(int argc, char* argv[]);
 

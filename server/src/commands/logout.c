@@ -22,4 +22,7 @@ void logout(list_args_t* args)
     DISCONNECTION_SUCCESSFUL, user->username, user->uuid);
 
     server_event_user_logged_out(user->uuid);
+
+    close(args->client->socket_fd);
+    args->client->socket_fd = 0;
 }

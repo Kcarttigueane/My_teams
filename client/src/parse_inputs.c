@@ -7,6 +7,13 @@
 
 #include "../include/client.h"
 
+void free_tokens(char** tokens)
+{
+    for (int i = 0; i < MAX_TOKENS; i++)
+        free(tokens[i]);
+    free(tokens);
+}
+
 static char** allocate_and_copy_token(char** tokens, char* start,
 int* token_count)
 {

@@ -40,20 +40,27 @@ static void append_subscribed_teams(database_t* db, char* user_uuid, char* json)
 static void append_subscribed_teams_json(database_t* db, char* user_uuid,
 char* json)
 {
+    if (!is_team_list_empty(db)) {
+        strncat(json,
+        "  \"status\": 235,\n"
+        "  \"message\": \"Subscribed teams list\"\n",
+        BUFFER_SIZE - strlen(json) - 1);
+        return;
+    }
     strncat(json,
             "  \"status\": 235,\n"
             "  \"message\": \"Subscribed teams list\",\n"
             "  \"teams\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
     append_subscribed_teams(db, user_uuid, json);
-    strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
+    strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 char* list_subscribed_teams(database_t* db, char* user_uuid)
 {
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
-    if (json == NULL) {
+    if (!json) {
         printf("Error: Failed to allocate memory for JSON string\n");
         return NULL;
     }

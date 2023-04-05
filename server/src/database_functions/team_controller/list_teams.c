@@ -37,7 +37,7 @@ static void append_teams_json(database_t* db, char* json)
             "  \"teams\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
     append_teams(db, json);
-    strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
+    strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);
 }
 
 char* list_teams(database_t* db)

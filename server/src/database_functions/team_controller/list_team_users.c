@@ -32,6 +32,13 @@ char* json)
 static void append_subscribed_users_to_team_json(database_t* db, team_t* team,
 char* json)
 {
+    if (team->users_count == 0) {
+        strncat(json,
+        "  \"status\": 207,\n"
+        "  \"message\": \"Users subscribed to team\"\n",
+        BUFFER_SIZE - strlen(json) - 1);
+        return;
+    }
     strncat(json,
             "  \"status\": 207,\n"
             "  \"message\": \"Users subscribed to team\",\n",

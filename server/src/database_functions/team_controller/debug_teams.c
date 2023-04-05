@@ -18,5 +18,8 @@ void debug_team(team_t* new_team)
     printf("\t\t[Description] %s\n", new_team->description);
     printf("\t\t[Users count] %d\n", new_team->users_count);
     printf("\t\t[Created at] %ld\n", (long)new_team->created_at);
+
+    for (int i = 0; i < new_team->users_count; i++)
+        printf("\t\t[User %s]\n", new_team->users[i]);
     printf(RESET);
 }

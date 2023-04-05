@@ -7,10 +7,23 @@
 
 #include "../include/server.h"
 
+static void clear_disconnected_client(clients_t* client)
+{
+    client->socket_fd = 0;
+    client->is_logged = false;
+
+    client->current_user_uuid[0] = '\0';
+    client->current_team_uuid[0] = '\0';
+    client->current_channel_uuid[0] = '\0';
+    client->current_thread_uuid[0] = '\0';
+
+    client->use_args_count = FAILURE;
+}
+
 static void handle_client_disconnected(int socket_fd, clients_t* client)
 {
     close(socket_fd);
-    client->socket_fd = 0;
+    clear_disconnected_client(client);
     printf("Client disconnected, socket fd is %d\n", socket_fd);
 }
 

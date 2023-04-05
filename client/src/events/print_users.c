@@ -29,7 +29,7 @@ void print_users(char* json_response)
 {
     char* ptr = strstr(json_response, "\"users\": [");
 
-    if (ptr == NULL) {
+    if (!ptr) {
         printf("Error: users not found\n");
         return;
     }

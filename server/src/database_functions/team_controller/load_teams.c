@@ -7,55 +7,105 @@
 
 #include "../../../include/server.h"
 
-static team_t* create_new_team(database_t* db, int* user_index,
-team_t** current_team)
+static bool team_users_parsing(team_t* current_team, char* json)
 {
-    *current_team = (team_t*)calloc(1, sizeof(team_t));
+    char users_key[] = "\"users\": [";
+
+    char* users_start = strstr(json, users_key);
+
+    if (!users_start)
+        return false;
+    users_start += strlen(users_key);
+
+    char* users_end = strchr(users_start, ']');
+
+    if (!users_end)
+        return false;
+
+    int user_count = 0;
+    while (users_start < users_end) {
+        char user_uuid[MAX_UUID_LENGTH] = {0};
+        char* first_quote = strchr(users_start, '\"');
+        char* second_quote = first_quote ? strchr(first_quote + 1, '\"') : NULL;
+        if (first_quote && second_quote) {
+            strncpy(user_uuid, first_quote + 1, second_quote - first_quote - 1);
+            strcpy(current_team->users[user_count], user_uuid);
+            user_count++;
+            users_start = second_quote + 1;
+        } else {
+            break;
+        }
+    }
+    current_team->users_count = user_count;
+    return true;
+}
+
+static bool team_parsing(database_t* db, char* ptr, team_t** current_team)
+{
+    *current_team = calloc(1, sizeof(team_t));
+    if (!*current_team)
+        return false;
+
+    extract_value("uuid", ptr, (*current_team)->uuid, MAX_UUID_LENGTH);
+    extract_value("name", ptr, (*current_team)->name, MAX_NAME_LENGTH);
+    extract_value("description", ptr, (*current_team)->description,
+    MAX_DESCRIPTION_LENGTH);
+    extract_value("created_at", ptr, (char*)&(*current_team)->created_at,
+    sizeof(time_t));
+
+    if (!team_users_parsing(*current_team, ptr))
+        return false;
+
+    debug_team(*current_team);
+
     LIST_INSERT_HEAD(&db->teams, *current_team, entries);
-    *user_index = -1;
-    return *current_team;
+
+    return true;
 }
 
-void handle_users_line(team_t* current_team, char* line, int* user_index)
+bool parse_teams_json(database_t* db, char* json)
 {
-    char value[256] = {0};
-    sscanf(line, " \"%[^\"]\"", value);
-    *user_index = *user_index + 1;
-    strcpy(current_team->users[*user_index], value);
-}
+    LIST_INIT(&db->teams);
 
-void handle_team_line(team_t* current_team, char* line)
-{
-    char key[KEY_BUFFER] = {0}, value[256] = {0};
-    sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
+    char* ptr = strstr(json, "[");
 
-    (!strcmp(key, "uuid")) ? strcpy(current_team->uuid, value) : 0;
-    (!strcmp(key, "name")) ? strcpy(current_team->name, value) : 0;
-    (!strcmp(key, "description")) ? strcpy(current_team->description, value)
-    : 0;
-    (!strcmp(key, "users_count")) ? current_team->users_count = atoi(value) : 0;
-    (!strcmp(key, "created_at")) ? current_team->created_at = atol(value) : 0;
+    ptr += strlen("[");
+
+    team_t* current_team = NULL;
+
+    while (ptr != NULL && *ptr != ']') {
+        if (*ptr == ',')
+            ptr++;
+        if (!team_parsing(db, ptr, &current_team))
+            return false;
+        ptr = strstr(ptr, "},");
+        if (ptr != NULL)
+            ptr += 2;
+    }
+
+    return true;
 }
 
 void load_teams_from_file(database_t* db)
 {
-    FILE* file = fopen("libs/database/teams.json", "r");
+    FILE* file = open_file("libs/database/teams.json", "r");
     if (!file) return;
 
-    char line[256] = {0};
-    team_t* current_team = NULL;
-    int user_index = -1;
+    char* buffer = read_file_contents(file);
 
-    LIST_INIT(&db->teams);
-
-    while (fgets(line, sizeof(line), file)) {
-
-        (strstr(line, "{")) ? create_new_team(db, &user_index, &current_team)
-        : (strstr(line, "}")) ? current_team = NULL
-        : (current_team) ? handle_team_line(current_team, line)
-        : (strstr(line, "\"") && current_team)
-        ? handle_users_line(current_team, line, &user_index)
-        : 0;
+    if (!buffer) {
+        fclose(file);
+        return;
     }
+
+    bool success = parse_teams_json(db, buffer);
+
+    if (!success) {
+        fclose(file);
+        free(buffer);
+        return;
+    }
+
     fclose(file);
+    free(buffer);
 }

@@ -90,6 +90,8 @@ void info(list_args_t* args)
             handle_info_thread(args);
             break;
         default:
+            send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+            "Use /use command first");
             break;
     }
     args->client->use_args_count = FAILURE;
