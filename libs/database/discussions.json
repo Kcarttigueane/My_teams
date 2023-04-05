@@ -1,15 +1,3 @@
 [
-  {
-    "uuid": "93e102e8-2c6c-4415-af4c-6154a5512027",
-    "sender_uuid": "4749a870-a454-46be-8ad7-b3210ddbae93",
-    "receiver_uuid": "fad7bc07-30c6-4c2b-b60c-321304d07fe9",
-    "messages": [
-      {
-        "uuid": "fa31cd7d-6879-41fd-a2d0-3534f4618384",
-        "body": "Hey comment ca va?",
-        "sender_uuid": "fad7bc07-30c6-4c2b-b60c-321304d07fe9",
-        "created_at": "0"
-      }
-    ]
-  }
+
 ]
