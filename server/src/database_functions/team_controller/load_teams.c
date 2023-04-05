@@ -7,6 +7,29 @@
 
 #include "../../../include/server.h"
 
+static bool parse_user_uuid(team_t* current_team, int* user_count,
+char** users_start)
+{
+    char user_uuid[MAX_UUID_LENGTH] = {0};
+    char* first_quote = strchr(*users_start, '\"');
+    char* second_quote = first_quote ? strchr(first_quote + 1, '\"') : NULL;
+    if (first_quote && second_quote) {
+        size_t uuid_len = second_quote - first_quote - 1;
+        if (uuid_len != (MAX_UUID_LENGTH - 1)) {
+            fprintf(stderr, "Error: UUID too long, skipping...\n");
+            *users_start = second_quote + 1;
+            return true;
+        }
+        strncpy(user_uuid, first_quote + 1, uuid_len);
+        user_uuid[uuid_len] = '\0';
+        strcpy(current_team->users[*user_count], user_uuid);
+        (*user_count)++;
+        *users_start = second_quote + 1;
+        return true;
+    }
+    return false;
+}
+
 static bool team_users_parsing(team_t* current_team, char* json)
 {
     char users_key[] = "\"users\": [";
@@ -15,26 +38,12 @@ static bool team_users_parsing(team_t* current_team, char* json)
     users_start += strlen(users_key);
     char* users_end = strchr(users_start, ']');
     if (!users_end) return false;
+
     int user_count = 0;
     while (users_start < users_end) {
-        char user_uuid[MAX_UUID_LENGTH] = {0};
-        char* first_quote = strchr(users_start, '\"');
-        char* second_quote = first_quote ? strchr(first_quote + 1, '\"') : NULL;
-        if (first_quote && second_quote) {
-            size_t uuid_len = second_quote - first_quote - 1;
-            if (uuid_len != (MAX_UUID_LENGTH - 1)) {
-                fprintf(stderr, "Error: UUID too long, skipping...\n");
-                users_start = second_quote + 1;
-                continue;
-            }
-            strncpy(user_uuid, first_quote + 1, uuid_len);
-            user_uuid[uuid_len] = '\0';  // Ensure null termination
-            strcpy(current_team->users[user_count], user_uuid);
-            user_count++;
-            users_start = second_quote + 1;
-        } else {
-            break;
-        }
+        bool found_uuid =
+            parse_user_uuid(current_team, &user_count, &users_start);
+        if (!found_uuid) break;
     }
     current_team->users_count = user_count;
     return true;

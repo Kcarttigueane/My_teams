@@ -59,24 +59,28 @@
 
     // ! PROTOTYPES:
 
+// ! PROGRAM PARAMETERS CHECKING:
+
 bool are_arguments_valid(int argc, char const* argv[]);
 
-
-void initialize_clients(clients_t* clients);
-void free_clients(clients_t* clients);
+// ! SERVER:
 
 int bind_and_listen_socket(server_data_t* s);
 int initialize_server(server_data_t* s);
 int server_loop(server_data_t* s, database_t* db);
-
 void accept_new_connection(int server_socket, clients_t *clients);
 void handle_client_activity(clients_t *clients, server_data_t* s,
 database_t* db);
+
+// ! CLIENTS:
+
+void initialize_clients(clients_t* clients);
+void free_clients(clients_t* clients);
+
 void parse_client_input(clients_t* clients, server_data_t* s,
 char* input_buffer, database_t* db);
 
-bool is_quoted_arg(const char* arg);
-bool check_quoted_args(char** args);
+
 bool is_login_required(const clients_t* client, size_t cmd_index);
 bool handle_input_error(char** split_command);
 

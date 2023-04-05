@@ -6,6 +6,7 @@
 */
 
 #include "../../../include/server.h"
+#include "../../../../include/color.h"
 
 static bool users_parsing(database_t *db, char* ptr)
 {
@@ -22,9 +23,9 @@ static bool users_parsing(database_t *db, char* ptr)
     strcpy(current_user->username, username);
 
     LIST_INSERT_HEAD(&db->users, current_user, entries);
-
+    write(1, BLUE, SIZE_COLOUR);
     server_event_user_loaded(current_user->uuid, current_user->username);
-
+    write(1, RESET, SIZE_RESET);
     return true;
 }
 

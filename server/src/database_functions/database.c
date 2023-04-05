@@ -19,11 +19,11 @@ void save_database(database_t* database)
 
 static void load_database(database_t* database)
 {
+    load_users_from_file(database);
     load_teams_from_file(database);
     load_channels_from_file(database);
     load_threads_from_file(database);
     load_discussions_from_file(database);
-    load_users_from_file(database);
 }
 
 database_t *init_database(void)

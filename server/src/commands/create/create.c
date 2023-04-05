@@ -80,9 +80,9 @@ static void handle_create_thread(list_args_t* args, int nb_args)
 
 static void handle_create_reply(list_args_t* args)
 {
-    team_t* team;
-    channel_t* channel;
-    thread_t* thread;
+    team_t* team = NULL;
+    channel_t* channel = NULL;
+    thread_t* thread = NULL;
     if (!validate_team_channel_thread(args, &team, &channel, &thread)) return;
     if (!is_thread_related_to_channel_to_team(team, channel, thread)) {
         dprintf(args->client->socket_fd, UNKNOWN_THREAD_RESP, UNKNOWN_THREAD,
@@ -91,8 +91,8 @@ static void handle_create_reply(list_args_t* args)
     }
     if (strlen(args->split_command[1]) > MAX_BODY_LENGTH) return;
     reply_t* new_reply = add_reply_to_thread(
-        args->db, args->client->current_team_uuid, args->split_command[1],
-        args->client->current_user_uuid);
+        args->db, args->client->current_thread_uuid,
+        args->split_command[1], args->client->current_user_uuid);
     if (!new_reply) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
         "Reply not created");
