@@ -20,6 +20,8 @@ void debug_team(team_t* new_team)
     printf("\t\t[Created at] %ld\n", (long)new_team->created_at);
 
     for (int i = 0; i < new_team->users_count; i++)
-        printf("\t\t[User %s]\n", new_team->users[i]);
+        printf("    \t\t\t- %s\n", new_team->users[i]);
+
+    printf("\n");
     printf(RESET);
 }

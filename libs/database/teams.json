@@ -1,0 +1,13 @@
+[
+  {
+    "uuid": "5e3d3237-490d-422d-bfcf-cc210fd50509",
+    "name": "team1",
+    "description": "team_description1",
+    "users_count": 2,
+    "created_at": "3473742302658640179",
+    "users": [
+      "35049820-0558-46df-93f2-d068f8e951b6",
+      "e042fae5-b054-4322-8dee-b63d7a7259fb"
+    ]
+  }
+]

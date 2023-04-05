@@ -16,7 +16,7 @@ void write_channel_info(FILE* file, channel_t* channel)
     fprintf(file, "    \"team_uuid\": \"%s\",\n", channel->team_uuid);
     fprintf(file, "    \"creator_uuid\": \"%s\",\n", channel->creator_uuid);
     fprintf(file, "    \"nb_users\": %li,\n", channel->nb_users);
-    fprintf(file, "    \"created_at\": %ld,\n", channel->created_at);
+    fprintf(file, "    \"created_at\": \"%ld\",\n", channel->created_at);
 }
 
 void write_channel_users(FILE* file, channel_t* channel)
@@ -28,6 +28,7 @@ void write_channel_users(FILE* file, channel_t* channel)
             fprintf(file, ",\n");
         }
         fprintf(file, "      \"%s\"", channel->users[i]);
+        printf("user %s\n", channel->users[i]);
     }
     fprintf(file, "\n    ]\n");
 }
