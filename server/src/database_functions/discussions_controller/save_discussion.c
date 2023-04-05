@@ -43,6 +43,7 @@ void save_discussion(FILE* file, discussion_t* discussion)
 
 void save_discussions_to_file(database_t* db)
 {
+    if (!is_dis_list_empty(db)) return;
     FILE* file = open_file("libs/database/discussions.json", "w");
     if (!file) return;
 
@@ -61,6 +62,5 @@ void save_discussions_to_file(database_t* db)
     }
 
     fprintf(file, "\n]\n");
-
     fclose(file);
 }

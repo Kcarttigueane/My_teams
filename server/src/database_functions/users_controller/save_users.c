@@ -9,6 +9,7 @@
 
 void save_users_to_file(database_t* db)
 {
+    if (is_users_list_empty(db)) return;
     FILE* file = open_file("libs/database/users.json", "w");
     if (!file) return;
 

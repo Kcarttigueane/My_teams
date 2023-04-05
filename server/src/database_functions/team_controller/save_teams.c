@@ -27,18 +27,17 @@ static void write_team_to_file(FILE* file, team_t* team)
 
 void save_teams_to_file(database_t* db)
 {
+    if (!is_team_list_empty(db)) return;
     FILE* file = fopen("libs/database/teams.json", "w");
-    if (!file)
-        return;
+    if (!file) return;
 
     fprintf(file, "[\n");
     team_t* team;
     bool first_team = true;
 
     LIST_FOREACH(team, &(db->teams), entries) {
-        if (!first_team) {
+        if (!first_team)
             fprintf(file, ",\n");
-        }
         first_team = false;
 
         write_team_to_file(file, team);

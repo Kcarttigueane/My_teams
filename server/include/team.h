@@ -49,3 +49,7 @@ void debug_team(team_t* new_team);
 // ! HELPERS FUNCTIONS:
 
 void team_creation_send_json_resp(list_args_t* args, team_t* new_team);
+
+// ! IS TEAM EMPTY
+
+bool is_team_list_empty(database_t* db);

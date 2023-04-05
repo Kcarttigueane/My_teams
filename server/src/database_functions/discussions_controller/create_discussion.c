@@ -56,7 +56,7 @@ message_t* create_message_obj(char* message_body, char* sender_uuid)
 {
     message_t* new_message = malloc(sizeof(message_t));
 
-    if (new_message == NULL) {
+    if (!new_message) {
         printf("Error: Failed to allocate memory for new message\n");
         return NULL;
     }
@@ -79,8 +79,8 @@ char* receiver_uuid, char* message_body)
     discussion_t* discussion =
         find_discussion_by_users(db, sender_uuid, receiver_uuid);
 
-    if (discussion == NULL) {
-        printf("Error: Discussion not found\n");
+    if (!discussion) {
+        printf("Error(add_message_to_discussion): Discussion not found\n");
         return false;
     }
 

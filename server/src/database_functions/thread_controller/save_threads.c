@@ -49,12 +49,16 @@ void save_thread(FILE* file, thread_t* thread)
 
 void save_threads_to_file(database_t* db)
 {
+    if (!is_thread_list_empty(db)) return;
+
     FILE* file = open_file("libs/database/threads.json", "w");
+
     if (!file) return;
 
     fprintf(file, "[\n");
     thread_t* thread;
     bool first_thread = true;
+
     LIST_FOREACH(thread, &(db->threads), entries) {
         if (!first_thread) {
             fprintf(file, ",\n");

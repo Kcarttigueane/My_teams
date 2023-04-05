@@ -18,7 +18,6 @@ static void handle_received_data(char* buffer, clients_t* client,
 server_data_t* s, database_t* db)
 {
     buffer[strlen(buffer)] = '\0';
-    printf("Received data from client: %s\n", buffer);
     parse_client_input(client, s, buffer, db);
 }
 

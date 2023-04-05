@@ -34,6 +34,7 @@ void write_channel_users(FILE* file, channel_t* channel)
 
 void save_channels_to_file(database_t* db)
 {
+    if (!is_channel_list_empty(db)) return;
     FILE* file = fopen("libs/database/channels.json", "w");
     if (!file) return;
 

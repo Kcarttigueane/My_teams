@@ -64,3 +64,7 @@ void debug_channel(channel_t* new_channel);
 // ! HELPERS FUNCTIONS:
 
 void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel);
+
+// ! IS LIST EMPTY
+
+bool is_channel_list_empty(database_t* db);

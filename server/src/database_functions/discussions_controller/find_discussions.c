@@ -14,9 +14,11 @@ char* receiver_uuid)
 
     LIST_FOREACH(discussion, &(database->discussions), entries) {
         if ((!strcmp(discussion->sender_uuid, sender_uuid) &&
-            !strcmp(discussion->receiver_uuid, receiver_uuid)) ||
-            (!strcmp(discussion->sender_uuid, sender_uuid) &&
             !strcmp(discussion->receiver_uuid, receiver_uuid))) {
+            return discussion;
+        }
+        if ((!strcmp(discussion->sender_uuid, receiver_uuid) &&
+            !strcmp(discussion->receiver_uuid, sender_uuid))) {
             return discussion;
         }
     }

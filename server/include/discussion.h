@@ -48,3 +48,7 @@ void debug_discussion(discussion_t* new_discussion);
 // ! LOAD DISCUSSIONS :
 
 void load_discussions_from_file(database_t* db);
+
+// ! IS DISCUSSIONS EMPTY :
+
+bool is_dis_list_empty(database_t* db);

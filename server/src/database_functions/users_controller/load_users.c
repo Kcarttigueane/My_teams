@@ -31,7 +31,9 @@ static bool users_parsing(database_t *db, char* ptr)
 bool parse_users_json(database_t* db, const char* json)
 {
     LIST_INIT(&db->users);
+
     char* ptr = strstr(json, "[");
+
     ptr += strlen("[");
 
     while (ptr != NULL && *ptr != ']') {

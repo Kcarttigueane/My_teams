@@ -21,7 +21,6 @@ void load_channel_users(channel_t* channel, char* line, FILE* file)
     char value[256] = {0};
     while (sscanf(line, " \"%[^\"]\"", value) == 1) {
         strcpy(channel->users[index], value);
-        // ! ERROR HERE ! // quand on load un channel sans users
         printf("User %s added to channel %s\n", value, channel->uuid);
         index++;
         fgets(line, sizeof(line), file);

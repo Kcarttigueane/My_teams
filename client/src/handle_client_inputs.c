@@ -7,6 +7,13 @@
 
 #include "../include/client.h"
 
+static void append_character(char* dest, char c)
+{
+    size_t len = strlen(dest);
+    dest[len] = c;
+    dest[len + 1] = '\0';
+}
+
 static char* convert_2d_array_to_string(char** words)
 {
     size_t total_length = 0;
@@ -19,12 +26,9 @@ static char* convert_2d_array_to_string(char** words)
     for (int i = 0; words[i] != NULL; i++) {
         if (i > 0)
             strcat(result, "\n");
+
         for (char* p = words[i]; *p != '\0'; p++) {
-            if (*p != '"') {
-                size_t len = strlen(result);
-                result[len] = *p;
-                result[len + 1] = '\0';
-            }
+            (*p != '"') ? append_character(result, *p) : 0;
         }
     }
     return result;
