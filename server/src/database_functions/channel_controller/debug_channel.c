@@ -12,7 +12,7 @@ void debug_channel(channel_t* new_channel)
 {
     printf(RED);
     printf("[Channel] %s\n", CLIENT_PROMPT);
-    printf(YELLOW);
+    printf(PURPLE);
     printf("\t\t[UUID] %s\n", new_channel->uuid);
     printf("\t\t[Name] %s\n", new_channel->name);
     printf("\t\t[Description] %s\n", new_channel->description);

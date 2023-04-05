@@ -12,7 +12,7 @@ void debug_team(team_t* new_team)
 {
     printf(GREEN);
     printf("[Team created] %s\n", CLIENT_PROMPT);
-    printf(YELLOW);
+    printf(PURPLE);
     printf("\t\t[UUID] %s\n", new_team->uuid);
     printf("\t\t[Name] %s\n", new_team->name);
     printf("\t\t[Description] %s\n", new_team->description);

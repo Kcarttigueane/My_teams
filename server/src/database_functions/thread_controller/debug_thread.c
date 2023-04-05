@@ -12,7 +12,7 @@ void debug_thread(thread_t* new_thread)
 {
     printf(RED);
     printf("[Thread] %s\n", CLIENT_PROMPT);
-    printf(YELLOW);
+    printf(PURPLE);
     printf("\t\t[UUID] %s\n", new_thread->uuid);
     printf("\t\t[Title] %s\n", new_thread->title);
     printf("\t\t[Message] %s\n", new_thread->message);
