@@ -57,7 +57,7 @@ channel_t** current_channel)
 {
     *current_channel = calloc(1, sizeof(channel_t));
     if (!*current_channel) return false;
-
+    char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
     extract_value("uuid", ptr, (*current_channel)->uuid, MAX_UUID_LENGTH);
     extract_value("name", ptr, (*current_channel)->name, MAX_NAME_LENGTH);
     extract_value("description", ptr, (*current_channel)->description,
@@ -66,9 +66,8 @@ channel_t** current_channel)
     MAX_UUID_LENGTH);
     extract_value("creator_uuid", ptr, (*current_channel)->creator_uuid,
     MAX_UUID_LENGTH);
-    extract_value("created_at", ptr, (char*)&(*current_channel)->created_at,
-    sizeof(time_t));
-
+    extract_value("created_at", ptr, timestamp, MAX_TIMESTAMP_LENGTH);
+    (*current_channel)->created_at = string_to_timestamp(timestamp);
     if (!channel_users_parsing(*current_channel, ptr)) return false;
     debug_channel(*current_channel);
     LIST_INSERT_HEAD(&db->channels, *current_channel, entries);

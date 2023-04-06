@@ -9,6 +9,8 @@
 
 void write_channel_info(FILE* file, channel_t* channel)
 {
+    char* timestamp = timestamp_to_string(channel->created_at);
+
     fprintf(file, "  {\n");
     fprintf(file, "    \"uuid\": \"%s\",\n", channel->uuid);
     fprintf(file, "    \"name\": \"%s\",\n", channel->name);
@@ -16,7 +18,9 @@ void write_channel_info(FILE* file, channel_t* channel)
     fprintf(file, "    \"team_uuid\": \"%s\",\n", channel->team_uuid);
     fprintf(file, "    \"creator_uuid\": \"%s\",\n", channel->creator_uuid);
     fprintf(file, "    \"nb_users\": %li,\n", channel->nb_users);
-    fprintf(file, "    \"created_at\": \"%ld\",\n", channel->created_at);
+    fprintf(file, "    \"created_at\": \"%s\",\n", timestamp);
+
+    free(timestamp);
 }
 
 void write_channel_users(FILE* file, channel_t* channel)

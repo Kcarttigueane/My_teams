@@ -29,7 +29,7 @@ void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel)
     new_channel->uuid, new_channel->name, new_channel->description);
 
     dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP,
-    CHANNEL_CREATED_NOTIFICATION, new_channel->team_uuid, new_channel->name,
+    CHANNEL_CREATED_NOTIFICATION, new_channel->uuid, new_channel->name,
     new_channel->description);
 }
 

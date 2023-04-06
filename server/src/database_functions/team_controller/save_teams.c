@@ -9,12 +9,16 @@
 
 static void write_team_to_file(FILE* file, team_t* team)
 {
+    char* timestamp = timestamp_to_string(team->created_at);
+
     fprintf(file, "  {\n");
     fprintf(file, "    \"uuid\": \"%s\",\n", team->uuid);
     fprintf(file, "    \"name\": \"%s\",\n", team->name);
     fprintf(file, "    \"description\": \"%s\",\n", team->description);
     fprintf(file, "    \"users_count\": %d,\n", team->users_count);
-    fprintf(file, "    \"created_at\": \"%ld\",\n", team->created_at);
+    fprintf(file, "    \"created_at\": \"%s\",\n", timestamp);
+
+    free(timestamp);
 
     fprintf(file, "    \"users\": [\n");
     for (int i = 0; i < team->users_count; ++i) {

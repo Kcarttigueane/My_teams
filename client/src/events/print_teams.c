@@ -36,7 +36,7 @@ static bool team_parsing(char* ptr)
 void print_teams(char* json_response)
 {
     char* ptr = strstr(json_response, "\"teams\": [");
-    if (ptr == NULL) {
+    if (!ptr) {
         printf("Error: teams not found\n");
         return;
     }

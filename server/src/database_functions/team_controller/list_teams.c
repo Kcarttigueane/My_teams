@@ -10,16 +10,15 @@
 static void append_teams(database_t* db, char* json)
 {
     team_t* team;
-
     LIST_FOREACH(team, &(db->teams), entries) {
+        char *timestamp = timestamp_to_string(team->created_at);
         debug_team(team);
         char team_json[BUFFER_SIZE];
         snprintf(team_json, BUFFER_SIZE,
         "\t{\n\t  \"team_uuid\": \"%s\",\n\t  \"team_name\": "
         "\"%s\",\n\t  \"team_description\": \"%s\",\n\t"
-        "  \"created_at\": \"%ld\"\n\t},\n",
-        team->uuid, team->name, team->description,
-        (long)team->created_at);
+        "  \"created_at\": \"%s\"\n\t},\n",
+        team->uuid, team->name, team->description, timestamp);
         strncat(json, team_json, BUFFER_SIZE - strlen(json) - 1);
     }
 
@@ -31,6 +30,13 @@ static void append_teams(database_t* db, char* json)
 
 static void append_teams_json(database_t* db, char* json)
 {
+    if (!is_team_list_empty(db)) {
+        strncat(json,
+        "  \"status\": 208,\n"
+        "  \"message\": \"Teams list\",\n",
+        BUFFER_SIZE - strlen(json) - 1);
+        return;
+    }
     strncat(json,
             "  \"status\": 208,\n"
             "  \"message\": \"Teams list\",\n"

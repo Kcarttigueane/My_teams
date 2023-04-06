@@ -7,7 +7,8 @@
 
 #include "../../../include/server.h"
 
-static void append_threads(database_t* db, char* json, char* channel_uuid)
+static void append_threads(database_t* db, char* json, char* channel_uuid,
+int *nb_threads)
 {
     thread_t* thread;
 
@@ -24,32 +25,45 @@ static void append_threads(database_t* db, char* json, char* channel_uuid)
             thread->related_channel_uuid, thread->creator_uuid,
             (long)thread->created_at);
             strncat(json, thread_json, BUFFER_SIZE - strlen(json) - 1);
+            *nb_threads += 1;
         }
     }
 }
 
-static void append_threads_json(database_t* db, char* json, char* channel_uuid)
+static bool append_threads_json(database_t* db, char* json, char* channel_uuid)
 {
+    int nb_threads = 0;
     strncat(json,
             "  \"status\": 210,\n"
             "  \"message\": \"Threads list\",\n"
             "  \"threads\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
-    append_threads(db, json, channel_uuid);
+    append_threads(db, json, channel_uuid, &nb_threads);
+    if (nb_threads == 0) {
+        return false;
+    }
     strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
+    return true;
 }
 
 char* list_threads(database_t* db, char *channel_uuid)
 {
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
-    if (json == NULL) {
+    if (!json) {
         printf("Error: Failed to allocate memory for JSON string\n");
         return NULL;
     }
 
     snprintf(json, BUFFER_SIZE, "{\n");
-    append_threads_json(db, json, channel_uuid);
+    if (!append_threads_json(db, json, channel_uuid)) {
+        memset(json, 0, BUFFER_SIZE);
+        snprintf(json, BUFFER_SIZE, "{\n");
+        strncat(json,
+        "  \"status\": 210,\n"
+        "  \"message\": \"Threads list\",\n",
+        BUFFER_SIZE - strlen(json) - 1);
+    }
     strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     return json;

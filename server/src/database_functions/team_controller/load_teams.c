@@ -55,12 +55,13 @@ static bool team_parsing(database_t* db, char* ptr, team_t** current_team)
     if (!*current_team)
         return false;
 
+    char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
     extract_value("uuid", ptr, (*current_team)->uuid, MAX_UUID_LENGTH);
     extract_value("name", ptr, (*current_team)->name, MAX_NAME_LENGTH);
     extract_value("description", ptr, (*current_team)->description,
     MAX_DESCRIPTION_LENGTH);
-    extract_value("created_at", ptr, (char*)&(*current_team)->created_at,
-    sizeof(time_t));
+    extract_value("created_at", ptr, timestamp, MAX_TIMESTAMP_LENGTH);
+    (*current_team)->created_at = string_to_timestamp(timestamp);
 
     if (!team_users_parsing(*current_team, ptr))
         return false;
