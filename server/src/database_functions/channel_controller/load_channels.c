@@ -8,12 +8,18 @@
 #include "../../../include/server.h"
 
 static bool parse_user_uuid_in_channel(channel_t* current_channel,
-int* user_count, char** users_start, char* users_end)
+int* user_count, char** users_start)
 {
     char user_uuid[MAX_UUID_LENGTH] = {0};
     char* first_quote = strchr(*users_start, '\"');
     char* second_quote = first_quote ? strchr(first_quote + 1, '\"') : NULL;
     if (first_quote && second_quote) {
+        size_t uuid_len = second_quote - first_quote - 1;
+        if (uuid_len != (MAX_UUID_LENGTH - 1)) {
+            fprintf(stderr, "Error: UUID too long, skipping...\n");
+            *users_start = second_quote + 1;
+            return true;
+        }
         strncpy(user_uuid, first_quote + 1, second_quote - first_quote - 1);
         strcpy(current_channel->users[*user_count], user_uuid);
         (*user_count)++;
@@ -37,7 +43,7 @@ static bool channel_users_parsing(channel_t* current_channel, char* json)
     int user_count = 0;
     while (users_start < users_end) {
         bool found_uuid = parse_user_uuid_in_channel(
-            current_channel, &user_count, &users_start, users_end);
+            current_channel, &user_count, &users_start);
         if (!found_uuid) {
             break;
         }
