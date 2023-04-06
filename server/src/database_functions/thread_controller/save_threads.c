@@ -35,6 +35,7 @@ void save_replies(FILE* file, thread_t* thread)
 
 void save_thread(FILE* file, thread_t* thread)
 {
+    char *timestamp = timestamp_to_string(thread->created_at);
     fprintf(file, "  {\n");
     fprintf(file, "    \"uuid\": \"%s\",\n", thread->uuid);
     fprintf(file, "    \"title\": \"%s\",\n", thread->title);
@@ -42,9 +43,10 @@ void save_thread(FILE* file, thread_t* thread)
     fprintf(file, "    \"related_channel_uuid\": \"%s\",\n",
     thread->related_channel_uuid);
     fprintf(file, "    \"creator_uuid\": \"%s\",\n", thread->creator_uuid);
-    fprintf(file, "    \"created_at\": \"%ld\",\n", thread->created_at);
+    fprintf(file, "    \"created_at\": \"%s\",\n", timestamp);
     save_replies(file, thread);
     fprintf(file, " }");
+    free(timestamp);
 }
 
 void save_threads_to_file(database_t* db)

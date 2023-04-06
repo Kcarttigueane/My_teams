@@ -14,16 +14,16 @@ int *nb_threads)
 
     LIST_FOREACH(thread, &(db->threads), entries) {
         if (strcmp(thread->related_channel_uuid, channel_uuid) == 0) {
+            char* timestamp = timestamp_to_string(thread->created_at);
             char thread_json[BUFFER_SIZE];
             snprintf(thread_json, BUFFER_SIZE,
             "\t{\n\t  \"thread_uuid\": \"%s\",\n\t  \"thread_title\": "
             "\"%s\",\n\t  \"thread_message\": \"%s\",\n\t  "
             "\"related_channel_uuid\": \"%s\",\n\t  "
             "\"creator_uuid\": \"%s\",\n\t  "
-            "\"created_at\": \"%ld\"\n\t}",
+            "\"created_at\": \"%s\"\n\t}",
             thread->uuid, thread->title, thread->message,
-            thread->related_channel_uuid, thread->creator_uuid,
-            (long)thread->created_at);
+            thread->related_channel_uuid, thread->creator_uuid, timestamp);
             strncat(json, thread_json, BUFFER_SIZE - strlen(json) - 1);
             *nb_threads += 1;
         }

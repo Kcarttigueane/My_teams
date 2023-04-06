@@ -100,7 +100,7 @@ const char* CREATED_REPLY_RESP =
     "  \"reply_body\": \"%s\",\n"
     "  \"creator_uuid\": \"%s\"\n"
     "  \"thread_uuid\": \"%s\"\n"
-    "  \"timestamp\": \"%ld\"\n"
+    "  \"timestamp\": \"%s\"\n"
     "}\n";
 
 const char* INFO_TEAM_RESP =

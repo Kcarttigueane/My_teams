@@ -35,10 +35,12 @@ void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel)
 
 void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread)
 {
+    char* timestamp = timestamp_to_string(new_thread->created_at);
+
     dprintf(args->client->socket_fd, CREATE_THREAD_RESP, THREAD_CREATED,
     new_thread->uuid, new_thread->title, new_thread->message,
     new_thread->related_channel_uuid, new_thread->creator_uuid,
-    (long)new_thread->created_at);
+    timestamp);
 
     server_event_thread_created(new_thread->related_channel_uuid,
     new_thread->uuid,
@@ -49,22 +51,25 @@ void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread)
     THREAD_CREATED_NOTIFICATION,
     new_thread->uuid, new_thread->title, new_thread->message,
     new_thread->related_channel_uuid, new_thread->creator_uuid,
-    (long)new_thread->created_at);
+    timestamp);
+    free(timestamp);
 }
 
 void reply_creation_send_json_resp(list_args_t* args, reply_t* new_reply,
 char *thread_uuid, char *team_uuid)
 {
+    char *timestamp = timestamp_to_string(new_reply->created_at);
     dprintf(args->client->socket_fd, CREATED_REPLY_RESP, THREAD_REPLY_CREATED,
     team_uuid, new_reply->body, new_reply->creator_uuid, thread_uuid,
-    (long)new_reply->created_at);
+    timestamp);
 
     server_event_reply_created(thread_uuid, args->client->current_user_uuid,
     new_reply->body);
 
     dprintf(args->client->socket_fd, CREATED_REPLY_RESP,
     REPLY_CREATED_NOTIFICATION, team_uuid, new_reply->body,
-    new_reply->creator_uuid,  thread_uuid, (long)new_reply->created_at);
+    new_reply->creator_uuid,  thread_uuid, timestamp);
+    free(timestamp);
 }
 
 bool error_handling_name_and_description(int control_socket, char *name,

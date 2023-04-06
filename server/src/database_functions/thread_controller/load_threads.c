@@ -34,7 +34,7 @@ char *line)
 {
     char key[64] = {0}, value[256] = {0};
     sscanf(line, " \"%[^\"]\": \"%[^\"]\"", key, value);
-
+    char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
     (!strcmp(key, "uuid"))
     ? (current_reply ? strcpy(current_reply->uuid, value)
     : strcpy(current_thread->uuid, value))
@@ -49,7 +49,7 @@ char *line)
     : (!strcmp(key, "related_thread_uuid"))
     ? strcpy(current_reply->related_thread_uuid, value)
     : (!strcmp(key, "created_at"))
-    ? (current_thread->created_at = (time_t)atoi(value))
+    ? (current_thread->created_at = string_to_timestamp(timestamp))
     : (void)0;
 }
 
