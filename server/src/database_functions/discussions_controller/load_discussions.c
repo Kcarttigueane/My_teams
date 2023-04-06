@@ -49,7 +49,7 @@ message_t* current_message)
     : (!strcmp(key, "body")) ? strcpy(current_message->body, value)
     : (!strcmp(key, "sender_uuid"))
     ? strcpy(current_message->sender_uuid, value)
-    : (!strcmp(key, "timestamp"))
+    : (!strcmp(key, "created_at"))
     ? (current_message->created_at = string_to_timestamp(value))
     : (void)0;
 }
