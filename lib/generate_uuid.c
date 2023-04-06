@@ -5,10 +5,7 @@
 ** generate_uuid.c
 */
 
-#include <uuid/uuid.h>
-#include <stdlib.h>
-
-#define MAX_UUID_LENGTH 37
+#include "../include/my_teams.h"
 
 char* generate_uuid(void)
 {
