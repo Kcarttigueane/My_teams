@@ -50,7 +50,7 @@ message_t* current_message)
     : (!strcmp(key, "sender_uuid"))
     ? strcpy(current_message->sender_uuid, value)
     : (!strcmp(key, "timestamp"))
-    ? (current_message->created_at = (time_t)atoi(value))
+    ? (current_message->created_at = string_to_timestamp(value))
     : (void)0;
 }
 

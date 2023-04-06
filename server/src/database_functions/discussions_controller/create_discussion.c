@@ -54,7 +54,7 @@ char* receiver_uuid)
 
 message_t* create_message_obj(char* message_body, char* sender_uuid)
 {
-    message_t* new_message = malloc(sizeof(message_t));
+    message_t* new_message = (message_t *)calloc(1, sizeof(message_t));
 
     if (!new_message) {
         printf("Error: Failed to allocate memory for new message\n");

@@ -20,9 +20,11 @@ void debug_discussion(discussion_t* new_discussion)
     message_t* message;
 
     LIST_FOREACH(message, &(new_discussion->messages), entries) {
+        char *timestamp = timestamp_to_string(message->created_at);
         printf(" - %s\n", message->body);
         printf("   Sender UUID: %s\n", message->sender_uuid);
-        printf("   Created at: %s", ctime(&(message->created_at)));
+        printf("   Created at: %s", timestamp);
+        free(timestamp);
     }
     printf(RESET);
 }

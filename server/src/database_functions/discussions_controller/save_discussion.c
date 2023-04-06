@@ -9,12 +9,16 @@
 
 void save_message(FILE* file, message_t* message)
 {
+    char *timestamp = timestamp_to_string(message->created_at);
+
     fprintf(file, "      {\n");
     fprintf(file, "        \"uuid\": \"%s\",\n", message->uuid);
     fprintf(file, "        \"body\": \"%s\",\n", message->body);
     fprintf(file, "        \"sender_uuid\": \"%s\",\n", message->sender_uuid);
-    fprintf(file, "        \"created_at\": \"%ld\"\n", message->created_at);
+    fprintf(file, "        \"created_at\": \"%s\"\n", timestamp);
     fprintf(file, "      }");
+
+    free(timestamp);
 }
 
 void save_discussion(FILE* file, discussion_t* discussion)

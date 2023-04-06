@@ -13,12 +13,13 @@ static void append_messages(discussion_t* discussion, char* json)
 
     LIST_FOREACH(message, &(discussion->messages), entries) {
         char message_json[BUFFER_SIZE];
+        char *timestamp = timestamp_to_string(message->created_at);
         snprintf(message_json, BUFFER_SIZE,
         "\t{\n\t  \"message_body\": \"%s\",\n\t  \"sender_uuid\": "
-        "\"%s\",\n\t  \"timestamp\": \"%ld\"\n\t},\n",
-        message->body, message->sender_uuid,
-        (long)message->created_at);
+        "\"%s\",\n\t  \"timestamp\": \"%s\"\n\t},\n",
+        message->body, message->sender_uuid, timestamp);
         strncat(json, message_json, BUFFER_SIZE - strlen(json) - 1);
+        free(timestamp);
     }
 
     if (json[strlen(json) - 2] == ',') {
