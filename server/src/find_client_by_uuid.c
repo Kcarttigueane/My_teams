@@ -10,6 +10,8 @@
 clients_t* find_client_by_uuid(clients_t* clients, char* uuid)
 {
     for (int i = 0; i < MAX_CLIENTS; i++) {
+        if (clients[i].socket_fd == 0)
+            continue;
         if (clients[i].is_logged && !strcmp(clients[i].current_user_uuid, uuid))
             return &clients[i];
     }
