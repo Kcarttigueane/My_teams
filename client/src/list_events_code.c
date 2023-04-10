@@ -11,7 +11,7 @@
 const events_t LIST_EVENTS_CODE[] = {
     {CONNECTION_SUCCESSFUL, connection_successful},
     {DISCONNECTION_SUCCESSFUL, disconnection_successful},
-    {MESSAGE_SENT, message_sent},
+    {MESSAGE_RECEIVED, message_received},
     {THREAD_REPLY_CREATED, thread_reply_created},
     {TEAM_CREATED, team_created},
     {CHANNEL_CREATED, channel_created},

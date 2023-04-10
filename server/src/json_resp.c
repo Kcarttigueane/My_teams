@@ -57,7 +57,7 @@ const char* USER_DETAILS_RESP =
 const char* SEND_MSG_JSON_RESP =
     "{\n"
     "  \"status\": %i,\n"
-    "  \"message\": \"Message sent successfully\",\n"
+    "  \"message\": \"Message received successfully\",\n"
     "  \"recipient_uuid\": \"%s\",\n"
     "  \"message_body\": \"%s\"\n"
     "}\n";

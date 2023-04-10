@@ -78,7 +78,7 @@ void info_team(char *json_response);
 void info_thread(char *json_response);
 void info_user(char *json_response);
 void internal_server_error(char *json_response);
-void message_sent(char *json_response);
+void message_received(char *json_response);
 void not_implemented(char *json_response);
 void print_channels(char *json_response);
 void print_messages(char *json_response);

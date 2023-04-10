@@ -7,10 +7,10 @@
 
 #include "../../include/server.h"
 
-static bool error_handling_send(list_args_t *args, char *recipient_uuid,
+static bool error_handling_send(list_args_t *args, char *receiver_uuid,
 char *message)
 {
-    if (strlen(recipient_uuid) != (MAX_UUID_LENGTH - 1)) {
+    if (strlen(receiver_uuid) != (MAX_UUID_LENGTH - 1)) {
         send_error(args->client->socket_fd, UNKNOWN_USER, "Invalid UUID");
         return false;
     }
@@ -23,20 +23,20 @@ char *message)
     return true;
 }
 
-static bool validate_recipient(list_args_t* args, char* recipient_uuid)
+static bool validate_receiver(list_args_t* args, char* receiver_uuid)
 {
-    if (find_user_by_uuid(args->db, recipient_uuid) == NULL) {
+    if (find_user_by_uuid(args->db, receiver_uuid) == NULL) {
         dprintf(args->client->socket_fd, UNKNOWN_USER_RESP, UNKNOWN_USER,
-        recipient_uuid);
+        receiver_uuid);
         return false;
     }
     return true;
 }
 
 static discussion_t* create_new_discussion(list_args_t* args,
-char* recipient_uuid)
+char* receiver_uuid)
 {
-    discussion_t* dis = create_discussion(args->db, recipient_uuid,
+    discussion_t* dis = create_discussion(args->db, receiver_uuid,
     args->client->current_user_uuid);
 
     if (dis == NULL) {
@@ -46,11 +46,11 @@ char* recipient_uuid)
     return dis;
 }
 
-static bool try_add_message(list_args_t* args, char* recipient_uuid,
+static bool try_add_message(list_args_t* args, char* receiver_uuid,
 char* message)
 {
     if (!add_message_to_discussion(args->db, args->client->current_user_uuid,
-        recipient_uuid, message)) {
+        receiver_uuid, message)) {
         send_error(args->client->socket_fd, 530, "Message not sent");
         return false;
     }
@@ -59,24 +59,20 @@ char* message)
 
 void send_msg(list_args_t* args)
 {
-    char* recipient_uuid = args->split_command[1];
+    char* receiver_uuid = args->split_command[1];
     char* message = args->split_command[2];
 
-    if (!error_handling_send(args, recipient_uuid, message))
-        return;
-
-    if (!validate_recipient(args, recipient_uuid))
-        return;
-
-    discussion_t* dis = create_new_discussion(args, recipient_uuid);
+    if (!error_handling_send(args, receiver_uuid, message)) return;
+    if (!validate_receiver(args, receiver_uuid)) return;
+    discussion_t* dis = create_new_discussion(args, receiver_uuid);
     if (!dis) return;
-
-    if (!try_add_message(args, recipient_uuid, message))
-        return;
-
-    dprintf(args->client->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_SENT,
-    args->client->current_user_uuid, message);
+    if (!try_add_message(args, receiver_uuid, message)) return;
 
     server_event_private_message_sended(args->client->current_user_uuid,
-    recipient_uuid, message);
+    receiver_uuid, message);
+
+    clients_t* receiver = find_client_by_uuid(args->client, receiver_uuid);
+    if (receiver != NULL)
+        dprintf(receiver->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_RECEIVED,
+        args->client->current_user_uuid, message);
 }

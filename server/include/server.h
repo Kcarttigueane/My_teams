@@ -99,6 +99,8 @@ bool error_handling_name_and_description(int control_socket, char *name,
 char *description);
 bool error_handling_create_args(int socket_fd, int nb_args);
 
+clients_t* find_client_by_uuid(clients_t* clients, char* uuid);
+
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
 

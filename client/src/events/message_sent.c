@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2022
 ** B-NWP-400-LYN-4-1-myteams-jules.dutel
 ** File description:
-** message_sent.c
+** message_received.c
 */
 
 #include "../../include/client.h"
 
-void message_sent(char* json_response)
+void message_received(char* json_response)
 {
     char recipient_uuid[MAX_UUID_LENGTH] = {0};
     char message_body[MAX_BODY_LENGTH] = {0};

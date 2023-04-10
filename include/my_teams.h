@@ -61,7 +61,7 @@
     typedef enum {
         CONNECTION_SUCCESSFUL = 200,
         DISCONNECTION_SUCCESSFUL = 201,
-        MESSAGE_SENT = 202,
+        MESSAGE_RECEIVED = 202,
 
         // *---------------------------------------* //
 
