@@ -25,7 +25,6 @@ void reply_created_notification(__attribute_maybe_unused__ char* json_response)
         printf("Error: invalid JSON format\n");
         return;
     }
-
-    client_print_reply_created(thread_uuid, creator_uuid, (time_t)timestamp,
-    reply_body);
+    time_t time = string_to_timestamp(timestamp);
+    client_print_reply_created(thread_uuid, creator_uuid, time, reply_body);
 }

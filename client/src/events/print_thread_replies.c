@@ -29,8 +29,9 @@ static bool thread_replies_parsing(char *ptr)
     if (!is_reply_info_valid(thread_uuid, reply_body, creator_uuid, timestamp))
         return false;
 
-    client_thread_print_replies(thread_uuid, creator_uuid, atoi(timestamp),
-    reply_body);
+    time_t time = string_to_timestamp(timestamp);
+
+    client_thread_print_replies(thread_uuid, creator_uuid, time, reply_body);
 
     return true;
 }

@@ -26,8 +26,9 @@ static bool messages_parsing(char *ptr)
     if (!is_message_info_valid(message_body, timestamp, sender_uuid))
         return false;
 
-    client_private_message_print_messages(sender_uuid, (time_t)timestamp,
-    message_body);
+    time_t time = string_to_timestamp(timestamp);
+
+    client_private_message_print_messages(sender_uuid, time, message_body);
 
     return true;
 }

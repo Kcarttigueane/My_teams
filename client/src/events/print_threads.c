@@ -14,7 +14,6 @@ static bool thread_parsing(char* ptr)
     char thread_message[MAX_BODY_LENGTH] = {0};
     char creator_uuid[MAX_UUID_LENGTH] = {0};
     char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
-
     extract_value("thread_uuid", ptr, thread_uuid, MAX_UUID_LENGTH);
     extract_value("thread_title", ptr, thread_title, MAX_NAME_LENGTH);
     extract_value("thread_message", ptr, thread_message, MAX_BODY_LENGTH);
@@ -26,8 +25,9 @@ static bool thread_parsing(char* ptr)
         *timestamp != '\0'))
         return false;
 
-    client_channel_print_threads(thread_uuid, creator_uuid, (time_t)timestamp,
-    thread_title, thread_message);
+    time_t time = string_to_timestamp(timestamp);
+    client_channel_print_threads(thread_uuid, creator_uuid, time, thread_title,
+    thread_message);
     return true;
 }
 

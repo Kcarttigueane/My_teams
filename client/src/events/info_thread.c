@@ -15,9 +15,8 @@ void info_thread(char* json_response)
     char creator_uuid[MAX_UUID_LENGTH] = {0};
     char timestamp[MAX_TIMESTAMP_LENGTH] = {0};
     if (!extract_value("thread_uuid", json_response, thread_uuid,
-        sizeof(thread_uuid)) ||
-        !extract_value("thread_title", json_response, thread_title,
-        sizeof(thread_title)) ||
+        sizeof(thread_uuid)) || !extract_value("thread_title",
+        json_response, thread_title, sizeof(thread_title)) ||
         !extract_value("thread_message", json_response, thread_message,
         sizeof(thread_message)) ||
         !extract_value("creator_uuid", json_response, creator_uuid,
@@ -27,6 +26,7 @@ void info_thread(char* json_response)
         printf("Error: invalid JSON format\n");
         return;
     }
-    client_print_thread(thread_uuid, creator_uuid, (time_t)timestamp,
-    thread_title, thread_message);
+    time_t time = string_to_timestamp(timestamp);
+    client_print_thread(thread_uuid, creator_uuid, time, thread_title,
+    thread_message);
 }
