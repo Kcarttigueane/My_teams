@@ -15,9 +15,14 @@ void team_creation_send_json_resp(list_args_t* args, team_t* new_team)
     dprintf(args->client->socket_fd, CREATE_TEAM_RESP, TEAM_CREATED,
     new_team->uuid, new_team->name, new_team->description);
 
-    dprintf(args->client->socket_fd, CREATE_TEAM_RESP,
-    TEAM_CREATED_NOTIFICATION, new_team->uuid, new_team->name,
-    new_team->description);
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
+        if (args->clients[i].socket_fd == 0)
+            continue;
+        if (args->clients[i].is_logged)
+            dprintf(args->clients[i].socket_fd, CREATE_TEAM_RESP,
+            TEAM_CREATED_NOTIFICATION, new_team->uuid, new_team->name,
+            new_team->description);
+    }
 }
 
 void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel)

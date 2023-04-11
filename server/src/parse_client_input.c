@@ -29,27 +29,22 @@ void check_command_args(list_args_t* args, size_t cmd_index)
     "Invalid number of arguments");
 }
 
-void parse_client_input(clients_t* clients, server_data_t* s,
-char* input_buffer, database_t* db)
+void parse_client_input(list_args_t* args, char* input_buffer)
 {
     char** split_command = split_str(input_buffer, "\n");
 
-    if (!handle_input_error(split_command))
-        return;
+    if (!handle_input_error(split_command)) return;
 
     for (size_t i = 0; i < COMMANDS_DATA_SIZE; i++) {
         if (!strcasecmp(split_command[0], COMMANDS_DATA[i].name)) {
-            list_args_t args = {
-                .client = clients,
-                .server_data = s,
-                .split_command = split_command,
-                .db = db,
-            };
-            check_command_args(&args, i);
+            args->split_command = split_command;
+            check_command_args(args, i);
             free_word_array(split_command);
             return;
         }
     }
     free_word_array(split_command);
-    send_error(clients->socket_fd, INTERNAL_SERVER_ERROR, "Invalid command");
+
+    send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
+    "Invalid command");
 }

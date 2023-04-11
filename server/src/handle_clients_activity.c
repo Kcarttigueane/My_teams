@@ -27,11 +27,10 @@ static void handle_client_disconnected(int socket_fd, clients_t* client)
     printf("Client disconnected, socket fd is %d\n", socket_fd);
 }
 
-static void handle_received_data(char* buffer, clients_t* client,
-server_data_t* s, database_t* db)
+static void handle_received_data(list_args_t* args, char* buffer)
 {
     buffer[strlen(buffer)] = '\0';
-    parse_client_input(client, s, buffer, db);
+    parse_client_input(args, buffer);
 }
 
 void handle_client_activity(clients_t* clients, server_data_t* s,
@@ -43,10 +42,17 @@ database_t* db)
         int sd = clients[i].socket_fd;
 
         if (FD_ISSET(sd, &s->readfds)) {
+            list_args_t args = {
+                .server_data = s,
+                .split_command = NULL,
+                .client = &clients[i],
+                .db = db,
+                .clients = clients
+            };
             int bytes_read = read(sd, buffer, BUFFER_SIZE);
             (bytes_read == 0)
                 ? handle_client_disconnected(sd, &clients[i])
-                : handle_received_data(buffer, &clients[i], s, db);
+                : handle_received_data(&args, buffer);
         }
     }
 }

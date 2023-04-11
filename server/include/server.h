@@ -45,6 +45,7 @@
         char** split_command;
         clients_t* client;
         database_t* db;
+        clients_t* clients;
     } list_args_t;
 
     #include "user.h"
@@ -77,9 +78,7 @@ database_t* db);
 void initialize_clients(clients_t* clients);
 void free_clients(clients_t* clients);
 
-void parse_client_input(clients_t* clients, server_data_t* s,
-char* input_buffer, database_t* db);
-
+void parse_client_input(list_args_t* args, char* input_buffer);
 
 bool is_login_required(const clients_t* client, size_t cmd_index);
 bool handle_input_error(char** split_command);
