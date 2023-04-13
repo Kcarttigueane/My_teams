@@ -9,17 +9,16 @@
 
 static void handle_create_team(list_args_t* args, int nb_args)
 {
-    if (!error_handling_create_args(args->client->socket_fd, nb_args))
-        return;
+    if (!error_handling_create_args(args->client->socket_fd, nb_args)) return;
+
     char *team_name = args->split_command[1];
     char *team_description = args->split_command[2];
 
     if (!error_handling_name_and_description(args->client->socket_fd,
     team_name, team_description)) return;
 
-    if (is_team_already_exist(args->db, team_name) == true) {
-        send_error(args->client->socket_fd, ALREADY_EXISTS,
-        "Team already exist");
+    if (is_team_already_exist(args->db, team_name)) {
+        send_error(args->client->socket_fd, ALREADY_EXISTS, "Already Exist");
         return;
     }
     team_t* new_teams = create_team(args->db, team_name, team_description);
@@ -34,24 +33,22 @@ static void handle_create_channel(list_args_t* args, int nb_args)
 {
     if (!error_handling_create_args(args->client->socket_fd, nb_args)) return;
     team_t* team = find_team_by_uuid(args->db, args->client->current_team_uuid);
-    if (!team) {
-        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
-        args->client->current_team_uuid);
+
+    if (!create_channel_error_handling(args, team))
         return;
-    }
-    if (is_channel_already_exist(args->db, args->split_command[1]) == true) {
-        send_error(args->client->socket_fd, ALREADY_EXISTS,
-        "Channel already exist");
-        return;
-    }
+
     create_channel_params_t params = init_create_channel_params(args);
+
     if (!error_handling_name_and_description(args->client->socket_fd,
-    params.name, params.description)) return;
+        params.name, params.description))
+    return;
     channel_t* new_channel = create_channel(args->db, &params);
-    if (!new_channel)
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Channel not created");
-    team_channel_send_json_resp(args, new_channel);
+
+    if (!new_channel) {
+        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR, "Malloc");
+    } else {
+        team_channel_send_json_resp(args, new_channel);
+    }
 }
 
 static void handle_create_thread(list_args_t* args, int nb_args)

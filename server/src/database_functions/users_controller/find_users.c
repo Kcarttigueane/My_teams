@@ -27,6 +27,5 @@ user_t* find_user_by_username(database_t* db, char* username)
         if (!strcmp(user->username, username))
             return user;
     }
-    printf("Error: User not found\n");
     return NULL;
 }

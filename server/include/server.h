@@ -100,6 +100,8 @@ bool error_handling_create_args(int socket_fd, int nb_args);
 
 clients_t* find_client_by_uuid(clients_t* clients, char* uuid);
 
+bool create_channel_error_handling(list_args_t* args, team_t* team);
+
 extern const command_t COMMANDS_DATA[];
 extern const size_t COMMANDS_DATA_SIZE;
 

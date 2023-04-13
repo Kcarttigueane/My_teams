@@ -12,7 +12,7 @@ static void handle_list_teams(list_args_t* args)
     char* json_response = list_teams(args->db);
 
     if (!json_response) {
-        send_error(args->client->socket_fd, UNAUTHORIZED, "No teams found");
+        send_error(args->client->socket_fd, UNKNOWN_TEAM, "No teams found");
         return;
     }
 

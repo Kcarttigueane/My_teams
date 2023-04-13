@@ -16,7 +16,7 @@ int* user_count, char** users_start)
     if (first_quote && second_quote) {
         size_t uuid_len = second_quote - first_quote - 1;
         if (uuid_len != (MAX_UUID_LENGTH - 1)) {
-            fprintf(stderr, "Error: UUID too long, skipping...\n");
+            fprintf(stdout, "Error: UUID too long, skipping...\n");
             *users_start = second_quote + 1;
             return true;
         }
