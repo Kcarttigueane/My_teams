@@ -20,11 +20,10 @@ int *nb_channel)
             "\"%s\",\n\t  \"channel_description\": \"%s\",\n\t  "
             "\"channel_team_uuid\": \"%s\",\n\t  "
             "\"channel_creator_uuid\": \"%s\",\n\t  "
-            "\"channel_created_at\": \"%s\",\n\t  "
-            "\"channel_nb_users\": \"%zu\"\n\t}",
+            "\"channel_created_at\": \"%s\"\n\t}",
             channel->uuid, channel->name, channel->description,
             channel->team_uuid, channel->creator_uuid,
-            timestamp, channel->nb_users);
+            timestamp);
             strncat(json, channel_json, BUFFER_SIZE - strlen(json) - 1);
             *nb_channel += 1;
         }
@@ -41,9 +40,10 @@ static bool append_channels_json(database_t* db, char* json, char* team_uuid)
             "  \"channels\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
     append_channels(db, json, team_uuid, &nb_channels);
-    if (nb_channels == 0) {
+
+    if (nb_channels == 0)
         return false;
-    }
+
     strncat(json, "   \n  ]\n", BUFFER_SIZE - strlen(json) - 1);
     return true;
 }
@@ -53,7 +53,7 @@ char* list_channels(database_t* db, char *team_uuid)
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
     if (!json) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 

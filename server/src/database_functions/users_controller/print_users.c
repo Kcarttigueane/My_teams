@@ -43,7 +43,7 @@ char* print_users(database_t* db)
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
     if (json == NULL) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 

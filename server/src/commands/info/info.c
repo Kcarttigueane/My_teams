@@ -50,7 +50,7 @@ static void handle_info_channel(list_args_t* args)
     else
         dprintf(args->client->socket_fd, INFO_CHANNEL_RESP, INFO_CHANNEL,
         channel->uuid, channel->name, channel->description,
-        channel->team_uuid, channel->nb_users, timestamp);
+        channel->team_uuid, timestamp);
 
     free(timestamp);
 }

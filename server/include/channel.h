@@ -15,8 +15,6 @@ typedef struct channel_s {
     char description[MAX_DESCRIPTION_LENGTH];
     char team_uuid[MAX_UUID_LENGTH];
     char creator_uuid[MAX_UUID_LENGTH];
-    char users[10][MAX_UUID_LENGTH];
-    size_t nb_users;
     time_t created_at;
     LIST_ENTRY(channel_s) entries;
 } channel_t;
@@ -37,17 +35,6 @@ channel_t* create_channel(database_t* db, create_channel_params_t* param);
 
 channel_t* find_channel_by_uuid(database_t* db, char* channel_uuid);
 bool is_channel_already_exist(database_t* db, char* channel_name);
-
-// ! ADD / REMOVE / UPDATE
-
-bool add_user_to_channel(database_t* db, char* channel_uuid, char* user_uuid);
-bool remove_user_from_channel(database_t* db, char* channel_uuid,
-    char* user_uuid);
-
-bool remove_user_from_team_channels(database_t* db, char* team_uuid,
-char* user_uuid);
-bool add_user_to_team_channels(database_t* db, char* team_uuid,
-char* user_uuid);
 
 // ! LIST
 

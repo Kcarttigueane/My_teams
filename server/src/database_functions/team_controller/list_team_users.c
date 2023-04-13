@@ -54,7 +54,7 @@ char* list_users_subscribed_to_team(database_t* db, team_t *team)
 {
     char* json = malloc(BUFFER_SIZE * sizeof(char));
     if (json == NULL) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 

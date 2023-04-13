@@ -37,7 +37,7 @@ void print_channels(char* json_response)
 {
     char* ptr = strstr(json_response, "\"channels\": [");
 
-    if (ptr == NULL) {
+    if (!ptr) {
         printf("Error: channels not found\n");
         return;
     }

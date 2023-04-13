@@ -122,7 +122,6 @@ const char* INFO_CHANNEL_RESP =
     "  \"channel_name\": \"%s\",\n"
     "  \"channel_description\": \"%s\"\n"
     "  \"related_team_uuid\": \"%s\"\n"
-    "  \"number_of_users\" \": \"%d\"\n"
     "  \"created_at\" \": \"%s\"\n"
     "}\n";
 

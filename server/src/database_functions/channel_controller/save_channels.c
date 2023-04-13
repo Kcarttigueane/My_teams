@@ -17,29 +17,15 @@ void write_channel_info(FILE* file, channel_t* channel)
     fprintf(file, "    \"description\": \"%s\",\n", channel->description);
     fprintf(file, "    \"team_uuid\": \"%s\",\n", channel->team_uuid);
     fprintf(file, "    \"creator_uuid\": \"%s\",\n", channel->creator_uuid);
-    fprintf(file, "    \"nb_users\": %li,\n", channel->nb_users);
     fprintf(file, "    \"created_at\": \"%s\",\n", timestamp);
 
     free(timestamp);
 }
 
-void write_channel_users(FILE* file, channel_t* channel)
-{
-    fprintf(file, "    \"users\": [\n");
-
-    for (size_t i = 0; i < channel->nb_users; i++) {
-        if (i > 0) {
-            fprintf(file, ",\n");
-        }
-        fprintf(file, "      \"%s\"", channel->users[i]);
-        printf("user %s\n", channel->users[i]);
-    }
-    fprintf(file, "\n    ]\n");
-}
-
 void save_channels_to_file(database_t* db)
 {
     if (!is_channel_list_empty(db)) return;
+
     FILE* file = fopen("libs/database/channels.json", "w");
     if (!file) return;
 
@@ -53,7 +39,6 @@ void save_channels_to_file(database_t* db)
             fprintf(file, ",\n");
         first_channel = false;
         write_channel_info(file, channel);
-        write_channel_users(file, channel);
         fprintf(file, "  }");
     }
     fprintf(file, "\n]\n");

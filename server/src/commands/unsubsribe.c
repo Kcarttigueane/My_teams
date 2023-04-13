@@ -7,18 +7,6 @@
 
 #include "../../include/server.h"
 
-static bool handle_team_unsubscription(database_t* db, char* team_uuid,
-char* user_uuid)
-{
-    if (!remove_user_from_team(db, team_uuid, user_uuid))
-        return false;
-
-    if (!remove_user_from_team_channels(db, team_uuid, user_uuid))
-        return false;
-
-    return true;
-}
-
 void unsubscribe(list_args_t* args)
 {
     char* team_uuid = args->split_command[1];
@@ -27,13 +15,13 @@ void unsubscribe(list_args_t* args)
         return;
     }
     team_t* team = find_team_by_uuid(args->db, team_uuid);
-    if (team == NULL) {
+    if (!team) {
         dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
         team_uuid);
         return;
     }
     char* user_uuid = args->client->current_user_uuid;
-    if (!handle_team_unsubscription(args->db, team_uuid, user_uuid)) {
+    if (!remove_user_from_team(args->db, team_uuid, user_uuid)) {
         send_error(args->client->socket_fd, UNKNOWN_TEAM,
         "User not found in the team");
         return;

@@ -13,7 +13,6 @@ char* team_uuid)
     if (!team) {
         dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
         team_uuid);
-        send_error(args->client->socket_fd, UNKNOWN_TEAM, "Team not found");
         return true;
     }
     return false;
@@ -23,20 +22,11 @@ static bool handle_user_not_added_to_team(list_args_t* args, char* team_uuid)
 {
     if (!add_user_to_team(args->db, team_uuid,
         args->client->current_user_uuid)) {
+        dprintf(args->client->socket_fd, UNKNOWN_TEAM_RESP, UNKNOWN_TEAM,
+        team_uuid);
         send_error(args->client->socket_fd, UNKNOWN_TEAM,
         "Already subscribed or max nb of users in the team has been "
         "reached");
-        return true;
-    }
-    return false;
-}
-
-static bool handle_user_not_added_to_team_channels(list_args_t* args,
-char* team_uuid)
-{
-    if (!add_user_to_team_channels(args->db, team_uuid,
-        args->client->current_user_uuid)) {
-        send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR, "Error");
         return true;
     }
     return false;
@@ -56,8 +46,6 @@ void subscribe(list_args_t* args)
     if (handle_team_not_found(args, team, team_uuid))
         return;
     if (handle_user_not_added_to_team(args, team_uuid))
-        return;
-    if (handle_user_not_added_to_team_channels(args, team_uuid))
         return;
 
     dprintf(args->client->socket_fd, SUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,

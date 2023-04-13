@@ -12,9 +12,9 @@ static void handle_subscribe_one_arg(list_args_t *args)
     char* json_resp =
         list_subscribed_teams(args->db, args->client->current_user_uuid);
 
-    if (json_resp == NULL) {
+    if (!json_resp) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Failed to allocate memory for JSON string");
+        "[Error]: Malloc failed");
         return;
     }
 
@@ -39,7 +39,7 @@ static void list_users_of_team(list_args_t* args, char* team_uuid)
     char *json_resp = list_users_subscribed_to_team(args->db, team);
     if (json_resp == NULL) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR,
-        "Failed to allocate memory for JSON string");
+        "[Error]: Malloc failed");
         return;
     }
     dprintf(args->client->socket_fd, "%s", json_resp);

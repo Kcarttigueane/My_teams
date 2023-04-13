@@ -15,7 +15,8 @@ void debug_user(user_t* user)
     printf(BLUE);
     printf(" [UUID] %s\t", user->uuid);
     printf(CYAN);
-    printf(" [Username] %s\n", user->username);
-    printf(" [IS_LOGGED_IN] %d\t", user->is_logged_in);
+    printf(" [Username] %s\t", user->username);
+    printf(PURPLE);
+    printf(" [IS_LOGGED_IN] %d\n", user->is_logged_in);
     printf(RESET);
 }

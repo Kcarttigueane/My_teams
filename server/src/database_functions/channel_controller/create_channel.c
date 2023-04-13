@@ -23,7 +23,6 @@ static channel_t* create_channel_obj(create_channel_params_t* param)
     MAX_DESCRIPTION_LENGTH);
     strncpy(new_channel->creator_uuid, param->creator_uuid, MAX_UUID_LENGTH);
     strncpy(new_channel->team_uuid, param->team_uuid, MAX_UUID_LENGTH);
-    new_channel->nb_users = 0;
     new_channel->created_at = time(NULL);
 
     free(channel_uuid);

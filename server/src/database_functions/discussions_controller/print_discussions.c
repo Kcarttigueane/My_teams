@@ -45,7 +45,7 @@ char* list_discussion_messages(discussion_t *discussion)
     char* json = (char *)malloc(BUFFER_SIZE * sizeof(char));
 
     if (json == NULL) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 

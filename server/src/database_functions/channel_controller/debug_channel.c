@@ -20,13 +20,8 @@ void debug_channel(channel_t* new_channel)
     printf("\t\t[Description] %s\n", new_channel->description);
     printf("\t\t[Team UUID] %s\n", new_channel->team_uuid);
     printf("\t\t[Creator UUID] %s\n", new_channel->creator_uuid);
-    printf("\t\t[nb_users] %zu\n", new_channel->nb_users);
     printf("\t\t[Created at] %s\n", created_at);
-    printf("\t\t[Users] \n");
-
-    for (size_t i = 0; i < new_channel->nb_users; i++)
-        printf("    \t\t\t- %s\n", new_channel->users[i]);
-
-    printf("\n");
     printf(RESET);
+
+    free(created_at);
 }

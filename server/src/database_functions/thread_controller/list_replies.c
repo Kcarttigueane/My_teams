@@ -60,7 +60,7 @@ char* list_replies_for_thread(database_t* db, char* thread_uuid)
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
     if (json == NULL) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 

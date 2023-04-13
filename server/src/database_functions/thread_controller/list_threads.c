@@ -51,7 +51,7 @@ char* list_threads(database_t* db, char *channel_uuid)
     char* json = malloc(BUFFER_SIZE * sizeof(char));
 
     if (!json) {
-        printf("Error: Failed to allocate memory for JSON string\n");
+        printf("Error: [Error]: Malloc failed\n");
         return NULL;
     }
 
