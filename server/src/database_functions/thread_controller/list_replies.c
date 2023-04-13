@@ -17,7 +17,7 @@ static void append_empty_replies_json(char* json)
 
 static void append_single_reply_json(reply_t* reply, char* json)
 {
-    char reply_json[BUFFER_SIZE];
+    char reply_json[BUFFER_SIZE] = {0};
     char *timestamp = timestamp_to_string(reply->created_at);
     snprintf(reply_json, BUFFER_SIZE,
     "\t{\n\t  \"reply_uuid\": \"%s\",\n\t  \"reply_body\": "

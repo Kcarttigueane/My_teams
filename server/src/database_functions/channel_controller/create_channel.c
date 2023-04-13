@@ -11,7 +11,7 @@ static channel_t* create_channel_obj(create_channel_params_t* param)
 {
     channel_t* new_channel = (channel_t*)malloc(sizeof(channel_t));
 
-    if (new_channel == NULL) {
+    if (!new_channel) {
         printf("Error: Failed to allocate memory for new channel\n");
         return NULL;
     }

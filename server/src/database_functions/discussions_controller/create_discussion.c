@@ -37,10 +37,8 @@ char* receiver_uuid)
     discussion_t* discussion =
         find_discussion_by_users(db, sender_uuid, receiver_uuid);
 
-    if (discussion) {
-        printf("Error: Discussion already exists\n");
+    if (discussion)
         return discussion;
-    }
 
     discussion_t* new_discussion = create_disc_obj(sender_uuid, receiver_uuid);
 

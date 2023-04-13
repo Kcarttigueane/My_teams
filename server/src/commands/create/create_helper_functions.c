@@ -26,24 +26,36 @@ void team_creation_send_json_resp(list_args_t* args, team_t* new_team)
     }
 }
 
-void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel)
+void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel,
+team_t* team)
 {
     server_event_channel_created(new_channel->team_uuid, new_channel->uuid,
     new_channel->name);
 
-    dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP, CHANNEL_CREATED,
-    new_channel->uuid, new_channel->name, new_channel->description);
-
     dprintf(args->client->socket_fd, CREATE_CHANNEL_RESP,
     CHANNEL_CREATED_NOTIFICATION, new_channel->uuid, new_channel->name,
     new_channel->description);
+
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
+        if (args->clients[i].socket_fd == 0)
+            continue;
+        for (size_t j = 0; j < 10; j++) {
+            (args->clients[i].is_logged &&
+            !strcmp(args->clients[i].current_user_uuid, team->users[j])) ?
+                dprintf(args->clients[i].socket_fd, CREATE_CHANNEL_RESP,
+                CHANNEL_CREATED, new_channel->uuid,
+                new_channel->name, new_channel->description) :
+                (void)0;
+        }
+    }
 }
 
 void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread)
 {
     char* timestamp = timestamp_to_string(new_thread->created_at);
 
-    dprintf(args->client->socket_fd, CREATE_THREAD_RESP, THREAD_CREATED,
+    dprintf(args->client->socket_fd, CREATE_THREAD_RESP,
+    THREAD_CREATED_NOTIFICATION,
     new_thread->uuid, new_thread->title, new_thread->message,
     new_thread->related_channel_uuid, new_thread->creator_uuid,
     timestamp);
@@ -54,8 +66,7 @@ void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread)
     new_thread->title, new_thread->message);
 
     dprintf(args->client->socket_fd, CREATE_THREAD_RESP,
-    THREAD_CREATED_NOTIFICATION,
-    new_thread->uuid, new_thread->title, new_thread->message,
+    THREAD_CREATED, new_thread->uuid, new_thread->title, new_thread->message,
     new_thread->related_channel_uuid, new_thread->creator_uuid,
     timestamp);
     free(timestamp);

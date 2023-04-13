@@ -31,6 +31,17 @@ static bool error_handling_login(list_args_t* args, char* username)
     return true;
 }
 
+static void notify_all_users_of_login(list_args_t* args, user_t* user)
+{
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
+        if (args->clients[i].socket_fd == 0)
+            continue;
+        if (args->clients[i].is_logged)
+            dprintf(args->clients[i].socket_fd, LOGIN_JSON_RESP,
+            CONNECTION_SUCCESSFUL, user->username, user->uuid);
+    }
+}
+
 void create_and_log_user(list_args_t* args, char* username)
 {
     user_t* user = create_user(args->db, username);
@@ -50,8 +61,7 @@ void create_and_log_user(list_args_t* args, char* username)
 
     server_event_user_logged_in(user->uuid);
 
-    dprintf(args->client->socket_fd, LOGIN_JSON_RESP, CONNECTION_SUCCESSFUL,
-    user->username, user->uuid);
+    notify_all_users_of_login(args, user);
 }
 
 void login(list_args_t* args)
@@ -68,8 +78,7 @@ void login(list_args_t* args)
         strncpy(args->client->current_user_uuid, user->uuid, MAX_UUID_LENGTH);
         user->is_logged_in = true;
         server_event_user_logged_in(user->uuid);
-        dprintf(args->client->socket_fd, LOGIN_JSON_RESP, CONNECTION_SUCCESSFUL,
-        user->username, user->uuid);
+        notify_all_users_of_login(args, user);
         return;
     }
 

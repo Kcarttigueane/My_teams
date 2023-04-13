@@ -32,6 +32,23 @@ static bool handle_user_not_added_to_team(list_args_t* args, char* team_uuid)
     return false;
 }
 
+static void notify_all_users_of_team(list_args_t* args, team_t* team)
+{
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
+        if (args->clients[i].socket_fd == 0)
+            continue;
+        for (size_t j = 0; j < 10; j++) {
+            (args->clients[i].is_logged &&
+            !strcmp(args->clients[i].current_user_uuid, team->users[j]))
+                ?
+                dprintf(args->clients[i].socket_fd, SUBSCRIBE_TO_TEAM,
+                SUBSCRIBED_TO_TEAM,
+                args->client->current_user_uuid, team->uuid)
+                : (void)0;
+        }
+    }
+}
+
 void subscribe(list_args_t* args)
 {
     char* team_uuid = args->split_command[1];
@@ -48,8 +65,7 @@ void subscribe(list_args_t* args)
     if (handle_user_not_added_to_team(args, team_uuid))
         return;
 
-    dprintf(args->client->socket_fd, SUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,
-    team_uuid, args->client->current_user_uuid);
-
     server_event_user_subscribed(team->uuid, args->client->current_user_uuid);
+
+    notify_all_users_of_team(args, team);
 }

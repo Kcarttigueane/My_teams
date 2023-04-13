@@ -50,7 +50,8 @@ void debug_channel(channel_t* new_channel);
 
 // ! HELPERS FUNCTIONS:
 
-void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel);
+void team_channel_send_json_resp(list_args_t* args, channel_t* new_channel,
+team_t* team);
 
 // ! IS LIST EMPTY
 

@@ -26,7 +26,7 @@ void unsubscribe(list_args_t* args)
         "User not found in the team");
         return;
     }
-    dprintf(args->client->socket_fd, UNSUBSCRIBE_TO_TEAM, SUBSCRIBED_TO_TEAM,
-    team_uuid, user_uuid);
+    dprintf(args->client->socket_fd, UNSUBSCRIBE_TO_TEAM,
+    UNSUBSCRIBED_FROM_TEAM, team_uuid, user_uuid);
     server_event_user_unsubscribed(team->uuid, user_uuid);
 }

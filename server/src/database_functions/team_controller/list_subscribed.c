@@ -16,44 +16,48 @@ static ssize_t find_user_in_team(team_t* team, const char* user_uuid)
     return FAILURE;
 }
 
-static void append_subscribed_teams(database_t* db, char* user_uuid, char* json)
+static void append_subscribed_teams(database_t* db, char* user_uuid,
+char* json, size_t *nb_teams)
 {
     team_t* team;
-
     LIST_FOREACH(team, &(db->teams), entries) {
         if (find_user_in_team(team, user_uuid) >= 0) {
+            char* timestamp = timestamp_to_string(team->created_at);
             char team_json[BUFFER_SIZE];
             snprintf(team_json, BUFFER_SIZE,
             "\t{\n\t  \"team_uuid\": \"%s\",\n\t  \"team_name\": "
-            "\"%s\"\n\t},\n",
-            team->uuid, team->name);
+            "\"%s\",\n\t  \"team_description\": \"%s\",\n\t"
+            "  \"created_at\": \"%s\"\n\t},\n",
+            team->uuid, team->name, team->description, timestamp);
             strncat(json, team_json, BUFFER_SIZE - strlen(json) - 1);
+            free(timestamp);
+            *nb_teams += 1;
         }
     }
-
     if (json[strlen(json) - 2] == ',') {
         json[strlen(json) - 2] = '\n';
         json[strlen(json) - 1] = '\0';
     }
 }
 
-static void append_subscribed_teams_json(database_t* db, char* user_uuid,
+static bool append_subscribed_teams_json(database_t* db, char* user_uuid,
 char* json)
 {
-    if (!is_team_list_empty(db)) {
-        strncat(json,
-        "  \"status\": 235,\n"
-        "  \"message\": \"Subscribed teams list\"\n",
-        BUFFER_SIZE - strlen(json) - 1);
-        return;
-    }
+    size_t nb_teams = 0;
     strncat(json,
-            "  \"status\": 235,\n"
+            "  \"status\": 208,\n"
             "  \"message\": \"Subscribed teams list\",\n"
             "  \"teams\": [\n",
             BUFFER_SIZE - strlen(json) - 1);
-    append_subscribed_teams(db, user_uuid, json);
+
+    append_subscribed_teams(db, user_uuid, json, &nb_teams);
+
+    if (nb_teams == 0)
+        return false;
+
     strncat(json, "  ]\n", BUFFER_SIZE - strlen(json) - 1);
+
+    return true;
 }
 
 char* list_subscribed_teams(database_t* db, char* user_uuid)
@@ -66,7 +70,14 @@ char* list_subscribed_teams(database_t* db, char* user_uuid)
     }
 
     snprintf(json, BUFFER_SIZE, "{\n");
-    append_subscribed_teams_json(db, user_uuid, json);
+    if (!append_subscribed_teams_json(db, user_uuid, json)) {
+        memset(json, 0, BUFFER_SIZE);
+        snprintf(json, BUFFER_SIZE, "{\n");
+        strncat(json,
+            "  \"status\": 208,\n"
+            "  \"message\": \"Subscribed teams list\"\n",
+            BUFFER_SIZE - strlen(json) - 1);
+    }
     strncat(json, "}", BUFFER_SIZE - strlen(json) - 1);
 
     return json;

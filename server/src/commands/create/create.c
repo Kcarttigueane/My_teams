@@ -47,7 +47,7 @@ static void handle_create_channel(list_args_t* args, int nb_args)
     if (!new_channel) {
         send_error(args->client->socket_fd, INTERNAL_SERVER_ERROR, "Malloc");
     } else {
-        team_channel_send_json_resp(args, new_channel);
+        team_channel_send_json_resp(args, new_channel, team);
     }
 }
 

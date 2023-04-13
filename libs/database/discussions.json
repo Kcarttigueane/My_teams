@@ -1,0 +1,21 @@
+[
+  {
+    "uuid": "8993093b-9dc3-4860-877f-62a2e098a6dc",
+    "sender_uuid": "4f26c285-5c90-4586-82bc-3b7dde261199",
+    "receiver_uuid": "dcf241e7-7e3c-417f-a2a8-be0d0b56fb11",
+    "messages": [
+      {
+        "uuid": "2ea47bd0-e295-4d00-be58-ac439eb8ff0c",
+        "body": "Good and you ?",
+        "sender_uuid": "4f26c285-5c90-4586-82bc-3b7dde261199",
+        "created_at": "2023-04-14 00:38:32"
+      },
+      {
+        "uuid": "29ca8b8b-7693-44be-8113-4978f9c8e592",
+        "body": "Hey you good?",
+        "sender_uuid": "dcf241e7-7e3c-417f-a2a8-be0d0b56fb11",
+        "created_at": "2023-04-14 00:37:34"
+      }
+    ]
+  }
+]
