@@ -8,18 +8,18 @@ Table of contents
 
 <!--ts-->
    * [Features](#features)
-   * [Getting Started](#Getting_Started)
+   * [Getting_Started](#Getting_Started)
       * [Prerequisites](#Prerequisites)
       * [Installation](#Installation)
-   * [Protocol Specification](#Protocol_Specification)
+   * [Protocol_Specification](#Protocol_Specification)
       * [Commands](#Commands)
       * [Responses](#Responses)
       * [Error Handling](#Error_Handling)
    * [Usage](#Usage)
-   * [Server](#Server)
-   * [Client](#Client)
-   * [Security Considerations](#Security_Considerations)
-   * [Built With](#Built_With)
+      * [Server](#Server)
+      * [Client](#Client)
+   * [Security_Considerations](#Security_Considerations)
+   * [Built_With](#Built_With)
    * [Contributions](#contributions)
 <!--te-->
 
@@ -35,7 +35,7 @@ Features
 * Personal discussions between users
 * Saving and restoring personal discussions
 
-Getting Started
+Getting_Started
 ===============
 
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
@@ -93,7 +93,7 @@ To start the client, run the following command in the terminal:
 - `<port>`: The port number on which the server socket listens.
 
 
-Protocol Specification
+Protocol_Specification
 ======================
 
 Commands
@@ -153,7 +153,7 @@ In case of an error, the response data will contain the error message, like:
 ```
 
 
-Security Considerations
+Security_Considerations
 ======================
 
 - No password authentication is required for this project.
@@ -161,7 +161,7 @@ Security Considerations
 - Someone that is NOT subscribed to a team should not be able to create a thread.
 - Someone that is NOT subscribed in a team should not receive events related to that team (new threads, etc.).
 
-Built With
+Built_With
 ==========
 
 - C programming language
