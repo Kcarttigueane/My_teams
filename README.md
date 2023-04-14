@@ -15,6 +15,7 @@ Table of contents
       * [Commands](#Commands)
       * [Responses](#Responses)
       * [Error Handling](#Error_Handling)
+      * [StatusCodes](#StatusCodes)
    * [Usage](#Usage)
       * [Server](#Server)
       * [Client](#Client)
@@ -151,6 +152,18 @@ In case of an error, the response data will contain the error message, like:
     "message": "Invalid command"
 }
 ```
+
+StatusCodes
+-----------
+
+The table below describes the status codes used in the MyTeams protocol:
+
+<p align="center">
+    <br/>
+  <img src="./status_code.jpeg" />
+  <br/>
+  <br/>
+</p>
 
 
 Security_Considerations
