@@ -69,6 +69,11 @@ cd myteams
 make
 ```
 
+* Set environment variable for each terminal that you use:
+```shell 
+export LD_LIBRARY_PATH=$PWD/libs/myteams
+```
+
 Usage
 =====
 
