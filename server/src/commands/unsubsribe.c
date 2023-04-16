@@ -27,6 +27,6 @@ void unsubscribe(list_args_t* args)
         return;
     }
     dprintf(args->client->socket_fd, UNSUBSCRIBE_TO_TEAM,
-    UNSUBSCRIBED_FROM_TEAM, team_uuid, user_uuid);
+    UNSUBSCRIBED_FROM_TEAM, user_uuid,team_uuid);
     server_event_user_unsubscribed(team->uuid, user_uuid);
 }

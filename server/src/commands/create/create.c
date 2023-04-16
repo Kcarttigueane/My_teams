@@ -72,7 +72,7 @@ static void handle_create_thread(list_args_t* args, int nb_args)
         "Thread not created");
         return;
     }
-    thread_creation_send_json_resp(args, new_thread);
+    thread_creation_send_json_resp(args, new_thread, team);
 }
 
 static void handle_create_reply(list_args_t* args)
@@ -95,7 +95,7 @@ static void handle_create_reply(list_args_t* args)
         "Reply not created");
         return;
     }
-    reply_creation_send_json_resp(args, new_reply, thread->uuid, team->uuid);
+    reply_creation_send_json_resp(args, new_reply, thread->uuid, team);
 }
 
 void create(list_args_t* args)

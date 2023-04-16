@@ -72,6 +72,7 @@ void send_msg(list_args_t* args)
     receiver_uuid, message);
 
     clients_t* receiver = find_client_by_uuid(args->clients, receiver_uuid);
+
     if (receiver != NULL)
         dprintf(receiver->socket_fd, SEND_MSG_JSON_RESP, MESSAGE_RECEIVED,
         args->client->current_user_uuid, message);

@@ -25,4 +25,4 @@ char* reply_body, char* creator_uuid);
 // ! HELPERS FUNCTIONS:
 
 void reply_creation_send_json_resp(list_args_t* args, reply_t* new_reply,
-char *thread_uuid, char *team_uuid);
+char *thread_uuid, team_t *team);

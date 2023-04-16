@@ -57,7 +57,8 @@ void debug_thread(thread_t* new_thread);
 
 // ! HELPERS
 
-void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread);
+void thread_creation_send_json_resp(list_args_t* args, thread_t* new_thread,
+team_t* team);
 
 // ! IS THREAD EMPTY
 
