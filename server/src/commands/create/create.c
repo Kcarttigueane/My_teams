@@ -40,8 +40,8 @@ static void handle_create_channel(list_args_t* args, int nb_args)
     create_channel_params_t params = init_create_channel_params(args);
 
     if (!error_handling_name_and_description(args->client->socket_fd,
-        params.name, params.description))
-    return;
+        params.name, params.description)) return;
+
     channel_t* new_channel = create_channel(args->db, &params);
 
     if (!new_channel) {
@@ -119,5 +119,4 @@ void create(list_args_t* args)
             send_error(args->client->socket_fd, 500, "Use /use command first");
             break;
     }
-    args->client->use_args_count = FAILURE;
 }

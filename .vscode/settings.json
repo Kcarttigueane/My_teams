@@ -76,5 +76,8 @@
     "logging_server.h": "c",
     "regex.h": "c"
   },
-  "cSpell.words": ["myteams"]
+  "cSpell.words": [
+    "dutel",
+    "myteams"
+  ]
 }

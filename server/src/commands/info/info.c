@@ -99,5 +99,4 @@ void info(list_args_t* args)
             "Use /use command first");
             break;
     }
-    args->client->use_args_count = FAILURE;
 }
