@@ -23,5 +23,6 @@ void channel_created_notification(char* json_response)
         return;
     }
 
-    client_print_channel(channel_uuid, channel_name, channel_description);
+    client_print_channel_created(channel_uuid,
+    channel_name, channel_description);
 }
