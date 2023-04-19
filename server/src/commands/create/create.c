@@ -112,8 +112,8 @@ void create(list_args_t* args)
             handle_create_thread(args, nb_args);
             break;
         case 3:
-            if (nb_args != 2) send_error(args->client->socket_fd, 500, "Error");
-            handle_create_reply(args);
+            (nb_args != 2) ? send_error(args->client->socket_fd, 500, "Error")
+            : handle_create_reply(args);
             break;
         default:
             send_error(args->client->socket_fd, 500, "Use /use command first");
