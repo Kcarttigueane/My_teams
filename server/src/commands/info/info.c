@@ -72,7 +72,7 @@ static void handle_info_thread(list_args_t* args)
         dprintf(args->client->socket_fd, UNKNOWN_THREAD_RESP, UNKNOWN_THREAD,
         args->client->current_thread_uuid);
     else
-        dprintf(args->client->socket_fd, INFO_THREAD_RESP, INFO_THREAD_RESP,
+        dprintf(args->client->socket_fd, INFO_THREAD_RESP, INFO_THREAD,
         thread->uuid, thread->title, thread->message,
         thread->related_channel_uuid, thread->creator_uuid, timestamp);
 
