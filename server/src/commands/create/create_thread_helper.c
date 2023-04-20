@@ -16,7 +16,7 @@ team_t* team, char *timestamp)
         for (size_t j = 0; j < 10; j++) {
             (args->clients[i].is_logged &&
                 !strcmp(args->clients[i].current_user_uuid, team->users[j]))
-                ? dprintf(args->client->socket_fd, CREATE_THREAD_RESP,
+                ? dprintf(args->clients[i].socket_fd, CREATE_THREAD_RESP,
                     THREAD_CREATED, new_thread->uuid, new_thread->title,
                     new_thread->message, new_thread->related_channel_uuid,
                     new_thread->creator_uuid, timestamp)
