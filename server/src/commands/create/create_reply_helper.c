@@ -23,7 +23,7 @@ char *thread_uuid, team_t *team)
         for (size_t j = 0; j < 10; j++) {
             (args->clients[i].is_logged &&
                 !strcmp(args->clients[i].current_user_uuid, team->users[j]))
-                ? dprintf(args->client->socket_fd, CREATED_REPLY_RESP,
+                ? dprintf(args->clients[i].socket_fd, CREATED_REPLY_RESP,
                 THREAD_REPLY_CREATED, team->uuid, new_reply->body,
                 new_reply->creator_uuid, thread_uuid, timestamp)
                 : (void)0;
